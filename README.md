@@ -11,7 +11,7 @@ To do this we need:
 ## Hello World 
 Very simple example
 ## Leaf
-![Leaf](hello world eh-Leaf.png)
+![Leaf](./hello world eh-Leaf.png)
 
 ## Container
 ![Container](hello world eh-helloworld.png]
