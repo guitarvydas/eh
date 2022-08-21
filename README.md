@@ -11,13 +11,13 @@ To do this we need:
 ## Hello World 
 Very simple example
 ## Leaf
-![Leaf](./hello%20world%20 eh-Leaf.png)
+![Leaf](./hello%20world%20eh-Leaf.png)
 
 ## Container
-![Container](hello world eh-helloworld.png]
+![Container](hello%20world%20eh-helloworld.png]
 
 ## Re-Architecting
-![Different Routing](hello world eh-helloworldworld.png)
+![Different%20Routing](hello%20world%20eh-helloworldworld.png)
 ## Scalability
 Pluggability is necessary for scalability, but, more elaborate (complicated) examples would be needed.
 
