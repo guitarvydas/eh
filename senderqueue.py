@@ -2,7 +2,7 @@ from fifo import FIFO
 from message import Message
 
 class SenderQueue:
-    def __init__ (self)
+    def __init__ (self):
         self._outputq = FIFO ()
 
     def outputs (self):

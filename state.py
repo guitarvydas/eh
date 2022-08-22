@@ -1,8 +1,9 @@
 class State:
-    def __init__ (self, machine, enter, handlerFunctions, exit, childMachine):
+    def __init__ (self, machine, name, enter, handlers, exit, childMachine):
         self._machine = machine
+        self._name = name
         self._enter = enter
-        self._handlerFunctions = handlerFunctions
+        self._handlers = handlers
         self._exit = exit
         self._childMachine = childMachine
         
@@ -26,7 +27,7 @@ class State:
             return False
 
     def step (self):
-        if self._childMachine
+        if self._childMachine:
             self._childMachine.step ()
         else:
             pass

@@ -5,6 +5,6 @@ class Echo (Procedure):
     def f1 (self, message):
         self.send ('stdout', message.data, message)
 
-    def __init__ (self, buildEnv, runEnv):
+    def __init__ (self, parent):
         h1 = PortHandler ('', self.f1)
-        super ().__init__ (h1)
+        super ().__init__ (parent, 'echo', h1)
