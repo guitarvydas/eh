@@ -39,6 +39,31 @@ further discussion...[[Eh - Benefits]]
 - Structured Message Passing
 - "First Principles Thinking"
 - Closures
+- "Parallelism" is more than one thing
+
+# Approach
+
+## Formulate questions
+Questions such as...
+- Why do hardware designs tend to work while software designs fail and become more complicated?
+- Pipelines are different from functions.  How are pipelines different? 
+- Message passing.  Is message-passing possible in the synchronous paradigm?
+- Message passing - asynchronous - has a bad rep because it is often ad-hoc.  Is there an equivalent to "structured programming" for async message-passing?
+- Closures - are closures the same as "processes" in operating systems? 
+- DaS - Diagrams as Syntax.  Why are most programming languages textual?
+- Tells - what is currently considered difficult?  Multitasking, async, callbacks, mutation, sequencing, history, state ... Can these be improved?  Are they difficult because they're difficult or because our notation makes them difficult?
+- Is "something" the same across all programming languages?
+- What is parallelism?
+- Operating Systems and Programming Languages were invented in the 1950's under the single-cpu assumption.  Is the single-cpu assumption still valid?
+- Are end-users forced to use the "same" operating systems / computer environments as developers?
+
+- Can the goal (pluggable components) be sub-divided into smaller sub-goals?
+	- Which properties must components have to be pluggable?
+	- Which properties inhibit pluggability?
+
+
+## Synthesize
+- upon answering the above questions, it is possible to synthesize a new programming environment?
 
 (The most recent documentation is in Obsidian format](https://publish.obsidian.md/programmingsimplicity/2022-08-21-Eh+Pluggable+Software+Components))
 
