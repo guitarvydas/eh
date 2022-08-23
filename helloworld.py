@@ -3,6 +3,8 @@ from container import Container
 from connect import Connect
 from sender import Sender
 from receiver import Receiver
+from hello import Hello
+from world import World
 
 class HelloWorld (Container):
     def __init__ (self, parent, name):
