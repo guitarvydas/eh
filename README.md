@@ -14,7 +14,7 @@ Very simple example
 ![Leaf](./hello%20world%20eh-Leaf.png)
 
 ## Container
-![Container](hello%20world%20eh-helloworld.png]
+![Container](hello%20world%20eh-helloworld.png)
 
 ## Re-Architecting
 ![Different%20Routing](hello%20world%20eh-helloworldworld.png)
@@ -40,9 +40,9 @@ This runs *run.bash* which runs a single 0D Leaf component *echo.py* and prints 
 The jam ended before test.py worked correctly, but, today - 1 day after the jam - test.py is working.
 
 ## Post Jam
-Next, would be to make a Container (Composite) component - *helloworld.py* that contained 2 echos - "hello" and "world".
+Next, would be to make a Container (Composite) component - *helloworld.py* that contained 2 echos with 2 separate inputs - "hello" and "world".
 
-After that would come a rearrangement of *helloworld.py* that would contain 3 echos - "hello", "world" and "world" (a 2nd time)
+After that would come a rearrangement of *helloworld.py* that would contain 3 echos.  "hello" would be sent to one of them, and "world" would be sent to the other two.
 
 # Key Insights
 - 0D - No Dependencies 
