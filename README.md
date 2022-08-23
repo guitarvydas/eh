@@ -18,11 +18,8 @@ Very simple example
 
 ## Re-Architecting
 ![Different%20Routing](hello%20world%20eh-helloworldworld.png)
-## Scalability
-Pluggability is necessary for scalability, but, more elaborate (complicated) examples would be needed.
 
 # Benefits
-- anti-bloatware
 - technical drawings come "for free"
 - concurrency comes "for free"
 - "build and forget" development
@@ -32,6 +29,21 @@ Pluggability is necessary for scalability, but, more elaborate (complicated) exa
 
 further discussion...[[Eh - Benefits]]
 
+# Usage
+*make*
+
+This runs *run.bash* which runs a single 0D Leaf component *echo.py* and prints its output queue at the command-line.
+
+*Test.py* invokes *echo.py* and feeds it a message containing "hello".
+
+## End of Jam
+The jam ended before test.py worked correctly, but, today - 1 day after the jam - test.py is working.
+
+## Post Jam
+Next, would be to make a Container (Composite) component - *helloworld.py* that contained 2 echos - "hello" and "world".
+
+After that would come a rearrangement of *helloworld.py* that would contain 3 echos - "hello", "world" and "world" (a 2nd time)
+
 # Key Insights
 - 0D - No Dependencies 
 - FIFOs and LIFOs
@@ -40,6 +52,8 @@ further discussion...[[Eh - Benefits]]
 - "First Principles Thinking"
 - Closures
 - "Parallelism" is more than one thing
+- Scalability
+	- Pluggability is necessary for scalability, but, more elaborate (complicated) examples would be needed to show this off.
 
 # Approach
 
