@@ -1,5 +1,6 @@
 class HSM:
-    def __init__ (self, defaultStateName, enter, states, exit):
+    def __init__ (self, name, defaultStateName, enter, states, exit):
+        self._name = name
         self._defaultStateName = defaultStateName
         self._enter = enter
         self._states = states
@@ -42,7 +43,7 @@ class HSM:
     def lookupState (self, name, stateList):
         if (0 >= len (stateList)):
             return None
-        elif (name == stateList [0].name:
+        elif (name == stateList [0]._name):
               return stateList [0]
         else:
               return self.lookupState (name, stateList [1:])

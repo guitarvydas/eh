@@ -16,7 +16,7 @@ class ReceiverQueue:
             return False
 
     def isReady (self):
-        return (0 < len (self._inputq))
+        return (0 < self._inputq.len ())
     
 # not exported
     def enqueueInput (self, message):
