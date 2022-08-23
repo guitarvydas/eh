@@ -12,7 +12,6 @@ class SenderQueue:
             if (not (message.port in resultdict)):
                 resultdict [message.port] = FIFO ()
             resultdict [message.port].enqueue (message.data)
-        self.clearOutputs ()
         resultdict2 = {}
         for key in resultdict:
             fifo = resultdict [key]
