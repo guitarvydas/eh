@@ -3,8 +3,8 @@ from procedure import Procedure
 
 class World (Procedure):
     def f1 (self, message):
-        self.send ('stdout', message.data, message)
         self.send ('stdout', 'world', message)
+        self.send ('stdout', message.data, message)
 
     def __init__ (self, parent):
         h1 = PortHandler ('', self.f1)

@@ -34,16 +34,31 @@ further discussion...[[Eh - Benefits]]
 
 This runs *run.bash* which runs a single 0D Leaf component *echo.py* and prints its output queue at the command-line.
 
-*Test.py* invokes *echo.py* and feeds it a message containing "hello".
+*Test.py* invokes *hello.py* and feeds it a trigger message (True).
+
+Then *test.py* invokes *world.py* and feeds it the above output.
+
+*World.py* is almost like *hello.py* except that *hello.py* does not echo its input whereas *world.py* does echo its input.  *World.py* emits 2 outputs for each input it receives.
+
+Both components - *hello.py* and *world.py* send outputs to their respective output queues.
+
+The final result is:
+1. *hello.py* outputs ['hello'] on output port 'stdout'
+2. *world.py* inputs 'hello' on its input port, then outputs ['hello', 'world'] on its output port 'stdout'. 
+
+*Test.py* invokes the two components and sends them messages in sequence.  This process can be generalized to what I call a *Container* component, but, I didn't get there before the jam ended.
+
+Note that the .outputs () method returns a dictionary of stacks (LIFO) of values for each port.  This was a conscious decision. LIFOs, Alists are what original McCarthy FP-style code used. Sector Lisp continues the tradition of using LIFOs.  I think that this is one of the secret ingredients for the anti-bloatwareness of Sector Lisp.  No RAM, therefore, no heaps, therefore, no mutation, therefore, simplified data access via push/pop/lambda-binding.  Lambda-binding and LIFO call-stacks fit together to make small code and no-fuss structure-sharing.
+
+Sequencing in this paradigm is explicit and caused by the order of the *send*s.  Sequencing in most textual programming languages is implicit and is controlled by the syntax of the language (lines of code are ordered sequences).
 
 ## End of Jam
 The jam ended before test.py worked correctly, but, today - 1 day after the jam - test.py is working.
 
 ## Post Jam
-Next, would be to make a Container (Composite) component - *helloworld.py* that contained 2 echos with 2 separate inputs - "hello" and "world".
+Next, would be to make a Container (Composite) component - *helloworld.py* that contained two components that can be chained together.  Chaining is not necessary in this paradigm and I keep it only to make the examples look more familiar.
 
-After that would come a rearrangement of *helloworld.py* that would contain 3 echos.  "hello" would be sent to one of them, and "world" would be sent to the other two.
-
+After that would come a rearrangement of *helloworld.py* that would contain one *hello.py* and two *world.py*s, resulting in "['world', 'hello', 'world', 'hello']"
 # Key Insights
 - 0D - No Dependencies 
 - FIFOs and LIFOs
