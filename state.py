@@ -20,7 +20,7 @@ class State:
             self._exit (self)
 
     def handle (self, message):
-        r = self.handlerChain (self._handlerFunctions, message)
+        r = self.handlerChain (message, self._handlers, self._childMachine)
         if r:
             return r
         elif self._childMachine:
@@ -35,7 +35,7 @@ class State:
             pass
     
     def isBusy (self):
-        if self._chidMachine:
+        if self._childMachine:
             return self._childMachine.isBusy ()
         else:
             return False
@@ -45,18 +45,18 @@ class State:
         raise Exception (f'unhandled message {message.port} for {self.name}')
         return False
 
-    def handlerChain (self, message, functionList, subLayer):
-        if 0 == len (functionList):
-            if subLayer:
-                return subLayer.handle (message)
-            else:
-                return False
-        else:
-            handler = functionList.pop (0)
-            restOfFunctionList = functionList
+    def handlerChain (self, message, handlers, subMachine):
+        if 0 < len (handlers):
+            handler = handlers [0]
+            rest = handlers [1:]
             if (message.port == handler.port):
                 handler.func (message)
                 return True
             else:
-                return self.handlerChain (message.port, message, restOfFunctionList, subLayer)
+                return self.handlerChain (message, rest, subMachine)
+        else:
+            if subMachine:
+                return subMachine.handle (message)
+            else:
+                return False
     

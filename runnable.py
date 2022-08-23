@@ -6,3 +6,11 @@ class Runnable:
 
     def runName (self):
         return self._runname
+
+    def run (self):
+        while self.isBusy ():
+            self.step ()
+        while self.handleIfReady ():
+            while self.isBusy ():
+                self.step()
+
