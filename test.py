@@ -1,8 +1,8 @@
 from message import Message
-from echo import Echo
+from hello import Hello
 
-e = Echo (None)
-e.inject (Message (e, '', 'hello', None))
+e = Hello (None)
+e.inject (Message (e, '', True, None))
 e.run ()
 print (e.outputs ())
 
