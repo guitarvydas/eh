@@ -1,8 +1,16 @@
 from message import Message
-from echo import Echo
+from hello import Hello
+from world import World
 
-e = Echo (None)
-e.inject (Message (e, '', 'hello', None))
-e.run ()
-print (e.outputs ())
+h = Hello (None)
+h.inject (Message (h, '', True, None))
+h.run ()
+print (h.outputs ())
+
+firstoutput = h.outputs () ['stdout'][0]
+
+w = World (None)
+w.inject (Message (w, '', firstoutput, None))
+w.run ()
+print (w.outputs ())
 
