@@ -8,14 +8,16 @@ class State:
         self._childMachine = childMachine
         
     def enter (self):
-        self._enter (self)
+        if  self._enter:
+            self._enter (self)
         if (self._childMachine):
             self._childMachine.enter ()
 
     def exit (self):
         if (self._childMachine):
             self._childMachine.exit ()
-        self._exit (self)
+        if self._exit:
+            self._exit (self)
 
     def handle (self, message):
         r = self.handlerChain (self._handlerFunctions, message)

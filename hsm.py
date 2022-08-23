@@ -43,7 +43,7 @@ class HSM:
     def lookupState (self, name, stateList):
         if (0 >= len (stateList)):
             return None
-        elif (name == stateList [0].name):
+        elif (name == stateList [0]._name):
               return stateList [0]
         else:
               return self.lookupState (name, stateList [1:])
