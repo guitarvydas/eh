@@ -2,16 +2,15 @@ from message import Message
 from hello import Hello
 from world import World
 
-e = Hello (None)
-e.inject (Message (e, '', True, None))
-e.run ()
-dict = e.outputs ()
-print (dict)
+h = Hello (None)
+h.inject (Message (h, '', True, None))
+h.run ()
+print (h.outputs ())
 
-firstoutput = e.outputs () ['stdout'][0]
+firstoutput = h.outputs () ['stdout'][0]
 
-e = World (None)
-e.inject (Message (e, '', firstoutput, None))
-e.run ()
-print (e.outputs ())
+w = World (None)
+w.inject (Message (w, '', firstoutput, None))
+w.run ()
+print (w.outputs ())
 
