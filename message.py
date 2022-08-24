@@ -5,17 +5,17 @@
 
 class BaseMessage:
     def __init__ (self, data):
-        self.data = data
-    def value (self):
-        return self.data
+        self._data = data
     def __repr__ (self):
-        return "%s" % (self.data)
+        return "%s" % (self._data)
+    @property
+    def data (self):
+        return self._data
 
 class Message (BaseMessage):
-    def __init__ (self, sender, port, data, trail):
+    def __init__ (self, sender, data, trail):
         super ().__init__ (data)
         self._sender = sender
-        self._port = port
         self._trail = trail
         self._state = '?'
     def __repr__ (self):
@@ -37,7 +37,7 @@ class Message (BaseMessage):
 
     @property
     def port (self):
-        return self._port
+        return self._sender.port
 
     @property
     def trail (self):

@@ -1,5 +1,6 @@
 from eh import EH
 from state import State
+from sender import Sender
 from message import Message
 from porthandler import PortHandler
 
@@ -21,24 +22,24 @@ class Container (EH):
     # 4 possible routings...
     def punt (self, sender, receiver, message):
         # from input of Container to input of Child
-        m = Message (message.sender, receiver.port, message.data, message.trail)
+        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
         who = receiver.component
         who.enqueueInput (m)
 
     def passthru (self, sender, receiver, message):
         # from input of Container to output of same Container
-        m = Message (message.sender, receiver.port, message.data, message.trail)
+        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
         self.enqueueOutput (m)
 
     def route (self, sender, receiver, message):
         # from output of Child to input of Child
-        m = Message (message.sender, receiver.port, message.data, message.trail)
+        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
         who = receiver.component
         who.enqueueInput (m)
 
     def routeoutput (self, sender, receiver, message):
         # from output of Child to output of Container
-        m = Message (message.sender, receiver.port, message.data, message.trail)
+        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
         self.enqueueOutput (m)
 
     # end routings
@@ -48,8 +49,13 @@ class Container (EH):
         while self.anyChildReady ():
             for child in self._children:
                 child.handleIfReady ()
-                self.deliverOutputs (child)
+                self.routOutputs (child)
 
+    def routeOutputs (child):
+        outputs = child.outputs ()
+        for outputMessage in outputs:
+            self.handleAllConnectionsForSender (Sender (child, message.port), outputMessage)
+            
 
 
 # workers
