@@ -4,7 +4,9 @@ class Sender:
         self._port = port
 
     def matchSender (self, othersender):
-        return ((self._who == othersender._who) and (self._port == othersender.port))
+        whomatch = (self._who == othersender._who)
+        portmatch = (self._port == othersender._port)
+        return (whomatch and portmatch)
 
     @property
     def port (self):
@@ -14,3 +16,5 @@ class Sender:
     def who (self):
         return self._who
 
+    def name (self):
+        return f'{self._who.name ()}/{self._port}'

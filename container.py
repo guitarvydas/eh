@@ -4,6 +4,8 @@ from sender import Sender
 from message import Message
 from porthandler import PortHandler
 
+debugRouting = False
+
 class Container (EH):
     def __init__ (self, parent, name, children, connections):
         defaultName = 'default'
@@ -22,48 +24,57 @@ class Container (EH):
     # 4 possible routings...
     def punt (self, sender, receiver, message):
         # from input of Container to input of Child
-        m = Message (receiver.port, message.data, [message, message.trail])
-        self.enqueueInput (m)
+        if debugRouting:
+            print (f'punt {message} ... {sender.name ()} -> {receiver.name ()}')
+        receiver.enqueueInput (message)
 
-    def passthru (self, sender, receiver, message):
+    def passthrough (self, sender, receiver, message):
         # from input of Container to output of same Container
-        m = Message (receiver.port, message.data, [message, message.trail])
-        self.enqueueOutput (m)
+        if debugRouting:
+            print (f'passthrough {message} ... {sender.name ()} -> {receiver.name ()}')
+        self.enqueueOutput (message)
 
     def route (self, sender, receiver, message):
         # from output of Child to input of Child
-        m = Message (receiver.port, message.data, [message, message.trail])
-        who = receiver.who
-        who.enqueueInput (m)
+        if debugRouting:
+            print (f'route {message} ... {sender.name ()} -> {receiver.name ()}')
+        receiver.enqueueInput (message)
 
     def routeoutput (self, sender, receiver, message):
         # from output of Child to output of Container
-        m = Message (receiver.port, message.data, [message, message.trail])
-        self.enqueueOutput (m)
+        if debugRouting:
+            print (f'routeoutput {message} ... {sender.name ()} -> {receiver.name ()}')
+        self.enqueueOutput (message)
 
     # end routings
         
     def handle (self, message):
-        self.handleAllConnectionsForSender (Sender (self, message.port), message)
-        while self.anyChildReady ():
-            for child in self._children:
-                child.handleIfReady ()
-                self.routOutputs (child)
+        self.puntInputToChildren (message)
+        self.runToCompletion ()
 
     def routeOutputs (self, child):
-        outputs = child.outputs ()
-        for outputMessage in outputs:
+        outputq = child.outputQueue ()
+        for outputMessage in outputq:
             self.handleAllConnectionsForSender (Sender (child, outputMessage.port), outputMessage)
             
 
-
+    def name (self):
+        return self._name
+    
 # workers
+    def puntInputToChildren (self, message):
+        self.handleAllConnectionsForSender (Sender (self, message.port), message)
+                
     def handleAllConnectionsForSender (self, sender, message):
         for connection in self._connections:
-            if connection.matchSender (sender):
-                m = Message (sender, message.data, message)
-                connection.handle (m)
+            connection.attemptToHandle (sender, message)
                 
+    def runToCompletion (self):
+        while self.anyChildReady ():
+            for child in self._children:
+                child.handleIfReady ()
+                self.routeOutputs (child)
+
     def anyChildReady (self):
         r = False
         for child in self._children:

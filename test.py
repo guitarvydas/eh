@@ -4,7 +4,9 @@ from hello import Hello
 from world import World
 
 h = Hello (None, 'Hello instance')
-h.inject (Message ('*', True, None))
+m = Message ('*', True, None)
+print (m)
+h.inject (m)
 h.run ()
 print (h.outputs ())
 

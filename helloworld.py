@@ -8,8 +8,8 @@ from world import World
 
 class HelloWorld (Container):
     def __init__ (self, parent, name):
-        h = Hello (None, f'{name}⟪Hello instance⟫')
-        w = World (None, f'{name}⟪World instance⟫')
+        h = Hello (None, f'❲{name}[Hello instance]❳')
+        w = World (None, f'❲{name}[World instance]❳')
         self._children = [h, w]
         self._connections = [
             Connect (Sender (self, 'stdin'), Receiver (h, 'stdin'), self.punt),
