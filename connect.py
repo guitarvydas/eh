@@ -1,6 +1,6 @@
 class Connect:
     def handle (self, message):
-        if message.port == self_.port:
+        if message.port == self._sender.port:
             self._exec (self._sender, self._receiver, message)
 
     def __init__ (self, sender, receiver, func):

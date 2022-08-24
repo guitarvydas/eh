@@ -13,9 +13,10 @@ class BaseMessage:
         return self._data
 
 class Message (BaseMessage):
-    def __init__ (self, sender, data, trail):
+    def __init__ (self, port, data, sendercomponent, trail):
         super ().__init__ (data)
-        self._sender = sender
+        self._port = port
+        self._sendercomponent = sendercomponent
         self._trail = trail
         self._state = '?'
     def __repr__ (self):
@@ -32,12 +33,8 @@ class Message (BaseMessage):
             raise Exception ("illegal state for Message {newState}")
 
     @property
-    def sender (self):
-        return self._sender
-
-    @property
     def port (self):
-        return self._sender.port
+        return self._port
 
     @property
     def trail (self):

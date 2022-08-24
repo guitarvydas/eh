@@ -9,4 +9,8 @@ class Sender:
     @property
     def port (self):
         return self._port
-    
+
+    @property
+    def who (self):
+        return self._who
+

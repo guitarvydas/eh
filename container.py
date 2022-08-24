@@ -22,24 +22,23 @@ class Container (EH):
     # 4 possible routings...
     def punt (self, sender, receiver, message):
         # from input of Container to input of Child
-        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
-        who = receiver.component
-        who.enqueueInput (m)
+        m = Message (receiver.port, message.data, self, message.trail)
+        self.enqueueInput (m)
 
     def passthru (self, sender, receiver, message):
         # from input of Container to output of same Container
-        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
+        m = Message (receiver.port, message.data, message.who, message.trail)
         self.enqueueOutput (m)
 
     def route (self, sender, receiver, message):
         # from output of Child to input of Child
-        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
-        who = receiver.component
+        m = Message (receiver.port, message.data, message.who, message.trail)
+        who = receiver.who
         who.enqueueInput (m)
 
     def routeoutput (self, sender, receiver, message):
         # from output of Child to output of Container
-        m = Message (Sender (message.sender, receiver.port), message.data, message.trail)
+        m = Message (receiver.port, message.data, message.who, message.trail)
         self.enqueueOutput (m)
 
     # end routings
@@ -51,18 +50,18 @@ class Container (EH):
                 child.handleIfReady ()
                 self.routOutputs (child)
 
-    def routeOutputs (child):
+    def routeOutputs (self, child):
         outputs = child.outputs ()
         for outputMessage in outputs:
-            self.handleAllConnectionsForSender (Sender (child, message.port), outputMessage)
+            self.handleAllConnectionsForSender (Sender (child, outputMessage.port), outputMessage)
             
 
 
 # workers
-    def handleAllConnctionsForSender (sender, message):
+    def handleAllConnectionsForSender (self, sender, message):
         for connection in self._connections:
             if connection.matchSender (sender):
-                m = Message (sender.component (), connection.receiverPort, message.data, message)
+                m = Message (sender, message.data, message)
                 connection.handle (m)
                 
     def anyChildReady (self):
