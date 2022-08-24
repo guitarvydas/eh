@@ -14,10 +14,10 @@ class BaseMessage:
 class Message (BaseMessage):
     def __init__ (self, sender, port, data, trail):
         super ().__init__ (data)
-        self.sender = sender
-        self.port = port
-        self.trail = trail
-        self.state = '?'
+        self._sender = sender
+        self._port = port
+        self._trail = trail
+        self._state = '?'
     def __repr__ (self):
         #return "<%s, '%s', '%s', %s>" % (self.sender.name (), self.port, self.data, self.trail)
         # .sender and .trail are included for debug, omit them for __repr__ (for now)
@@ -30,3 +30,15 @@ class Message (BaseMessage):
             self.state = 'output'
         else:
             raise Exception ("illegal state for Message {newState}")
+
+    @property
+    def sender (self):
+        return self._sender
+
+    @property
+    def port (self):
+        return self._port
+
+    @property
+    def trail (self):
+        return self._trail

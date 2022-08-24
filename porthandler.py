@@ -12,4 +12,7 @@ class PortHandler:
         else:
             pass
         return r
-    
+
+    @property
+    def func (self):
+        return self._func

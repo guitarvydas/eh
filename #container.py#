@@ -48,8 +48,13 @@ class Container (EH):
         while self.anyChildReady ():
             for child in self._children:
                 child.handleIfReady ()
-                self.deliverOutputs (child)
+                self.routOutputs (child)
 
+    def routeOutputs (child):
+        outputs = child.outputs ()
+        for outputMessage in outputs:
+            self.handleAllConnectionsForSender (Sender (child, message.port), outputMessage)
+            
 
 
 # workers
