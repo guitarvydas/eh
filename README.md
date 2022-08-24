@@ -25,7 +25,7 @@ Very simple example
 - "build and forget" development
 - distributed programming comes "for free"
 - multiple-CPU paradigm
-- ability to plug together software components to create mimimal set of functionality
+- ability to plug together software components to create mimimal set of functionality, instead of using an all-in-one behemoth operating system
 
 further discussion...[[Eh - Benefits]]
 

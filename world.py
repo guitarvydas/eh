@@ -6,6 +6,6 @@ class World (Procedure):
         self.send ('stdout', 'world', message)
         self.send ('stdout', message.data, message)
 
-    def __init__ (self, parent):
-        h1 = PortHandler ('', self.f1)
-        super ().__init__ (parent=parent, name='world', portHandler=h1)
+    def __init__ (self, parent, name):
+        h1 = PortHandler ('*', self.f1)
+        super ().__init__ (parent=parent, name=name, portHandler=h1)
