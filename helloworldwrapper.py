@@ -10,7 +10,7 @@ class HelloWorldWrapper (Container):
         hw = HelloWorld (None, f'❲{name}[hw]❳')
         self._children = [hw]
         self._connections = [
-            Connect (Sender (self, 'stdin'), Receiver (h, 'stdin'), self.punt),
+            Connect (Sender (self, 'stdin'), Receiver (hw, 'stdin'), self.punt),
             Connect (Sender (hw, 'stdout'), Receiver (self, 'stdout'), self.routeoutput)
             ]
         super ().__init__ (parent, name, self._children, self._connections)

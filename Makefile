@@ -1,4 +1,4 @@
-all: test test2
+all: test test2 test3
 
 test:
 	python3 test.py
