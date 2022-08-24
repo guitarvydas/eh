@@ -22,23 +22,23 @@ class Container (EH):
     # 4 possible routings...
     def punt (self, sender, receiver, message):
         # from input of Container to input of Child
-        m = Message (receiver.port, message.data, self, message.trail)
+        m = Message (receiver.port, message.data, [message, message.trail])
         self.enqueueInput (m)
 
     def passthru (self, sender, receiver, message):
         # from input of Container to output of same Container
-        m = Message (receiver.port, message.data, message.who, message.trail)
+        m = Message (receiver.port, message.data, [message, message.trail])
         self.enqueueOutput (m)
 
     def route (self, sender, receiver, message):
         # from output of Child to input of Child
-        m = Message (receiver.port, message.data, message.who, message.trail)
+        m = Message (receiver.port, message.data, [message, message.trail])
         who = receiver.who
         who.enqueueInput (m)
 
     def routeoutput (self, sender, receiver, message):
         # from output of Child to output of Container
-        m = Message (receiver.port, message.data, message.who, message.trail)
+        m = Message (receiver.port, message.data, [message, message.trail])
         self.enqueueOutput (m)
 
     # end routings

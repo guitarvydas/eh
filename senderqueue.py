@@ -37,6 +37,6 @@ class SenderQueue:
             trail = [None]
         else:
             trail = [causingMessage, causingMessage.trail]
-        m = Message (portname, data, self, trail)
+        m = Message (portname, data, trail)
         m.updateState ('output')
         self._outputq.enqueue (m)

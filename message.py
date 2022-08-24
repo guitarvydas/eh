@@ -13,10 +13,9 @@ class BaseMessage:
         return self._data
 
 class Message (BaseMessage):
-    def __init__ (self, port, data, sendercomponent, trail):
+    def __init__ (self, port, data, trail):
         super ().__init__ (data)
         self._port = port
-        self._sendercomponent = sendercomponent
         self._trail = trail
         self._state = '?'
     def __repr__ (self):
