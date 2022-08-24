@@ -44,7 +44,7 @@ class Container (EH):
     # end routings
         
     def handle (self, message):
-        self.puntInputToChildren (Sender (self, message.port), message)
+        self.puntInputToChildren (message)
         self.runToCompletion ()
 
     def routeOutputs (self, child):
@@ -55,9 +55,8 @@ class Container (EH):
 
 
 # workers
-    def puntInputToChildren (self, sender, message):
-        for connection in self._connections:
-            connection.attemptToHandle (sender, message)
+    def puntInputToChildren (self, message):
+        self.handleAllConnectionsForSender (Sender (self, message.port), message)
                 
     def handleAllConnectionsForSender (self, sender, message):
         for connection in self._connections:
