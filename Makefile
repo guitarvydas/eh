@@ -1,8 +1,12 @@
 all: test test2
 
 test:
-	./run.bash
+	python3 test.py
 
 test2:
-	./run2.bash
+	python3 test2.py
+
+test3:
+	python3 test3.py
+
 
