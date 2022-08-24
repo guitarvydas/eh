@@ -5,7 +5,6 @@ from world import World
 
 h = Hello (None, 'Hello instance')
 m = Message ('*', True, None)
-print (m)
 h.inject (m)
 h.run ()
 print (h.outputs ())
