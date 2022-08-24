@@ -4,6 +4,8 @@ from sender import Sender
 from message import Message
 from porthandler import PortHandler
 
+debugRouting = False
+
 class Container (EH):
     def __init__ (self, parent, name, children, connections):
         defaultName = 'default'
@@ -22,22 +24,26 @@ class Container (EH):
     # 4 possible routings...
     def punt (self, sender, receiver, message):
         # from input of Container to input of Child
-        print (f'punt {message} ... {sender.name ()} -> {receiver.name ()}')
+        if debugRouting:
+            print (f'punt {message} ... {sender.name ()} -> {receiver.name ()}')
         receiver.enqueueInput (message)
 
     def passthrough (self, sender, receiver, message):
         # from input of Container to output of same Container
-        print (f'passthrough {message}')
+        if debugRouting:
+            print (f'passthrough {message} ... {sender.name ()} -> {receiver.name ()}')
         self.enqueueOutput (message)
 
     def route (self, sender, receiver, message):
         # from output of Child to input of Child
-        print (f'route {message}')
+        if debugRouting:
+            print (f'route {message} ... {sender.name ()} -> {receiver.name ()}')
         receiver.enqueueInput (message)
 
     def routeoutput (self, sender, receiver, message):
         # from output of Child to output of Container
-        print (f'routeoutput {message}')
+        if debugRouting:
+            print (f'routeoutput {message} ... {sender.name ()} -> {receiver.name ()}')
         self.enqueueOutput (message)
 
     # end routings
