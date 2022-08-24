@@ -22,24 +22,23 @@ class Container (EH):
     # 4 possible routings...
     def punt (self, sender, receiver, message):
         # from input of Container to input of Child
-        m = Message (receiver.port, message.data, [message, message.trail])
-        self.enqueueInput (m)
+        print (f'punt {message} ... {sender.name ()} -> {receiver.name ()}')
+        receiver.enqueueInput (message)
 
-    def passthru (self, sender, receiver, message):
+    def passthrough (self, sender, receiver, message):
         # from input of Container to output of same Container
-        m = Message (receiver.port, message.data, [message, message.trail])
-        self.enqueueOutput (m)
+        print (f'passthrough {message}')
+        self.enqueueOutput (message)
 
     def route (self, sender, receiver, message):
         # from output of Child to input of Child
-        m = Message (receiver.port, message.data, [message, message.trail])
-        who = receiver.who
-        who.enqueueInput (m)
+        print (f'route {message}')
+        receiver.enqueueInput (message)
 
     def routeoutput (self, sender, receiver, message):
         # from output of Child to output of Container
-        m = Message (receiver.port, message.data, [message, message.trail])
-        self.enqueueOutput (m)
+        print (f'routeoutput {message}')
+        self.enqueueOutput (message)
 
     # end routings
         
@@ -53,7 +52,9 @@ class Container (EH):
             self.handleAllConnectionsForSender (Sender (child, outputMessage.port), outputMessage)
             
 
-
+    def name (self):
+        return self._name
+    
 # workers
     def puntInputToChildren (self, message):
         self.handleAllConnectionsForSender (Sender (self, message.port), message)
@@ -66,7 +67,7 @@ class Container (EH):
         while self.anyChildReady ():
             for child in self._children:
                 child.handleIfReady ()
-                self.routOutputs (child)
+                self.routeOutputs (child)
 
     def anyChildReady (self):
         r = False
