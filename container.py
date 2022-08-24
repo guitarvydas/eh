@@ -47,8 +47,8 @@ class Container (EH):
         self.runToCompletion ()
 
     def routeOutputs (self, child):
-        outputs = child.outputs ()
-        for outputMessage in outputs:
+        outputq = child.outputQueue ()
+        for outputMessage in outputq:
             self.handleAllConnectionsForSender (Sender (child, outputMessage.port), outputMessage)
             
 

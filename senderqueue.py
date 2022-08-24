@@ -40,3 +40,6 @@ class SenderQueue:
         m = Message (portname, data, trail)
         m.updateState ('output')
         self._outputq.enqueue (m)
+
+    def outputQueue (self):
+        return self._outputq.asDeque ()
