@@ -49,7 +49,7 @@ class State:
         if 0 < len (handlers):
             handler = handlers [0]
             rest = handlers [1:]
-            if (message.port == handler.port):
+            if (handler.matchPort (message.port)):
                 handler.func (message)
                 return True
             else:
