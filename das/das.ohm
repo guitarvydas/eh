@@ -1,4 +1,0 @@
-das {
-string = dq (~dq any)* dq
-dq = "\""
-}
