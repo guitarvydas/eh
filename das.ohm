@@ -1,0 +1,30 @@
+das {
+Components = "[" (Component ","?) + "]"
+Component = "[" ComponentJSON "]"
+ComponentJSON = "{" (ComponentField ","?) + "}"
+
+ComponentField =
+  | dq "children" dq ":" StringList
+  | dq "id" dq ":" string
+  | dq "inputs" dq ":" StringList
+  | dq "name" dq ":" string
+  | dq "outputs" dq ":" StringList
+  | dq "synccode" dq ":" string
+  | dq "connections" dq ":" ConnectionBody
+
+ConnectionBody = "[" Connection* "]"
+
+Connection = "{" Receiver "," Sender "}" ","?
+Receiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" Pair "}" "]"
+Sender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" Pair "}" "]"
+
+Pair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
+kwcomponent = dq "component" dq
+kwport = dq "port" dq
+ComponentName = string
+PortName = string
+
+StringList = "[" (string ","?)* "]"
+string = dq (~dq any)* dq
+dq = "\""
+}
