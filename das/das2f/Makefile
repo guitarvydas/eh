@@ -45,7 +45,9 @@ $(QUERIES) : $(QUERYSOURCES)
 	./build.bash ..
 
 clean:
+	cp layer6 temp-layer6
 	rm -f layer*.bash
+	cp temp-layer6 layer6
 	rm -f preprocessed*
 	rm -f a-dr-edgecontainment
 	rm -f b-dr-edgecontainment
