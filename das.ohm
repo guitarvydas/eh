@@ -1,10 +1,16 @@
 das {
 Components = "[" (Component ","?) + "]"
 Component = "[" ComponentJSON "]"
-ComponentJSON = "{" (ComponentField ","?) + "}"
+ComponentJSON = ComponentContainerJSON | ComponentLeafJSON
+ComponentContainerJSON = "{" NonEmptyChildren ComponentField+ "}"
+ComponentLeafJSON = "{" EmptyChildren ComponentField+ "}"
 
-ComponentField =
-  | dq "children" dq ":" ChildList
+EmptyChildren = dq "children" dq ":" "[" "]" ","?
+NonEmptyChildren = dq "children" dq ":" ChildList ","?
+
+ComponentField = CField ","?
+
+CField =
   | dq "id" dq ":" string
   | dq "inputs" dq ":" StringList
   | dq "name" dq ":" string
@@ -36,4 +42,5 @@ StringList = "[" (string ","?)* "]"
 string = dq (~dq any)* dq
 dq = "\""
 }
+
 
