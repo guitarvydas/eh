@@ -23,24 +23,23 @@ CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2
 
 ConnectionBody [lb Connection* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
 
-Connection = "{" Receiver "," Sender "}" ","?
-Receiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" Pair "}" "]"
-Sender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" Pair "}" "]"
+Connection [lb Receiver kcomma Sender rb optcomma?] = ‛⟨lb⟩⟨Recieger⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩⟨optcomma⟩’
+Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
+Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨ksenders⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨ksender⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
 
-Pair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
-kwcomponent = dq "component" dq
-kwport = dq "port" dq
-ComponentName = string
-PortName = string
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomopnent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
+kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
+ComponentName [s] = ‛⟨s⟩’
+PortName [s] = ‛⟨s⟩’
 
-ChildList = "[" Child* "]"
-Child = "{" kkind ":" KindName "," kname ":" ComponentName "}" ","?
-kkind = dq "kind" dq
-KindName = string
-kname = dq "name" dq
+ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
+Child [kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComonentName⟩⟨rb⟩⟨optcomma⟩’
+kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
+KindName [s] =  ‛⟨s⟩’
+kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
-
-StringList = "[" (string ","?)* "]"
-string = dq (~dq any)* dq
-dq = "\""
+StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
+string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
+dq [c] = ‛⟨c⟩’
 }
