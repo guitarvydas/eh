@@ -8,7 +8,7 @@ function fmtjs (fmtsrc) {
     
 
     // Step 1a. Create (internal) fmt transpiler. 
-    var internalgrammar = ohm.grammar (getFmtGrammar ());
+    var internalgrammar = ohm.grammar (fmtGrammar);
     var fmtcst = internalgrammar.match (fmtsrc);
 
     if (fmtcst.failed ()) {
