@@ -10,20 +10,22 @@ textarea {
 
 <h1>Drawing Transpiler</h1>
 
-<button onclick="generate ()">Generate Python from .drawio file</button>
+<h2>Run 'make', then paste the generated JSON file below (e.g. test5.json)</h2>
 
-<p>.drawio file contents:</p>
-<textarea id="drawio" rows="17" cols="90" placeholder="drawio file" style="background-color:oldlace;">
-<mxfile host="Electron" modified="2022-08-27T20:01:08.877Z" agent="5.0 (Macintosh; Intel Mac OS X 12_5_0) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/14.6.13 Chrome/89.0.4389.128 Electron/12.0.7 Safari/537.36" etag="6agfEg0qh-6DvbOkhNM8" version="14.6.13" type="device"><diagram id="_EPLyGwvRqIORVUbEv1q" name="Page-1">3Zjfk5owEMf/Gh6vw8+Aj9XTdqbtTGfszF37chNhgbSR2BgF+tc3SBAQztop51GfZL+7CeSzmw2iWbN19o7jTfyJBUA1Uw8yzbrXTNMwdCR/CiUvFdedlELESaCCamFJfoESdaXuSADbVqBgjAqyaYs+SxLwRUvDnLO0HRYy2r7rBkfQEZY+pl31gQQiPq5Lrx3vgUSxurXnKMcaV8FK2MY4YGlDsuaaNeOMifJqnc2AFvAqLuW4xTPe44NxSMQlA/jeCldb+9vd03754fOXxeLn9OFOzbLHdKcWHMtRLGVcciofW+QVC852SQDFdIZmTdOYCFhusF94U5l9qcViTZV7D1wQyfEtJVEiNcGKAHU76YPs2XUYRzqyrICtQfBchqgBruKZV4Wi7LROj1MlIW5kxvCUiFVJRMepa2ryQoH7C4hmP8R/4zcAKQOdoEJdVIbZgwq9FCmrQ2qAShuAlK2PjZTdYQKBbEzKZFzELGIJpvNandbUdGnVMR9ZsfcOrL6DELnqsngnWJskZEQ8Nq6/FlO9cZR1n6mZD0ZeGYlc7mPTaIwqzHrYwarGlesrFnU+Z5IB23EfzrBy1LmAeQTiTBzqrwEOFAuybz/H4Al1OqXfzTCl8liDP1c83m7Ksy4kWZHvaUgonTHK+GEiKwxD0/elvhWc/YCGJ0Ar5KBhNo152l7c7qaxe/aM/VJ7Bl0RceCAF9h9iD1zZaGBEFveyBC7N4fYsEeG2PtfOv+AHXxyYQc39P5cXqeFT26uhTun7z2vXfzV374bYoxGx9joIh1nhxnBu6VhXtia3NfsTNVT3tC57Fxt10iz/gpz8DW+ZVnz3w==</diagram></mxfile>
+<button onclick="generate ()">Generate Python from JSON drawing spec</button>
+
+<br>
+<p id="status" > READY </p>
+<br>
+
+<p>JSON:</p>
+<textarea id="drawio" rows="17" cols="120" placeholder="drawio file" style="background-color:oldlace;">
 </textarea>
 
 
 <p>Python code:</p>
-<textarea id="output" rows="17" cols="90" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
+<textarea id="output" rows="17" cols="120" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
 </textarea>
-<br>
-<br>
-<p id="status" > READY </p>
 <br>
 <br>
 <br>
@@ -33,27 +35,130 @@ textarea {
 
 
 <!-- Macro preprocessor -->
-<script src="fmt-js.js"></script>
-
+    <script src="fmt-js.js"></script>
+    <script src="transpile.js"></script>
 
 <script>
 
 
-  function generate () {
-      var src = document.getElementById('drawio').innerHTML;
-      // try {
-      //     let [success, transpiled] = fmtjs (src);
-      //     document.getElementById('output').value = transpiled;
-      //     if (success) {
-      //         document.getElementById('status').innerHTML = "OK";
-      //     } else {
-      //         document.getElementById('status').innerHTML = "FAILED";
-      //     }
-      // } catch (err) {
-      //     document.getElementById('status').innerHTML = "parse FAILED: " + err.message;
-      // }
-  }
+const jsonsrc = String.raw`
+[
+  [
+    {
+      "children": [ {"kind":"hello", "name":"cell_7"},  {"kind":"world", "name":"cell_8"} ],
+      "connections": [
+	{
+	  "receivers": [ {"receiver": {"component":"cell_7", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_6", "port":""}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_8", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_7", "port":""}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_8", "port":""}} ]
+	}
+      ],
+      "id":"cell_6",
+      "inputs": ["cell_17" ],
+      "kind":"helloworld",
+      "name":"helloworld",
+      "outputs": ["cell_15" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_7",
+      "inputs": ["cell_12" ],
+      "kind":"hello",
+      "name":"hello",
+      "outputs": ["cell_10" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_8",
+      "inputs": ["cell_11" ],
+      "kind":"world",
+      "name":"world",
+      "outputs": ["cell_14" ],
+      "synccode":""
+    }
+  ]
+]
+`;
 
+  const dasgrammar = String.raw`
+DaS {
+Components = "[" (Component ","?) + "]"
+Component = "[" ComponentJSON "]"
+ComponentJSON = ComponentContainerJSON | ComponentLeafJSON
+ComponentContainerJSON = "{" NonEmptyChildren ComponentField+ "}"
+ComponentLeafJSON = "{" EmptyChildren ComponentField+ "}"
+
+EmptyChildren = dq "children" dq ":" "[" "]" ","?
+NonEmptyChildren = dq "children" dq ":" ChildList ","?
+
+ComponentField = CField ","?
+
+CField =
+  | dq "id" dq ":" string                   -- id
+  | dq "inputs" dq ":" StringList           -- inputs
+  | dq "name" dq ":" string                 -- name
+  | dq "kind" dq ":" string                 -- kind
+  | dq "outputs" dq ":" StringList          -- outputs
+  | dq "synccode" dq ":" string             -- synccode
+  | dq "connections" dq ":" ConnectionBody  -- connections
+
+ConnectionBody = "[" Connection* "]"
+
+Connection = "{" Receiver "," Sender "}" ","?
+Receiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" Pair "}" "]"
+Sender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" Pair "}" "]"
+
+Pair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
+kwcomponent = dq "component" dq
+kwport = dq "port" dq
+ComponentName = string
+PortName = string
+
+ChildList = "[" Child* "]"
+Child = "{" kkind ":" KindName "," kname ":" ComponentName "}" ","?
+kkind = dq "kind" dq
+KindName = string
+kname = dq "name" dq
+
+
+StringList = "[" (string ","?)* "]"
+string = dq (~dq any)* dq
+dq = "\""
+}
+`;
+
+
+  function test (src, grammarName, grammar, fmt) {
+      document.getElementById('drawio').innerHTML = src;
+      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
+      if (success) {
+	  document.getElementById('output').value = transpiled;
+	  document.getElementById('status').innerHTML = "OK";
+      } else {
+	  document.getElementById('output').value = transpiled;
+	  document.getElementById('status').innerHTML = "FAILED " + errormessage;
+      }
+  }
+  
+  function generate () {
+      test (jsonsrc, "DaS", dasgrammar, undefined /*fmt*/);
+  }
+  
   </script>
 </body>
 </html>

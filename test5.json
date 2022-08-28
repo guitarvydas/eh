@@ -1,0 +1,51 @@
+[
+  [
+    {
+      "children": [ {"kind":"hello", "name":"cell_7"},  {"kind":"world", "name":"cell_8"} ],
+      "connections": [
+	{
+	  "receivers": [ {"receiver": {"component":"cell_7", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_6", "port":""}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_8", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_7", "port":""}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_8", "port":""}} ]
+	}
+      ],
+      "id":"cell_6",
+      "inputs": ["cell_17" ],
+      "kind":"helloworld",
+      "name":"helloworld",
+      "outputs": ["cell_15" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_7",
+      "inputs": ["cell_12" ],
+      "kind":"hello",
+      "name":"hello",
+      "outputs": ["cell_10" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [],
+      "connections": [],
+      "id":"cell_8",
+      "inputs": ["cell_11" ],
+      "kind":"world",
+      "name":"world",
+      "outputs": ["cell_14" ],
+      "synccode":""
+    }
+  ]
+]
