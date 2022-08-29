@@ -40,30 +40,34 @@ textarea {
 
 <script>
 
+  function stripQuotes (s) {
+      return s.replace (/"/g,'');
+  }
+  
 
 const jsonsrc = String.raw`
 [
   [
     {
-      "children": [ {"kind":"hello", "name":"cell_7"},  {"kind":"world", "name":"cell_8"} ],
+      "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
       "connections": [
-        {
-          "receivers": [ {"receiver": {"component":"cell_7", "port":""}} ],
-          "senders": [ {"sender": {"component":"cell_6", "port":""}} ]
-        },
-        {
-          "receivers": [ {"receiver": {"component":"cell_8", "port":""}} ],
-          "senders": [ {"sender": {"component":"cell_7", "port":""}} ]
-        },
-        {
-          "receivers": [ {"receiver": {"component":"cell_6", "port":""}} ],
-          "senders": [ {"sender": {"component":"cell_8", "port":""}} ]
-        }
+	{
+	  "receivers": [ {"receiver": {"component":"cell_7", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_6", "port":""}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_8", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_7", "port":""}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":""}} ],
+	  "senders": [ {"sender": {"component":"cell_8", "port":""}} ]
+	}
       ],
       "id":"cell_6",
       "inputs": ["cell_17" ],
-      "kind":"helloworld",
-      "name":"helloworld",
+      "kind":"HelloWorld",
+      "name":"HelloWorld",
       "outputs": ["cell_15" ],
       "synccode":""
     }
@@ -74,8 +78,8 @@ const jsonsrc = String.raw`
       "connections": [],
       "id":"cell_7",
       "inputs": ["cell_12" ],
-      "kind":"hello",
-      "name":"hello",
+      "kind":"Hello",
+      "name":"Hello",
       "outputs": ["cell_10" ],
       "synccode":""
     }
@@ -86,8 +90,8 @@ const jsonsrc = String.raw`
       "connections": [],
       "id":"cell_8",
       "inputs": ["cell_11" ],
-      "kind":"world",
-      "name":"world",
+      "kind":"World",
+      "name":"World",
       "outputs": ["cell_14" ],
       "synccode":""
     }
@@ -97,9 +101,9 @@ const jsonsrc = String.raw`
 
   const dasgrammar = String.raw`
 DaS {
-Components = "[" (Component ","?) + "]"
-Component = "[" ComponentJSON "]"
-ComponentJSON = ComponentContainerJSON | ComponentLeafJSON
+Components = "[" Component+ "]"
+Component = "[" ComponentJSON "]" ","?
+ComponentJSON = ComponentLeafJSON | ComponentContainerJSON
 ComponentContainerJSON = "{" NonEmptyChildren ComponentField+ "}"
 ComponentLeafJSON = "{" EmptyChildren ComponentField+ "}"
 
@@ -117,9 +121,9 @@ CField =
   | dq "synccode" dq ":" string             -- synccode
   | dq "connections" dq ":" ConnectionBody  -- connections
 
-ConnectionBody = "[" Connection* "]"
+ConnectionBody = "[" (Connection ","?)* "]"
 
-Connection = "{" Receiver "," Sender "}" ","?
+Connection = "{" Receiver "," Sender "}"
 Receiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" Pair "}" "]"
 Sender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" Pair "}" "]"
 
@@ -142,43 +146,45 @@ dq = "\""
 }
 `;
 
+  var selfid = undefined;
+  
 const dasfmt = String.raw`
 DaS {
-Components [lb Component+ kcomma? rb] = ‛⟨lb⟩⟨Component⟩⟨kcomma⟩⟨rb⟩’
-Component [lb ComponentJSON rb] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩’
+Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
+Component [lb ComponentJSON rb optcomma] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
-ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
+ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 
-EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨lb⟩⟨rb⟩⟨optcomma⟩’
-NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨ChildList⟩⟨optcomma⟩’
+EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨lb⟩⟨rb⟩⟨optcomma⟩’
+NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨ChildList⟩⟨optcomma⟩’
 
-ComponentField [CField optcomma?] = ‛⟨CField⟩⟨optcomma⟩’
+ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
 
-CField_id [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
-CField_inputs [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
-CField_name [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
+CField_id [dq1 k dq2 kcolon s] = ‛⟨selfid = s, ""⟩’
+CField_inputs [dq1 k dq2 kcolon s] = ‛’
+CField_name [dq1 k dq2 kcolon s] = ‛’
 CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
-CField_outputs [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
-CField_synccode [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
+CField_outputs [dq1 k dq2 kcolon s] = ‛’
+CField_synccode [dq1 k dq2 kcolon s] = ‛’
 CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨ConnectionBody⟩’
 
-ConnectionBody [lb Connection* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
+ConnectionBody [lb Connection* optcomma* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
 
-Connection [lb Receiver kcomma Sender rb optcomma?] = ‛⟨lb⟩⟨Receiver⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩⟨optcomma⟩’
-Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
-Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨ksenders⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨ksender⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
+Connection [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Receiver⟩, self.route),’
+Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
+Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
-Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨ComponentName⟩, ⟨PortName⟩’
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
-ComponentName [s] = ‛⟨s⟩’
+ComponentName [s] = ‛⟨stripQuotes (s)⟩’
 PortName [s] = ‛⟨s⟩’
 
-ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩’
-kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
-KindName [s] =  ‛⟨s⟩’
+ChildList [lb Child* rb] = ‛⟨Child⟩’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')’
+kkind [dq1 kkind dq2] = ‛⟨kkind⟩’
+KindName [s] =  ‛⟨stripQuotes (s)⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
 StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
@@ -204,7 +210,7 @@ dq [c] = ‛⟨c⟩’
   function generate () {
       test (jsonsrc, "DaS", dasgrammar, dasfmt);
   }
-  
+
   </script>
 </body>
 </html>

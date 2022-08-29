@@ -153,9 +153,9 @@ diagram_fact(value, cell_12, "").
 diagram_fact(value, cell_14, "").
 diagram_fact(value, cell_15, "").
 diagram_fact(value, cell_17, "").
-diagram_fact(value, cell_6, "helloworld").
-diagram_fact(value, cell_7, "hello").
-diagram_fact(value, cell_8, "world").
+diagram_fact(value, cell_6, "HelloWorld").
+diagram_fact(value, cell_7, "Hello").
+diagram_fact(value, cell_8, "World").
 diagram_fact(vertex, cell_10, 1).
 diagram_fact(vertex, cell_11, 1).
 diagram_fact(vertex, cell_12, 1).
@@ -228,12 +228,12 @@ das_fact(name, cell_15, "").
     das_fact(kindtype, cell_15, "").
 das_fact(name, cell_17, "").
     das_fact(kindtype, cell_17, "").
-das_fact(name, cell_6, "helloworld").
-    das_fact(kindtype, cell_6, "helloworld").
-das_fact(name, cell_7, "hello").
-    das_fact(kindtype, cell_7, "hello").
-das_fact(name, cell_8, "world").
-    das_fact(kindtype, cell_8, "world").
+das_fact(name, cell_6, "HelloWorld").
+    das_fact(kindtype, cell_6, "HelloWorld").
+das_fact(name, cell_7, "Hello").
+    das_fact(kindtype, cell_7, "Hello").
+das_fact(name, cell_8, "World").
+    das_fact(kindtype, cell_8, "World").
 das_fact(color,cell_10,"yellow").
 das_fact(color,cell_11,"green").
 das_fact(color,cell_12,"green").
