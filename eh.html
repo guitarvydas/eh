@@ -200,16 +200,36 @@ dq [c] = ‛⟨c⟩’
 
   const dasgrammar2 = dasgrammar + String.raw`
 DaSphase2 <: DaS {
-Component := "self" "=" ComponentName "[" ComponentJSON "]" ","?
+Component := SelfDef ComponentDef
+SelfDef = "self" "=" ComponentName
+ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
 
+  var selfid2 = undefined;
+  function setSelfid2 (s) {
+      console.log (`setSelfid2 ${s}`);
+      selfid2 = s;
+      return '';
+  }
+  
+  function maybeMapSelf (s) {
+      console.log (`maybeMapSelf ${s} ${selfid2}`);
+      if (s === selfid2) {
+	  return 'self';
+      } else {
+	  return s;
+      }
+  }
+  
   const component2fmt = `Component [kself keq ComponentName lb ComponentJSON rb optcomma] = ‛\nself is ⟨ComponentName⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’`;
   
 const dasfmt2 = String.raw`
 DaS {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
-${component2fmt}
+Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
+SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
+ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -219,7 +239,7 @@ NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨dq1⟩
 
 ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
 
-CField_id [dq1 k dq2 kcolon s] = ‛’
+CField_id [dq1 k dq2 kcolon s] = ‛⟨setSelfid2 (s), ""⟩’
 CField_inputs [dq1 k dq2 kcolon s] = ‛’
 CField_name [dq1 k dq2 kcolon s] = ‛’
 CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
@@ -233,7 +253,7 @@ Connection [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Recei
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
-Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨ComponentName⟩, ⟨PortName⟩’
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName [s] = ‛⟨stripQuotes (s)⟩’
