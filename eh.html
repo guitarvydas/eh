@@ -19,7 +19,11 @@ textarea {
 <br>
 
 <p>JSON:</p>
-<textarea id="drawio" rows="17" cols="120" placeholder="drawio file" style="background-color:oldlace;">
+<textarea id="drawio" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
+</textarea>
+
+<p>intermediate:</p>
+<textarea id="intermediate" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
 </textarea>
 
 
@@ -52,16 +56,16 @@ const jsonsrc = String.raw`
       "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"cell_7", "port":""}} ],
-	  "senders": [ {"sender": {"component":"cell_6", "port":""}} ]
+	  "receivers": [ {"receiver": {"component":"cell_7", "port":"b"}} ],
+	  "senders": [ {"sender": {"component":"cell_6", "port":"a"}} ]
 	},
 	{
-	  "receivers": [ {"receiver": {"component":"cell_8", "port":""}} ],
-	  "senders": [ {"sender": {"component":"cell_7", "port":""}} ]
+	  "receivers": [ {"receiver": {"component":"cell_8", "port":"d"}} ],
+	  "senders": [ {"sender": {"component":"cell_7", "port":"c"}} ]
 	},
 	{
-	  "receivers": [ {"receiver": {"component":"cell_6", "port":""}} ],
-	  "senders": [ {"sender": {"component":"cell_8", "port":""}} ]
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":"f"}} ],
+	  "senders": [ {"sender": {"component":"cell_8", "port":"e"}} ]
 	}
       ],
       "id":"cell_6",
@@ -147,11 +151,11 @@ dq = "\""
 `;
 
   var selfid = undefined;
-  
+
 const dasfmt = String.raw`
 DaS {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
-Component [lb ComponentJSON rb optcomma] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+Component [lb ComponentJSON rb optcomma] = ‛\nself=⟨selfid⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -171,11 +175,85 @@ CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
 
+Connection [lb Receiver kcomma Sender rb] = ‛ ⟨lb⟩⟨Receiver⟩,⟨Sender⟩⟨rb⟩’
+Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
+Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨ksenders⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨ksender⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
+
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
+kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
+ComponentName [s] = ‛⟨s⟩’
+PortName [s] = ‛⟨s⟩’
+
+ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩’
+kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
+KindName [s] =  ‛⟨s⟩’
+kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
+
+StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
+string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
+dq [c] = ‛⟨c⟩’
+}
+`;
+
+
+  const dasgrammar2 = dasgrammar + String.raw`
+DaSphase2 <: DaS {
+Component := SelfDef ComponentDef
+SelfDef = "self" "=" ComponentName
+ComponentDef = "[" ComponentJSON "]" ","?
+}
+`;
+
+  var selfid2 = undefined;
+  function setSelfid2 (s) {
+      console.log (`setSelfid2 ${s}`);
+      selfid2 = s;
+      return '';
+  }
+  
+  function maybeMapSelf (s) {
+      console.log (`maybeMapSelf ${s} ${selfid2}`);
+      if (s === selfid2) {
+	  return 'self';
+      } else {
+	  return s;
+      }
+  }
+  
+  const component2fmt = `Component [kself keq ComponentName lb ComponentJSON rb optcomma] = ‛\nself is ⟨ComponentName⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’`;
+  
+const dasfmt2 = String.raw`
+DaSphase2 {
+Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
+Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
+SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
+ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+ComponentJSON [x] = ‛⟨x⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
+ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
+
+EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨lb⟩⟨rb⟩⟨optcomma⟩’
+NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨ChildList⟩⟨optcomma⟩’
+
+ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
+
+CField_id [dq1 k dq2 kcolon s] = ‛⟨setSelfid2 (s), ""⟩’
+CField_inputs [dq1 k dq2 kcolon s] = ‛’
+CField_name [dq1 k dq2 kcolon s] = ‛’
+CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
+CField_outputs [dq1 k dq2 kcolon s] = ‛’
+CField_synccode [dq1 k dq2 kcolon s] = ‛’
+CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨ConnectionBody⟩’
+
+ConnectionBody [lb Connection* optcomma* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
+
 Connection [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Receiver⟩, self.route),’
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
-Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨ComponentName⟩, ⟨PortName⟩’
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName [s] = ‛⟨stripQuotes (s)⟩’
@@ -195,20 +273,25 @@ dq [c] = ‛⟨c⟩’
 
 
 
-  function test (src, grammarName, grammar, fmt) {
-      document.getElementById('drawio').innerHTML = src;
+  function test (field, src, grammarName, grammar, fmt) {
+      document.getElementById(field).innerHTML = src;
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
       if (success) {
           document.getElementById('output').value = transpiled;
           document.getElementById('status').innerHTML = "OK";
+	  return [true, transpiled];
       } else {
           document.getElementById('output').value = transpiled;
           document.getElementById('status').innerHTML = "FAILED " + errormessage;
+	  return [false, transpiled];
       }
   }
   
   function generate () {
-      test (jsonsrc, "DaS", dasgrammar, dasfmt);
+      [r, phase1result] = test ('drawio', jsonsrc, "DaS", dasgrammar, dasfmt);
+      console.log (`phase 1 ${r}`);
+      [r2, phase2result] = test ('intermediate', phase1result, "DaSphase2", dasgrammar2, dasfmt2);
+      console.log (`xxx phase 2 ${r2}`);
   }
 
   </script>
