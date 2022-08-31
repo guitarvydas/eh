@@ -203,6 +203,10 @@ DaSphase2 <: DaS {
 Component := SelfDef ComponentDef
 SelfDef = "self" "=" ComponentName
 ComponentDef = "[" ComponentJSON "]" ","?
+Receiver := dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" ReceiverPair "}" "]"
+Sender := dq "senders" dq ":" "[" "{" dq "sender" dq ":" SenderPair "}" "]"
+ReceiverPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
+SenderPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
 }
 `;
 
@@ -220,6 +224,11 @@ ComponentDef = "[" ComponentJSON "]" ","?
       } else {
 	  return s;
       }
+  }
+
+  function panic (s) {
+      var message = `internal error ${s}`;
+      throw message;
   }
   
   const component2fmt = `Component [kself keq ComponentName lb ComponentJSON rb optcomma] = ‛\nself is ⟨ComponentName⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’`;
@@ -253,7 +262,9 @@ Connection [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Recei
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
-Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
+ReceiverPair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
+SenderPair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨panic ("Pair")⟩’
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName [s] = ‛⟨stripQuotes (s)⟩’
