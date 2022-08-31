@@ -1,4 +1,15 @@
-  
+  const dasgrammar2 = dasgrammar + String.raw`
+DaSphase2 <: DaS {
+Component := SelfDef ComponentDef
+SelfDef = "self" "=" ComponentName
+ComponentDef = "[" ComponentJSON "]" ","?
+Receiver := dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" ReceiverPair "}" "]"
+Sender := dq "senders" dq ":" "[" "{" dq "sender" dq ":" SenderPair "}" "]"
+ReceiverPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
+SenderPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
+}
+`;
+
 const dasfmt2 = String.raw`
 DaSphase2 {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
@@ -47,4 +58,3 @@ string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
 dq [c] = ‛⟨c⟩’
 }
 `;
-
