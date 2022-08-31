@@ -211,17 +211,38 @@ SenderPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
 `;
 
   var selfid2stack = [];
-  function pushSelfid2 (s) {
-      console.log (`pushSelfid2 ${s}`);
-      selfid2stack.push (s);
-      return '';
-  }
-
+  
   function stacktop (stack) {
       var len = stack.length;
       return stack [len - 1];
   }
+
+  function stackpop (stack) {
+      stack.pop ();
+  }
   
+  function stackreset (stack) {
+      stack = [];
+  }
+
+  function settop (stack, val) {
+      var len = stack.length;
+      stack [len - 1] = val;
+  }
+
+  function panic (s) {
+      var message = `internal error ${s}`;
+      throw message;
+  }
+
+  
+// selfid2 mechanism ...
+  function setSelfid2 (s) {
+      console.log (`setSelfid2 ${s}`);
+      settop (selfid2stack, s);
+      return '';
+  }
+
   function maybeMapSelf (s) {
       var selfid2 = stacktop (selfid2stack);
       console.log (`maybeMapSelf ${s} ${selfid2}`);
@@ -232,18 +253,17 @@ SenderPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
       }
   }
 
-  function panic (s) {
-      var message = `internal error ${s}`;
-      throw message;
+  function selfid2reset () {
+      stackreset (selfid2stack);
   }
-  
-  const component2fmt = `Component [kself keq ComponentName lb ComponentJSON rb optcomma] = ‛\nself is ⟨ComponentName⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’`;
+
+// ... selfid2 mechanism
   
 const dasfmt2 = String.raw`
 DaSphase2 {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
+Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
-SelfDef [kself keq ComponentName] = ‛⟨pushSelfid2 (ComponentName)⟩’
+SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -308,7 +328,7 @@ dq [c] = ‛⟨c⟩’
       [r, phase1result] = test ('drawio', jsonsrc, "DaS", dasgrammar, dasfmt);
       console.log (`phase 1 ${r}`);
       [r2, phase2result] = test ('intermediate', phase1result, "DaSphase2", dasgrammar2, dasfmt2);
-      console.log (`xxx phase 2 ${r2}`);
+      console.log (`self resolution (phase 2) ${r2}`);
   }
 
   </script>
