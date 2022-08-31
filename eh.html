@@ -30,6 +30,10 @@ textarea {
 <textarea id="phase2 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 2" style="background-color:oldlace;">
 </textarea>
 
+<p>transpiled output of phase 3:</p>
+<textarea id="phase3 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 3" style="background-color:oldlace;">
+</textarea>
+
 
 <p>Python code:</p>
 <textarea id="output" rows="17" cols="120" placeholder="transpiled"  readonly style="background-color:whitesmoke;">
@@ -93,8 +97,8 @@ textarea {
 
       let r3 = undefined;
       let phase3transpiled = undefined;
-      // [r3, phase3transpiled] = test ('phase3', phase2transpiled, "DaSphase3", dasgrammar3, dasfmt3);
-      // console.log (`identify phase 3 (phase 3) ${r3}`);
+      [r3, phase3transpiled] = test ('phase2 transpiled', 'phase3 transpiled', "DaSphase3", dasgrammar3, dasfmt3);
+      console.log (`identify phase 3 (phase 3) ${r3}`);
   }
 
   </script>
