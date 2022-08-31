@@ -5,4 +5,5 @@ node_modules/*
 *.mov
 fmt-js/
 das/
+junk.*
 junk*
