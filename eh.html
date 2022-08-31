@@ -19,7 +19,11 @@ textarea {
 <br>
 
 <p>JSON:</p>
-<textarea id="drawio" rows="17" cols="120" placeholder="drawio file" style="background-color:oldlace;">
+<textarea id="drawio" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
+</textarea>
+
+<p>intermediate:</p>
+<textarea id="intermediate" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
 </textarea>
 
 
@@ -200,7 +204,7 @@ Component := "self" "=" ComponentName "[" ComponentJSON "]" ","?
 }
 `;
 
-  const component2fmt = `Component [kself keq ComponentName lb ComponentJSON rb optcomma] = ‛\nself=⟨selfid⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’`;
+  const component2fmt = `Component [kself keq ComponentName lb ComponentJSON rb optcomma] = ‛\nself is ⟨ComponentName⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’`;
   
 const dasfmt2 = String.raw`
 DaS {
@@ -249,8 +253,8 @@ dq [c] = ‛⟨c⟩’
 
 
 
-  function test (src, grammarName, grammar, fmt) {
-      document.getElementById('drawio').innerHTML = src;
+  function test (field, src, grammarName, grammar, fmt) {
+      document.getElementById(field).innerHTML = src;
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
       if (success) {
           document.getElementById('output').value = transpiled;
@@ -264,9 +268,9 @@ dq [c] = ‛⟨c⟩’
   }
   
   function generate () {
-      [r, phase1result] = test (jsonsrc, "DaS", dasgrammar, dasfmt);
+      [r, phase1result] = test ('drawio', jsonsrc, "DaS", dasgrammar, dasfmt);
       console.log (`phase 1 ${r}`);
-      [r2, phase2result] = test (phase1result, "DaSphase2", dasgrammar2, dasfmt2);
+      [r2, phase2result] = test ('intermediate', phase1result, "DaSphase2", dasgrammar2, dasfmt2);
       console.log (`xxx phase 2 ${r2}`);
   }
 
