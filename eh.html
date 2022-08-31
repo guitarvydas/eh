@@ -10,9 +10,9 @@ textarea {
 
 <h1>Drawing Transpiler</h1>
 
-<h2>Run 'make', then paste the generated JSON file below (e.g. test5.json)</h2>
+<h2>Run 'make', then paste the generated JSON file (e.g. test5.json) into src.js</h2>
 
-<button onclick="generate ()">Generate Python from JSON drawing spec</button>
+<button onclick="generate ()">Generate</button>
 
 <br>
 <p id="status" > READY </p>
@@ -22,8 +22,12 @@ textarea {
 <textarea id="drawio" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
 </textarea>
 
-<p>intermediate:</p>
-<textarea id="intermediate" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
+<p>transpiled output of phase 1:</p>
+<textarea id="phase1 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 1" style="background-color:oldlace;">
+</textarea>
+
+<p>transpiled output of phase 2:</p>
+<textarea id="phase2 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 2" style="background-color:oldlace;">
 </textarea>
 
 
@@ -53,33 +57,44 @@ textarea {
 <!-- phases -->
     <script src="das1.js"></script>
     <script src="das2.js"></script>
+    <script src="das3.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
 
 <script>
 
-
-
-  function test (field, src, grammarName, grammar, fmt) {
-      document.getElementById(field).innerHTML = src;
+  function test (infield, outfield, grammarName, grammar, fmt) {
+      src = document.getElementById(infield).value;
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
       if (success) {
-          document.getElementById('output').value = transpiled;
+          document.getElementById(outfield).value = transpiled;
           document.getElementById('status').innerHTML = "OK";
 	  return [true, transpiled];
       } else {
-          document.getElementById('output').value = transpiled;
+          document.getElementById(outfield).value = transpiled;
           document.getElementById('status').innerHTML = "FAILED " + errormessage;
 	  return [false, transpiled];
       }
   }
   
   function generate () {
-      [r, phase1result] = test ('drawio', jsonsrc, "DaS", dasgrammar, dasfmt);
+      document.getElementById('drawio').innerHTML = jsonsrc;
+
+      let r = undefined;
+      let phase1transpiled = undefined;
+      [r, phase1transpiled] = test ('drawio', 'phase1 transpiled', "DaS", dasgrammar, dasfmt);
       console.log (`phase 1 ${r}`);
-      [r2, phase2result] = test ('intermediate', phase1result, "DaSphase2", dasgrammar2, dasfmt2);
+      
+      let r2 = undefined;
+      let phase2transpiled = undefined;
+      [r2, phase2transpiled] = test ('phase1 transpiled', 'phase2 transpiled', "DaSphase2", dasgrammar2, dasfmt2);
       console.log (`self resolution (phase 2) ${r2}`);
+
+      let r3 = undefined;
+      let phase3transpiled = undefined;
+      // [r3, phase3transpiled] = test ('phase3', phase2transpiled, "DaSphase3", dasgrammar3, dasfmt3);
+      // console.log (`identify phase 3 (phase 3) ${r3}`);
   }
 
   </script>
