@@ -147,12 +147,12 @@ diagram_fact(synonym, cell_9, rv3fbs4Z___vSKPTFFqBW__4).
 diagram_fact(target, cell_13, rv3fbs4Z___vSKPTFFqBW__10).
 diagram_fact(target, cell_16, rv3fbs4Z___vSKPTFFqBW__7).
 diagram_fact(target, cell_9, rv3fbs4Z___vSKPTFFqBW__6).
-diagram_fact(value, cell_10, "").
-diagram_fact(value, cell_11, "").
-diagram_fact(value, cell_12, "").
-diagram_fact(value, cell_14, "").
-diagram_fact(value, cell_15, "").
-diagram_fact(value, cell_17, "").
+diagram_fact(value, cell_10, "c").
+diagram_fact(value, cell_11, "d").
+diagram_fact(value, cell_12, "b").
+diagram_fact(value, cell_14, "e").
+diagram_fact(value, cell_15, "f").
+diagram_fact(value, cell_17, "a").
 diagram_fact(value, cell_6, "HelloWorld").
 diagram_fact(value, cell_7, "Hello").
 diagram_fact(value, cell_8, "World").
@@ -216,18 +216,18 @@ das_fact(kind,cell_6,rectangle).
 das_fact(kind,cell_7,rectangle).
 das_fact(kind,cell_8,rectangle).
 das_fact(kind,cell_9,edge).
-das_fact(name, cell_10, "").
-    das_fact(kindtype, cell_10, "").
-das_fact(name, cell_11, "").
-    das_fact(kindtype, cell_11, "").
-das_fact(name, cell_12, "").
-    das_fact(kindtype, cell_12, "").
-das_fact(name, cell_14, "").
-    das_fact(kindtype, cell_14, "").
-das_fact(name, cell_15, "").
-    das_fact(kindtype, cell_15, "").
-das_fact(name, cell_17, "").
-    das_fact(kindtype, cell_17, "").
+das_fact(name, cell_10, "c").
+    das_fact(kindtype, cell_10, "c").
+das_fact(name, cell_11, "d").
+    das_fact(kindtype, cell_11, "d").
+das_fact(name, cell_12, "b").
+    das_fact(kindtype, cell_12, "b").
+das_fact(name, cell_14, "e").
+    das_fact(kindtype, cell_14, "e").
+das_fact(name, cell_15, "f").
+    das_fact(kindtype, cell_15, "f").
+das_fact(name, cell_17, "a").
+    das_fact(kindtype, cell_17, "a").
 das_fact(name, cell_6, "HelloWorld").
     das_fact(kindtype, cell_6, "HelloWorld").
 das_fact(name, cell_7, "Hello").
@@ -319,11 +319,11 @@ das_fact(direct_contains,cell_6,cell_9).
 das_fact(direct_contains,cell_6,cell_16).
 das_fact(direct_contains,cell_6,cell_13).
 das_fact(connection, cell_6, cell_13).
-das_fact(sender, cell_13, sender{component:"cell_8",port:""}).
-das_fact(receiver, cell_13, receiver{component:"cell_6",port:""}).
+das_fact(sender, cell_13, sender{component:"cell_8",port:"e"}).
+das_fact(receiver, cell_13, receiver{component:"cell_6",port:"f"}).
 das_fact(connection, cell_6, cell_16).
-das_fact(sender, cell_16, sender{component:"cell_6",port:""}).
-das_fact(receiver, cell_16, receiver{component:"cell_7",port:""}).
+das_fact(sender, cell_16, sender{component:"cell_6",port:"a"}).
+das_fact(receiver, cell_16, receiver{component:"cell_7",port:"b"}).
 das_fact(connection, cell_6, cell_9).
-das_fact(sender, cell_9, sender{component:"cell_7",port:""}).
-das_fact(receiver, cell_9, receiver{component:"cell_8",port:""}).
+das_fact(sender, cell_9, sender{component:"cell_7",port:"c"}).
+das_fact(receiver, cell_9, receiver{component:"cell_8",port:"d"}).

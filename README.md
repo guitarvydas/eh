@@ -68,3 +68,16 @@ Questions such as...
 (The most recent documentation is in Obsidian format](https://publish.obsidian.md/programmingsimplicity/2022-08-21-Eh+Pluggable+Software+Components))
 
 
+# Install
+After cloning this git, cd into it and run multigit:
+> multigit -r
+
+then, run make
+> make
+
+then, load _eh.html_ into a browser and click the "Generate ..." button
+
+## Diagram
+The diagram is _test5.drawio_.
+
+To modify the diagram and re-transpile, run _make_, then copy/paste test5.json into the string `const jsonsrc = String.raw` in _eh.html_.  Then, re-load _eh.html_ and click the "Generate ..." button.

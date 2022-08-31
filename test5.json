@@ -4,16 +4,16 @@
       "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"cell_7", "port":""}} ],
-	  "senders": [ {"sender": {"component":"cell_6", "port":""}} ]
+	  "receivers": [ {"receiver": {"component":"cell_7", "port":"b"}} ],
+	  "senders": [ {"sender": {"component":"cell_6", "port":"a"}} ]
 	},
 	{
-	  "receivers": [ {"receiver": {"component":"cell_8", "port":""}} ],
-	  "senders": [ {"sender": {"component":"cell_7", "port":""}} ]
+	  "receivers": [ {"receiver": {"component":"cell_8", "port":"d"}} ],
+	  "senders": [ {"sender": {"component":"cell_7", "port":"c"}} ]
 	},
 	{
-	  "receivers": [ {"receiver": {"component":"cell_6", "port":""}} ],
-	  "senders": [ {"sender": {"component":"cell_8", "port":""}} ]
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":"f"}} ],
+	  "senders": [ {"sender": {"component":"cell_8", "port":"e"}} ]
 	}
       ],
       "id":"cell_6",

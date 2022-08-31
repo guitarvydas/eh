@@ -3,3 +3,6 @@ subrepos:
 - path: 'fmt-js'
   repo: 'git@github.com:guitarvydas/fmt-js.git'
   branch: 'main'
+- path: 'das'
+  repo: 'git@github.com:guitarvydas/das.git'
+  branch: 'main'
