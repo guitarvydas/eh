@@ -42,16 +42,17 @@ textarea {
     <script src="fmt-js/fmt-js.js"></script>
     <script src="fmt-js/transpile.js"></script>
 
+<!-- utilities -->
+    <script src="stack.js"></script>
+    <script src="panic.js"></script>
+    <script src="quotes.js"></script>
+    
 <!-- phases -->
     <script src="das1.js"></script>
     <script src="das2.js"></script>
 
 <script>
 
-  function stripQuotes (s) {
-      return s.replace (/"/g,'');
-  }
-  
 
 const jsonsrc = String.raw`
 [
@@ -110,29 +111,6 @@ const jsonsrc = String.raw`
 
   var selfid2stack = [];
   
-  function stacktop (stack) {
-      var len = stack.length;
-      return stack [len - 1];
-  }
-
-  function stackpop (stack) {
-      stack.pop ();
-  }
-  
-  function stackreset (stack) {
-      stack = [];
-  }
-
-  function settop (stack, val) {
-      var len = stack.length;
-      stack [len - 1] = val;
-  }
-
-  function panic (s) {
-      var message = `internal error ${s}`;
-      throw message;
-  }
-
   
 // selfid2 mechanism ...
   function setSelfid2 (s) {
