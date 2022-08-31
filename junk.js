@@ -1,6 +1,9 @@
-  function stripQuotes (s) {
-      return s.replace (/"/g,'');
-  }
-  
-var xx = String.raw`"def"`;
-console.log (stripQuotes (xx));
+var stk = [1,2,3];
+function stacktop (stack) {
+    var len = stack.length;
+    return stack [len - 1];
+}
+
+console.log (stk);
+console.log (stacktop (stk));
+
