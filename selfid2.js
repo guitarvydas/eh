@@ -12,7 +12,7 @@
       var selfid2 = stacktop (selfid2stack);
       console.log (`maybeMapSelf ${s} ${selfid2}`);
       if (s === selfid2) {
-	  return 'self';
+	  return '"self"';
       } else {
 	  return s;
       }
@@ -20,6 +20,7 @@
 
   function selfid2reset () {
       stackreset (selfid2stack);
+      return '';
   }
 
   

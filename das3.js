@@ -6,9 +6,7 @@ DaSphase3 <: DaS {
 const dasfmt3 = String.raw`
 DaSphase3 {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
-Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
-SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
-ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -32,9 +30,8 @@ Connection [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Recei
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
-ReceiverPair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
-SenderPair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨maybeMapSelf (ComponentName)⟩, ⟨PortName⟩’
-Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨panic ("Pair")⟩’
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName [s] = ‛⟨stripQuotes (s)⟩’
