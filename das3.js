@@ -13,7 +13,7 @@ Connection :=
 
 const dasfmt3 = String.raw`
 DaSphase3 {
-Components [lb Component+ rb] = ‛das3 ⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
