@@ -27,9 +27,15 @@ textarea {
 <textarea id="phaseIdentityEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase IdentityEmitter" style="background-color:oldlace;">
 </textarea>
 
+<p>transpiled output of phase Imports Emitter:</p>
+<textarea id="phaseImportsEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Imports Emitter" style="background-color:oldlace;">
+</textarea>
+
 <p>transpiled output of phase Emitter:</p>
 <textarea id="phaseEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Emitter" style="background-color:oldlace;">
 </textarea>
+
+
 
 
 <br>
@@ -68,6 +74,7 @@ textarea {
     <script src="das1.js"></script>
     <script src="das2.js"></script>
     <script src="dasidentityemitter.js"></script>
+    <script src="dasimportsemitter.js"></script>
     <script src="dasemitter.js"></script>
 
 <!-- source code -->
@@ -112,9 +119,14 @@ textarea {
       [rIdentityEmitter, phaseIdentityEmitterTranspiled] = test ('phase2 transpiled', 'phaseIdentityEmitter transpiled', "DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
       console.log (`phase IdentityEmitter (phase IdentityEmitter) ${rIdentityEmitter}`);
 
+      // let rImportsEmitter = undefined;
+      // let phaseImportsEmitterTranspiled = undefined;
+      // [rImportsEmitter, phaseImportsEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseImportsEmitter transpiled', "DaSphaseImportsEmitter", dasgrammarImportsEmitter, dasfmtImportsEmitter);
+      // console.log (`phase ImportsEmitter (phase ImportsEmitter) ${rImportsEmitter}`);
+
       let rEmitter = undefined;
       let phaseEmitterTranspiled = undefined;
-      [rEmitter, phaseEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
+      [rEmitter, phaseEmitterTranspiled] = test ('phaseImportsEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
       console.log (`identity phase Emitter (phase Emitter) ${rEmitter}`);
   }
 
