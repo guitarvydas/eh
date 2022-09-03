@@ -14,7 +14,7 @@ ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 
-EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n’
+EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨lb⟩⟨rb⟩⟨optcomma⟩’
 NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨ChildList⟩⟨optcomma⟩’
 
 ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
