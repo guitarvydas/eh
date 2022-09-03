@@ -84,7 +84,7 @@ textarea {
 	  return [true, transpiled];
       } else {
           document.getElementById(outfield).value = transpiled;
-          document.getElementById('status').innerHTML = "FAILED " + errormessage;
+          document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
 	  return [false, transpiled];
       }
   }
