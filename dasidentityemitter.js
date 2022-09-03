@@ -1,8 +1,8 @@
   const dasgrammarIdentityEmitter = dasgrammar + String.raw`
 DaSphaseIdentityEmitter <: DaS {
   ComponentName := 
-    | "self"
-    | string
+    | dq "." dq -- self
+    | string    -- name
 }
 `;
 
@@ -38,7 +38,8 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
-ComponentName [s] = ‛⟨s⟩’
+ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
+ComponentName_name [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’

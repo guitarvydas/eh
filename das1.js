@@ -40,8 +40,8 @@ kname = dq "name" dq
 
 
 StringList = "[" (string ","?)* "]"
-string = dq (~dq any)* dq
-dq = "\""
+string (quoted string) = dq (~dq any)* dq
+dq (dquote)= "\""
 }
 `;
 
@@ -50,7 +50,7 @@ dq = "\""
 const dasfmt = String.raw`
 DaS {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
-Component [lb ComponentJSON rb optcomma] = ‛\nself=⟨selfid⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+Component [lb ComponentJSON rb optcomma] = ‛\n.=⟨selfid⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
