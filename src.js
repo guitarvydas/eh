@@ -51,7 +51,3 @@ const jsonsrc = String.raw`
   ]
 ]
 `;
-
-
-
-
