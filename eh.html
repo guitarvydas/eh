@@ -119,15 +119,19 @@ textarea {
       [rIdentityEmitter, phaseIdentityEmitterTranspiled] = test ('phase2 transpiled', 'phaseIdentityEmitter transpiled', "DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
       console.log (`phase IdentityEmitter (phase IdentityEmitter) ${rIdentityEmitter}`);
 
-      // let rImportsEmitter = undefined;
-      // let phaseImportsEmitterTranspiled = undefined;
-      // [rImportsEmitter, phaseImportsEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseImportsEmitter transpiled', "DaSphaseImportsEmitter", dasgrammarImportsEmitter, dasfmtImportsEmitter);
-      // console.log (`phase ImportsEmitter (phase ImportsEmitter) ${rImportsEmitter}`);
+      if (rIdentityEmitter) {
+	  let rImportsEmitter = undefined;
+	  let phaseImportsEmitterTranspiled = undefined;
+	  [rImportsEmitter, phaseImportsEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseImportsEmitter transpiled', "DaSphaseImportsEmitter", dasgrammarImportsEmitter, dasfmtImportsEmitter);
+	  console.log (`phase ImportsEmitter (phase ImportsEmitter) ${rImportsEmitter}`);
 
-      let rEmitter = undefined;
-      let phaseEmitterTranspiled = undefined;
-      [rEmitter, phaseEmitterTranspiled] = test ('phaseImportsEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
-      console.log (`identity phase Emitter (phase Emitter) ${rEmitter}`);
+	  if (rImportsEmitter) {
+	      let rEmitter = undefined;
+	      let phaseEmitterTranspiled = undefined;
+	      [rEmitter, phaseEmitterTranspiled] = test ('phaseImportsEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
+	      console.log (`identity phase Emitter (phase Emitter) ${rEmitter}`);
+	  }
+      }
   }
 
   </script>

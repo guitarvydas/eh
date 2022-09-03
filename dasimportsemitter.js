@@ -1,5 +1,5 @@
   const dasgrammarImportsEmitter = dasgrammarIdentityEmitter + String.raw`
-DaSphaseImportsEmitter <: dasgrammarIdentityEmitter {
+DaSphaseImportsEmitter <: DaSphaseIdentityEmitter {
 }
 `;
 

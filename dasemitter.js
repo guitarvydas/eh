@@ -1,5 +1,5 @@
-  const dasgrammarEmitter = dasgrammarIdentityEmitter + String.raw`
-DaSphaseEmitter <: DaSphaseIdentityEmitter {
+  const dasgrammarEmitter = dasgrammarImportsEmitter + String.raw`
+DaSphaseEmitter <: DaSphaseImportsEmitter {
 SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
 SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
 SelfPair = "{" kwcomponent ":" dq "." dq "," kwport ":" PortName "}"
