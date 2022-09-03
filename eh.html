@@ -23,9 +23,14 @@ textarea {
 </textarea>
 
 
+<p>transpiled output of phase Identity Emitter:</p>
+<textarea id="phaseIdentityEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase IdentityEmitter" style="background-color:oldlace;">
+</textarea>
+
 <p>transpiled output of phase Emitter:</p>
 <textarea id="phaseEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Emitter" style="background-color:oldlace;">
 </textarea>
+
 
 <br>
 <br>
@@ -62,6 +67,7 @@ textarea {
 <!-- phases -->
     <script src="das1.js"></script>
     <script src="das2.js"></script>
+    <script src="dasidentityemitter.js"></script>
     <script src="dasemitter.js"></script>
 
 <!-- source code -->
@@ -86,20 +92,30 @@ textarea {
   function generate () {
       document.getElementById('drawio').innerHTML = jsonsrc;
 
+// Information Gatherer
+
       let r = undefined;
       let phase1transpiled = undefined;
       [r, phase1transpiled] = test ('drawio',             'phase1 transpiled', "DaS",       dasgrammar,  dasfmt);
       console.log (`phase 1 ${r}`);
-      
+
       let r2 = undefined;
       let phase2transpiled = undefined;
       [r2, phase2transpiled] = test ('phase1 transpiled', 'phase2 transpiled', "DaSphase2", dasgrammar2, dasfmt2);
       console.log (`self resolution (phase 2) ${r2}`);
 
+      
+// Code Emitter
+      
+      let rIdentityEmitter = undefined;
+      let phaseIdentityEmitterTranspiled = undefined;
+      [rIdentityEmitter, phaseIdentityEmitterTranspiled] = test ('phase2 transpiled', 'phaseIdentityEmitter transpiled', "DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
+      console.log (`phase IdentityEmitter (phase IdentityEmitter) ${rIdentityEmitter}`);
+
       let rEmitter = undefined;
       let phaseEmitterTranspiled = undefined;
-      [rEmitter, phaseEmitterTranspiled] = test ('phase2 transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
-      console.log (`identity phase Emitter (phase Emitter) ${r3}`);
+      [rEmitter, phaseEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
+      console.log (`identity phase Emitter (phase Emitter) ${rEmitter}`);
   }
 
   </script>

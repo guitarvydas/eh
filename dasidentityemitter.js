@@ -1,17 +1,12 @@
-  const dasgrammarEmitter = dasgrammarIdentityEmitter + String.raw`
-DaSphaseEmitter <: DaSphaseIdentityEmitter {
-SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
-SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
-SelfPair = "{" kwcomponent ":" "self" "," kwport ":" PortName "}"
-Connection := 
-  | "{" SelfReceiver "," SelfSender "}" -- passThrough
-  | "{" Receiver "," SelfSender "}" -- down
-  | "{" SelfReceiver "," Sender "}" -- up
-  | "{" Receiver "," Sender "}" -- route
+  const dasgrammarIdentityEmitter = dasgrammar + String.raw`
+DaSphaseIdentityEmitter <: DaS {
+  ComponentName := 
+    | "self"
+    | string
 }
 `;
 
-const dasfmtEmitter = String.raw`
+const dasfmtIdentityEmitter = String.raw`
 DaSphaseEmitter {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
@@ -34,26 +29,20 @@ CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨ConnectionBody⟩�
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 
-Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough) $}’
-Connection_down [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.down) $}’
-Connection_up [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.up) $}’
-Connection_route [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.route) $}’
+Connection [lb Receiver kcomma Sender rb] = ‛ ⟨lb⟩⟨Receiver⟩,⟨Sender⟩⟨rb⟩’
 
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
-SelfReceiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
-SelfSender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
 Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
-SelfPair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
 
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
-ComponentName [s] = ‛⟨stripQuotes (s)⟩’
+ComponentName [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛[⟨Child⟩]’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n{$ ⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩') $} ⟨ComponentName⟩, ’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩’
 kkind [dq1 kkind dq2] = ‛⟨kkind⟩’
 KindName [s] =  ‛⟨stripQuotes (s)⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
