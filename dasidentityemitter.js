@@ -14,7 +14,7 @@ ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 
-EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n’
+EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨lb⟩⟨rb⟩⟨optcomma⟩’
 NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨ChildList⟩⟨optcomma⟩’
 
 ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
@@ -25,7 +25,7 @@ CField_name [dq1 k dq2 kcolon s] = ‛’
 CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
 CField_outputs [dq1 k dq2 kcolon s] = ‛’
 CField_synccode [dq1 k dq2 kcolon s] = ‛’
-CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨ConnectionBody⟩’
+CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩[⟨ConnectionBody⟩]’
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 

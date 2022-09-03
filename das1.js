@@ -6,8 +6,8 @@ ComponentJSON = ComponentLeafJSON | ComponentContainerJSON
 ComponentContainerJSON = "{" NonEmptyChildren ComponentField+ "}"
 ComponentLeafJSON = "{" EmptyChildren ComponentField+ "}"
 
-EmptyChildren = dq "children" dq ":" "[" "]" ","?
-NonEmptyChildren = dq "children" dq ":" ChildList ","?
+EmptyChildren (EmptyChildren) = dq "children" dq ":" "[" "]" ","?
+NonEmptyChildren (NonEmptyChildren) = dq "children" dq ":" ChildList ","?
 
 ComponentField = CField ","?
 

@@ -2,7 +2,7 @@
 DaSphaseEmitter <: DaSphaseIdentityEmitter {
 SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
 SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
-SelfPair = "{" kwcomponent ":" "self" "," kwport ":" PortName "}"
+SelfPair = "{" kwcomponent ":" dq "." dq "," kwport ":" PortName "}"
 Connection := 
   | "{" SelfReceiver "," SelfSender "}" -- passThrough
   | "{" Receiver "," SelfSender "}" -- down
@@ -45,7 +45,7 @@ SelfReceiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolo
 SelfSender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
 Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
-SelfPair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+SelfPair [lb kwcomponent kcolon1 q1 ComponentName q2 kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨q1⟩⟨kwcomponent⟩⟨q2⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
 
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
