@@ -23,8 +23,8 @@ textarea {
 </textarea>
 
 
-<p>transpiled output of phase 3:</p>
-<textarea id="phase3 transpiled" rows="20" cols="120" placeholder="transpiled output from phase 3" style="background-color:oldlace;">
+<p>transpiled output of phase Emitter:</p>
+<textarea id="phaseEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Emitter" style="background-color:oldlace;">
 </textarea>
 
 <br>
@@ -62,7 +62,7 @@ textarea {
 <!-- phases -->
     <script src="das1.js"></script>
     <script src="das2.js"></script>
-    <script src="das3.js"></script>
+    <script src="dasemitter.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -96,10 +96,10 @@ textarea {
       [r2, phase2transpiled] = test ('phase1 transpiled', 'phase2 transpiled', "DaSphase2", dasgrammar2, dasfmt2);
       console.log (`self resolution (phase 2) ${r2}`);
 
-      let r3 = undefined;
-      let phase3transpiled = undefined;
-      [r3, phase3transpiled] = test ('phase2 transpiled', 'phase3 transpiled', "DaSphase3", dasgrammar3, dasfmt3);
-      console.log (`identify phase 3 (phase 3) ${r3}`);
+      let rEmitter = undefined;
+      let phaseEmitterTranspiled = undefined;
+      [rEmitter, phaseEmitterTranspiled] = test ('phase2 transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
+      console.log (`identity phase Emitter (phase Emitter) ${r3}`);
   }
 
   </script>

@@ -1,5 +1,5 @@
-  const dasgrammar3 = dasgrammar + String.raw`
-DaSphase3 <: DaS {
+  const dasgrammarEmitter = dasgrammar + String.raw`
+DaSphaseEmitter <: DaS {
 SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
 SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
 SelfPair = "{" kwcomponent ":" "self" "," kwport ":" PortName "}"
@@ -11,8 +11,8 @@ Connection :=
 }
 `;
 
-const dasfmt3 = String.raw`
-DaSphase3 {
+const dasfmtEmitter = String.raw`
+DaSphaseEmitter {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
