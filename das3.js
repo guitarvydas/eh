@@ -34,10 +34,10 @@ CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
 
-Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough),’
-Connection_down [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Receiver⟩, self.down),’
-Connection_up [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Receiver⟩, self.up),’
-Connection_route [lb Receiver kcomma Sender rb] = ‛\nConnect (⟨Sender⟩, ⟨Receiver⟩, self.route),’
+Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough), $}’
+Connection_down [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.down), $}’
+Connection_up [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.up), $}’
+Connection_route [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.route), $}’
 
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
@@ -53,7 +53,7 @@ ComponentName [s] = ‛⟨stripQuotes (s)⟩’
 PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛⟨Child⟩’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n{$ ⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩') $} ⟨ComponentName⟩, ’
 kkind [dq1 kkind dq2] = ‛⟨kkind⟩’
 KindName [s] =  ‛⟨stripQuotes (s)⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
