@@ -8,7 +8,7 @@ IdentityEmitter <: DaS {
 
 const fIdentityEmitter = String.raw`
 IdentityEmitter {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+` + fComponents + `
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’

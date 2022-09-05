@@ -17,7 +17,7 @@ Verbatim {
 
 DaS <: Verbatim {
 Main := Components
-Components = "[" Component+ "]"
+Components = "[" vs Component+ vs "]" vs
 Component = "[" ComponentJSON "]" ","?
 ComponentJSON = ComponentLeafJSON | ComponentContainerJSON
 ComponentContainerJSON = "{" NonEmptyChildren ComponentField+ "}"

@@ -8,7 +8,7 @@ ComponentDef = "[" ComponentJSON "]" ","?
 
 const dasfmt2 = String.raw`
 DaSphase2 {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+` + fComponents + `
 Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
 SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’

@@ -1,3 +1,3 @@
 const fComponents = String.raw`
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
+Components [lb vs1 Component+ vs2 rb vs3] = ‛⟨lb⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨rb⟩⟨vs3⟩’
 `;
