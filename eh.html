@@ -61,6 +61,7 @@ textarea {
     <script src="semreplacewithself.js"></script>
     <script src="identityemitter.js"></script>
     <script src="stockimports.js"></script>
+    <script src="childimports.js"></script>
     <script src="emitter.js"></script>
 
 <!-- source code -->
@@ -100,7 +101,8 @@ textarea {
       r && (r = test ("IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
       r && (r = test ("IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
       r && (r = test ("StockImports", gImportsEmitter, fImportsEmitter));
-      r && (r = test ("Emitter", gEmitter, fEmitter));
+      r && (r = test ("ChildImports", gChildImports, fChildImports));
+//      r && (r = test ("Emitter", gEmitter, fEmitter));
   }
 
   </script>
