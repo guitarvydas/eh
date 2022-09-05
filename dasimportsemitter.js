@@ -5,7 +5,15 @@ DaSphaseImportsEmitter <: DaSphaseIdentityEmitter {
 
 const dasfmtImportsEmitter = String.raw`
 DaSphaseEmitter {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+Components [lb Component+ rb] = ‛
+[$
+from message import Message
+from container import Container
+from connect import Connect
+from sender import Sender
+from receiver import Receiver
+$]
+⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’

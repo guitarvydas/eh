@@ -75,6 +75,7 @@ textarea {
     <script src="das2.js"></script>
     <script src="dasidentityemitter.js"></script>
     <script src="dasimportsemitter.js"></script>
+    <script src="daschildimporter.js"></script>
     <script src="dasemitter.js"></script>
 
 <!-- source code -->
@@ -129,7 +130,7 @@ textarea {
 	      let rEmitter = undefined;
 	      let phaseEmitterTranspiled = undefined;
 	      [rEmitter, phaseEmitterTranspiled] = test ('phaseImportsEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
-	      console.log (`identity phase Emitter (phase Emitter) ${rEmitter}`);
+	      console.log (`phase Emitter (phase Emitter) ${rEmitter}`);
 	  }
       }
   }
