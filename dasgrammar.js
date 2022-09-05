@@ -2,9 +2,7 @@
 
 Verbatim {
   Main = "<unused>"
-  vs = 
-    | anything+ verbatimspace? -- prefixed
-    | verbatimspace            -- single
+  vs = verbatimspace*
   verbatimspace = lv recursiveverbatim+ rv
   recursiveverbatim = recursiveverbatim_recur | recursiveverbatim_bottom
   recursiveverbatim_recur = lv recursiveverbatim+ rv
@@ -59,15 +57,14 @@ kname = dq "name" dq
 
 
 StringList = "[" (string ","?)* "]"
-string (quoted string) = dq (~dq any)* dq
+string (quoted string) = dq (~dq any)* dq vs
 dq (dquote)= "\""
 }
 `;
 
 const fVerbatim = String.raw`
 Verbatim {
-  vs_prefixed [anything+ verbatimspace?] = ‛⟨anything⟩⟨verbatimspace⟩’
-  vs_single [verbatimspace] = ‛⟨verbatimspace⟩’
+  vs [verbatimspaces*] = ‛⟨verbatimspaces⟩’
   verbatimspace [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
   recursiveverbatim [x] = ‛⟨x⟩’
   recursiveverbatim_recur [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
