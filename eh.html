@@ -22,16 +22,31 @@ textarea {
 <textarea id="drawio" rows="7" cols="120" placeholder="drawio file" style="background-color:oldlace;">
 </textarea>
 
+
+<p>transpiled output of phase Identity Emitter:</p>
+<textarea id="phaseIdentityEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase IdentityEmitter" style="background-color:oldlace;">
+</textarea>
+
+<p>transpiled output of phase Imports Emitter:</p>
+<textarea id="phaseImportsEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Imports Emitter" style="background-color:oldlace;">
+</textarea>
+
+<p>transpiled output of phase Emitter:</p>
+<textarea id="phaseEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Emitter" style="background-color:oldlace;">
+</textarea>
+
+
+
+
+<br>
+<br>
+<br>
 <p>transpiled output of phase 1:</p>
 <textarea id="phase1 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 1" style="background-color:oldlace;">
 </textarea>
 
 <p>transpiled output of phase 2:</p>
 <textarea id="phase2 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 2" style="background-color:oldlace;">
-</textarea>
-
-<p>transpiled output of phase 3:</p>
-<textarea id="phase3 transpiled" rows="17" cols="120" placeholder="transpiled output from phase 3" style="background-color:oldlace;">
 </textarea>
 
 
@@ -58,7 +73,9 @@ textarea {
 <!-- phases -->
     <script src="das1.js"></script>
     <script src="das2.js"></script>
-    <script src="das3.js"></script>
+    <script src="dasidentityemitter.js"></script>
+    <script src="dasimportsemitter.js"></script>
+    <script src="dasemitter.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -74,7 +91,7 @@ textarea {
 	  return [true, transpiled];
       } else {
           document.getElementById(outfield).value = transpiled;
-          document.getElementById('status').innerHTML = "FAILED " + errormessage;
+          document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
 	  return [false, transpiled];
       }
   }
@@ -82,20 +99,39 @@ textarea {
   function generate () {
       document.getElementById('drawio').innerHTML = jsonsrc;
 
+// Information Gatherer
+
       let r = undefined;
       let phase1transpiled = undefined;
       [r, phase1transpiled] = test ('drawio',             'phase1 transpiled', "DaS",       dasgrammar,  dasfmt);
       console.log (`phase 1 ${r}`);
-      
+
       let r2 = undefined;
       let phase2transpiled = undefined;
       [r2, phase2transpiled] = test ('phase1 transpiled', 'phase2 transpiled', "DaSphase2", dasgrammar2, dasfmt2);
       console.log (`self resolution (phase 2) ${r2}`);
 
-      let r3 = undefined;
-      let phase3transpiled = undefined;
-      [r3, phase3transpiled] = test ('phase2 transpiled', 'phase3 transpiled', "DaSphase3", dasgrammar3, dasfmt3);
-      console.log (`identify phase 3 (phase 3) ${r3}`);
+      
+// Code Emitter
+      
+      let rIdentityEmitter = undefined;
+      let phaseIdentityEmitterTranspiled = undefined;
+      [rIdentityEmitter, phaseIdentityEmitterTranspiled] = test ('phase2 transpiled', 'phaseIdentityEmitter transpiled', "DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
+      console.log (`phase IdentityEmitter (phase IdentityEmitter) ${rIdentityEmitter}`);
+
+      if (rIdentityEmitter) {
+	  let rImportsEmitter = undefined;
+	  let phaseImportsEmitterTranspiled = undefined;
+	  [rImportsEmitter, phaseImportsEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseImportsEmitter transpiled', "DaSphaseImportsEmitter", dasgrammarImportsEmitter, dasfmtImportsEmitter);
+	  console.log (`phase ImportsEmitter (phase ImportsEmitter) ${rImportsEmitter}`);
+
+	  if (rImportsEmitter) {
+	      let rEmitter = undefined;
+	      let phaseEmitterTranspiled = undefined;
+	      [rEmitter, phaseEmitterTranspiled] = test ('phaseImportsEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
+	      console.log (`identity phase Emitter (phase Emitter) ${rEmitter}`);
+	  }
+      }
   }
 
   </script>

@@ -1,7 +1,7 @@
   const dasgrammar2 = dasgrammar + String.raw`
 DaSphase2 <: DaS {
 Component := SelfDef ComponentDef
-SelfDef = "self" "=" ComponentName
+SelfDef = "." "=" ComponentName
 ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
