@@ -48,11 +48,15 @@ textarea {
 <!-- mechanisms -->
     <script src="selfid2.js"></script>
     
+<!-- end user grammar -->
+    <script src="dasgrammar.js"></script>
+
 <!-- phases -->
     <script src="seminsertselfdecl.js"></script>
     <script src="semreplacewithself.js"></script>
     <script src="identityemitter.js"></script>
     <script src="stockimports.js"></script>
+    <script src="childimports.js"></script>
     <script src="emitter.js"></script>
 
 <!-- source code -->
@@ -91,6 +95,7 @@ textarea {
       
       r && (r = test ("IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
       r && (r = test ("StockImports", gImportsEmitter, fImportsEmitter));
+      r && (r = test ("ChildImports", gChildImports, fChildImports));
       r && (r = test ("Emitter", gEmitter, fEmitter));
   }
 
