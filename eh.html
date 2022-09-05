@@ -23,30 +23,8 @@ textarea {
 </textarea>
 
 
-<p>transpiled output of phase Identity Emitter:</p>
-<textarea id="phaseIdentityEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase IdentityEmitter" style="background-color:oldlace;">
-</textarea>
-
-<p>transpiled output of phase Imports Emitter:</p>
-<textarea id="phaseImportsEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Imports Emitter" style="background-color:oldlace;">
-</textarea>
-
-<p>transpiled output of phase Emitter:</p>
-<textarea id="phaseEmitter transpiled" rows="20" cols="120" placeholder="transpiled output from phase Emitter" style="background-color:oldlace;">
-</textarea>
-
-
-
-
-<br>
-<br>
-<br>
-<p>transpiled output of phase 1:</p>
-<textarea id="phase1 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 1" style="background-color:oldlace;">
-</textarea>
-
-<p>transpiled output of phase 2:</p>
-<textarea id="phase2 transpiled" rows="7" cols="120" placeholder="transpiled output from phase 2" style="background-color:oldlace;">
+<p>pipeline:</p>
+<textarea id="pipeline" rows="20" cols="120" placeholder="transpiled output from phase IdentityEmitter" style="background-color:oldlace;">
 </textarea>
 
 
@@ -82,54 +60,44 @@ textarea {
 
 <script>
 
-  function test (infield, outfield, grammarName, grammar, fmt) {
+  function testExplicit (infield, outfield, grammarName, grammar, fmt) {
       src = document.getElementById(infield).value;
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
       if (success) {
-          document.getElementById(outfield).value = transpiled;
+	  document.getElementById(outfield).value = transpiled;
           document.getElementById('status').innerHTML = "OK";
-	  return [true, transpiled];
+	  return true;
       } else {
           document.getElementById(outfield).value = transpiled;
           document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
-	  return [false, transpiled];
+	  return false;
       }
+  }
+
+  function test (grammarName, grammar, fmt) {
+      return testExplicit ('pipeline', 'pipeline', grammarName, grammar, fmt);
   }
   
   function generate () {
       document.getElementById('drawio').innerHTML = jsonsrc;
 
-// Information Gatherer
+// Information Gatherer ("semantics" passes)
 
       let r = undefined;
-      let phase1transpiled = undefined;
-      [r, phase1transpiled] = test ('drawio',             'phase1 transpiled', "DaS",       dasgrammar,  dasfmt);
-      console.log (`phase 1 ${r}`);
-
-      let r2 = undefined;
-      let phase2transpiled = undefined;
-      [r2, phase2transpiled] = test ('phase1 transpiled', 'phase2 transpiled', "DaSphase2", dasgrammar2, dasfmt2);
-      console.log (`self resolution (phase 2) ${r2}`);
-
+      r = testExplicit ('drawio', 'pipeline', "DaS",       dasgrammar,  dasfmt);
+      if (r) {
+	  r = test ("DaSphase2", dasgrammar2, dasfmt2);
       
 // Code Emitter
       
-      let rIdentityEmitter = undefined;
-      let phaseIdentityEmitterTranspiled = undefined;
-      [rIdentityEmitter, phaseIdentityEmitterTranspiled] = test ('phase2 transpiled', 'phaseIdentityEmitter transpiled', "DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
-      console.log (`phase IdentityEmitter (phase IdentityEmitter) ${rIdentityEmitter}`);
-
-      if (rIdentityEmitter) {
-	  let rImportsEmitter = undefined;
-	  let phaseImportsEmitterTranspiled = undefined;
-	  [rImportsEmitter, phaseImportsEmitterTranspiled] = test ('phaseIdentityEmitter transpiled', 'phaseImportsEmitter transpiled', "DaSphaseImportsEmitter", dasgrammarImportsEmitter, dasfmtImportsEmitter);
-	  console.log (`phase ImportsEmitter (phase ImportsEmitter) ${rImportsEmitter}`);
-
-	  if (rImportsEmitter) {
-	      let rEmitter = undefined;
-	      let phaseEmitterTranspiled = undefined;
-	      [rEmitter, phaseEmitterTranspiled] = test ('phaseImportsEmitter transpiled', 'phaseEmitter transpiled', "DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
-	      console.log (`phase Emitter (phase Emitter) ${rEmitter}`);
+	  if (r) {
+	      r = test ("DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
+	      if (r) {
+		  r = test ("DaSphaseImportsEmitter", dasgrammarImportsEmitter, dasfmtImportsEmitter);
+		  if (r) {
+		      r = test ("DaSphaseEmitter", dasgrammarEmitter, dasfmtEmitter);
+		  }
+	      }
 	  }
       }
   }
