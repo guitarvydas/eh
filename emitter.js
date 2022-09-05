@@ -1,4 +1,4 @@
-  const dasgrammarEmitter = gImportsEmitter + String.raw`
+  const gEmitter = gImportsEmitter + String.raw`
 Emitter <: StockImports {
 SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
 SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
@@ -11,7 +11,7 @@ Connection :=
 }
 `;
 
-const dasfmtEmitter = String.raw`
+const fEmitter = String.raw`
 Emitter {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’

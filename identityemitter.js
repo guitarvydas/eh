@@ -1,5 +1,5 @@
-  const dasgrammarIdentityEmitter = dasgrammar + String.raw`
-DaSphaseIdentityEmitter <: DaS {
+  const gIdentityEmitter = dasgrammar + String.raw`
+IdentityEmitter <: DaS {
   ComponentName := 
     | dq "." dq -- self
     | string    -- name
@@ -15,8 +15,8 @@ DaSphaseIdentityEmitter <: DaS {
 }
 `;
 
-const dasfmtIdentityEmitter = String.raw`
-DaSphaseEmitter {
+const fIdentityEmitter = String.raw`
+IdentityEmitter {
 Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’

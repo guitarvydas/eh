@@ -91,11 +91,11 @@ textarea {
 // Code Emitter
       
 	  if (r) {
-	      r = test ("DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
+	      r = test ("IdentityEmitter", gIdentityEmitter, fIdentityEmitter);
 	      if (r) {
 		  r = test ("StockImports", gImportsEmitter, fImportsEmitter);
 		  if (r) {
-		      r = test ("Emitter", dasgrammarEmitter, dasfmtEmitter);
+		      r = test ("Emitter", gEmitter, fEmitter);
 		  }
 	      }
 	  }
