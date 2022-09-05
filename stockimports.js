@@ -5,7 +5,7 @@ StockImports <: IdentityEmitter {
 
 const fImportsEmitter = String.raw`
 StockImports {
-Components [lb vs1 Component+ vs2 rb vs3] = ‛
+Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 [$
 from message import Message
 from container import Container
