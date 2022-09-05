@@ -1,9 +1,9 @@
-  const dasgrammarImportsEmitter = dasgrammarIdentityEmitter + String.raw`
+  const gImportsEmitter = dasgrammarIdentityEmitter + String.raw`
 StockImports <: DaSphaseIdentityEmitter {
 }
 `;
 
-const dasfmtImportsEmitter = String.raw`
+const fImportsEmitter = String.raw`
 StockImports {
 Components [lb Component+ rb] = ‛
 [$

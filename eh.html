@@ -93,7 +93,7 @@ textarea {
 	  if (r) {
 	      r = test ("DaSphaseIdentityEmitter", dasgrammarIdentityEmitter, dasfmtIdentityEmitter);
 	      if (r) {
-		  r = test ("StockImports", dasgrammarImportsEmitter, dasfmtImportsEmitter);
+		  r = test ("StockImports", gImportsEmitter, fImportsEmitter);
 		  if (r) {
 		      r = test ("Emitter", dasgrammarEmitter, dasfmtEmitter);
 		  }

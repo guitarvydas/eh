@@ -1,4 +1,4 @@
-  const dasgrammarEmitter = dasgrammarImportsEmitter + String.raw`
+  const dasgrammarEmitter = gImportsEmitter + String.raw`
 Emitter <: StockImports {
 SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
 SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
