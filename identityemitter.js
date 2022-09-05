@@ -47,9 +47,7 @@ Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] 
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
-
-StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
-string [dq1 c* dq2 vs] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩⟨vs⟩’
-dq [c] = ‛⟨c⟩’
 }
-` + fVerbatim;
+` + 
+fString
++ fVerbatim;
