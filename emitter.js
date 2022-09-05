@@ -13,7 +13,7 @@ Connection :=
 
 const fEmitter = String.raw`
 Emitter {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛EMITTER:\n⟨vs0⟩⟨lb⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨rb⟩⟨vs3⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -58,8 +58,7 @@ kkind [dq1 kkind dq2] = ‛⟨kkind⟩’
 KindName [s] =  ‛⟨stripQuotes (s)⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
-StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
-string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
-dq [c] = ‛⟨c⟩’
 }
-` + fVerbatim;
+`
+      + fString
+      + fVerbatim;

@@ -57,7 +57,7 @@ kname = dq "name" dq
 
 
 StringList = "[" vs (string ","?)* vs "]" vs
-string (quoted string) = dq (~dq any)* dq vs
+string (quoted string) = vs dq (~dq any)* dq vs
 dq (dquote)= "\""
 }
 `;
