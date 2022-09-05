@@ -48,6 +48,6 @@ kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 }
-` + 
-fString
-+ fVerbatim;
+`
+      + fString
+      + fVerbatim;

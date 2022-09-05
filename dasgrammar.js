@@ -56,7 +56,7 @@ KindName = string
 kname = dq "name" dq
 
 
-StringList = "[" (string ","?)* "]"
+StringList = "[" vs (string ","?)* vs "]" vs
 string (quoted string) = dq (~dq any)* dq vs
 dq (dquote)= "\""
 }
