@@ -85,21 +85,13 @@ textarea {
 
       let r = undefined;
       r = testExplicit ('drawio', 'pipeline', "DaS",       dasgrammar,  dasfmt);
-      if (r) {
-	  r = test ("DaSphase2", dasgrammar2, dasfmt2);
+      r && (r = test ("DaSphase2", dasgrammar2, dasfmt2));
       
 // Code Emitter
       
-	  if (r) {
-	      r = test ("IdentityEmitter", gIdentityEmitter, fIdentityEmitter);
-	      if (r) {
-		  r = test ("StockImports", gImportsEmitter, fImportsEmitter);
-		  if (r) {
-		      r = test ("Emitter", gEmitter, fEmitter);
-		  }
-	      }
-	  }
-      }
+      r && (r = test ("IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
+      r && (r = test ("StockImports", gImportsEmitter, fImportsEmitter));
+      r && (r = test ("Emitter", gEmitter, fEmitter));
   }
 
   </script>
