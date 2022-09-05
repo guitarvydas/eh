@@ -11,8 +11,8 @@ Verbatim {
   anything = anychar
   anychar= ~lv ~rv any
 
-  lv = "⟪"
-  rv = "⟫"
+  lv = "\u{2039}" // must correspond to definitions in chars.js
+  rv = "\u{203a}"
 }
 
 DaS <: Verbatim {

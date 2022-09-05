@@ -13,7 +13,8 @@ Connection :=
 
 const fEmitter = String.raw`
 Emitter {
-Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛EMITTER:\n⟨vs0⟩⟨lb⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨rb⟩⟨vs3⟩⟨selfid2reset ()⟩’
+Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛EMITTER:
+\n⟨vs0⟩⟨lb⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨rb⟩⟨vs3⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
