@@ -3,15 +3,6 @@ IdentityEmitter <: DaS {
   ComponentName := 
     | dq "." dq -- self
     | string    -- name
-  verbatim =
-    | lv recursiveverbatim+ rv
-  recursiveverbatim =
-    | lv recursiveverbatim+ rv -- recur
-    | ~lv ~rv any              -- bottom
-
-  lv = "[$"
-  rv = "$]"
-  space += verbatim
 }
 `;
 
@@ -61,11 +52,5 @@ StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
 string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
 dq [c] = ‛⟨c⟩’
 
-  verbatim [lv v rv] = ‛⟨lv⟩⟨v⟩⟨rv⟩’
-  recursiveverbatim_recur [lv recursive rv] = ‛⟨lv⟩⟨recursive⟩⟨rv⟩’
-  recursiveverbatim_bottom [c] = ‛⟨c⟩’
-
-  lv [open] = ‛⟨open⟩’
-  rv [close] = ‛⟨close⟩’
 }
-`;
+` + fVerbatim;

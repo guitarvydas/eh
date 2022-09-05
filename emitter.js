@@ -62,4 +62,4 @@ StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
 string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
 dq [c] = ‛⟨c⟩’
 }
-`;
+` + fVerbatim;

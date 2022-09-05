@@ -1,5 +1,24 @@
   const dasgrammar = String.raw`
-DaS {
+
+Verbatim {
+  Main = "<unused>"
+  vs = 
+    | anything+ verbatimspace? -- prefixed
+    | verbatimspace            -- single
+  verbatimspace = lv recursiveverbatim+ rv
+  recursiveverbatim = recursiveverbatim_recur | recursiveverbatim_bottom
+  recursiveverbatim_recur = lv recursiveverbatim+ rv
+  recursiveverbatim_bottom = anythingVerbatim
+  anythingVerbatim = anychar
+  anything = anychar
+  anychar= ~lv ~rv any
+
+  lv = "⟪"
+  rv = "⟫"
+}
+
+DaS <: Verbatim {
+Main := Components
 Components = "[" Component+ "]"
 Component = "[" ComponentJSON "]" ","?
 ComponentJSON = ComponentLeafJSON | ComponentContainerJSON
@@ -42,5 +61,23 @@ kname = dq "name" dq
 StringList = "[" (string ","?)* "]"
 string (quoted string) = dq (~dq any)* dq
 dq (dquote)= "\""
+}
+`;
+
+const fVerbatim = String.raw`
+Verbatim {
+  vs_prefixed [anything+ verbatimspace?] = ‛⟨anything⟩⟨verbatimspace⟩’
+  vs_single [verbatimspace] = ‛⟨verbatimspace⟩’
+  verbatimspace [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
+  recursiveverbatim [x] = ‛⟨x⟩’
+  recursiveverbatim_recur [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
+  recursiveverbatim_bottom [x] = ‛⟨x⟩’
+
+  anythingVerbatim [c] = ‛⟨c⟩’
+  anything [c] = ‛⟨c⟩’
+  anychar [c] = ‛⟨c⟩’
+
+  lv [c] = ‛⟨c⟩’
+  rv [c] = ‛⟨c⟩’
 }
 `;
