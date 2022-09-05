@@ -1,10 +1,10 @@
   const dasgrammarImportsEmitter = dasgrammarIdentityEmitter + String.raw`
-DaSphaseImportsEmitter <: DaSphaseIdentityEmitter {
+StockImports <: DaSphaseIdentityEmitter {
 }
 `;
 
 const dasfmtImportsEmitter = String.raw`
-DaSphaseEmitter {
+StockImports {
 Components [lb Component+ rb] = ‛
 [$
 from message import Message
