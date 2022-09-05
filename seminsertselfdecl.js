@@ -2,7 +2,7 @@
 
 const dasfmt = String.raw`
 DaS {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩’
+` + fComponents + `
 Component [lb ComponentJSON rb optcomma] = ‛\n.=⟨selfid⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
