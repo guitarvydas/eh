@@ -60,7 +60,7 @@ textarea {
 
 <script>
 
-  function testExplicit (infield, outfield, grammarName, grammar, fmt) {
+  function testUsingExplicitFields (infield, outfield, grammarName, grammar, fmt) {
       src = document.getElementById(infield).value;
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
       if (success) {
@@ -75,7 +75,7 @@ textarea {
   }
 
   function test (grammarName, grammar, fmt) {
-      return testExplicit ('pipeline', 'pipeline', grammarName, grammar, fmt);
+      return testUsingExplicitFields ('pipeline', 'pipeline', grammarName, grammar, fmt);
   }
   
   function generate () {
@@ -84,7 +84,7 @@ textarea {
 // Information Gatherer ("semantics" passes)
 
       let r = undefined;
-      r = testExplicit ('drawio', 'pipeline', "DaS",       dasgrammar,  dasfmt);
+      r = testUsingExplicitFields ('drawio', 'pipeline', "DaS",       dasgrammar,  dasfmt);
       r && (r = test ("DaSphase2", dasgrammar2, dasfmt2));
       
 // Code Emitter
