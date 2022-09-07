@@ -9,7 +9,8 @@ IdentityEmitter <: DaSphase2 {
 const fIdentityEmitter = String.raw`
 IdentityEmitter {
 ` + fComponents + `
-Component [selfID selfKind lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
+Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
+ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’

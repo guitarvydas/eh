@@ -8,7 +8,10 @@ ChildImports {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
-Component [selfID selfKind lb ComponentJSON rb optComma?] = ‛⟨ComponentJSON⟩’
+
+Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
+ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
+
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
@@ -54,5 +57,5 @@ dq [c] = ‛⟨c⟩’
 
 }
 `
-      + fInsert;
+      + fInsert
       + fVerbatim;

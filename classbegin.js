@@ -60,4 +60,5 @@ dq [c] = ‛⟨c⟩’
 
 }
 `
+      + fInsert
       + fVerbatim;
