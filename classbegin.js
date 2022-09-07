@@ -1,20 +1,16 @@
-  const gClassBegin = gIdentityEmitter + String.raw`
+  const gClassBegin = gImportsEmitter + String.raw`
 ClassBegin <: IdentityEmitter {
 }
 `;
 
 const fClassBegin = String.raw`
-ChildImports {
+ClassBegin {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
 Component [lb ComponentJSON rb optComma?] = ‛⟨ComponentJSON⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = 
-‛
-class ⟨ComponentField⟩ (Container):
-(.
-⟨NonEmptyChildren⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
 
 EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛’
@@ -25,12 +21,7 @@ ComponentField [CField optcomma?] = ‛’
 CField_id [dq1 k dq2 kcolon s] = ‛’
 CField_inputs [dq1 k dq2 kcolon s] = ‛’
 CField_name [dq1 k dq2 kcolon s] = ‛’
-CField_kind [dq1 k dq2 kcolon s] =
-‛class ⟨s⟩ :(.
-class HelloWorld (Container):
-    def __init__ (self, parent, name):
-
-’
+CField_kind [dq1 k dq2 kcolon s] = ‛’
 CField_outputs [dq1 k dq2 kcolon s] = ‛’
 CField_synccode [dq1 k dq2 kcolon s] = ‛’
 CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛’
@@ -50,8 +41,8 @@ ComponentName_self [q1 s q2] = ‛’
 ComponentName_name [s] = ‛’
 PortName [s] = ‛’
 
-ChildList [lb Child* rb] = ‛[⟨Child⟩]’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')⟨rv⟩ ⟨ComponentName⟩, ’
+ChildList [lb Child* rb] = ‛⟨Child⟩’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩from ⟨KindName⟩ import ⟨KindName⟩⟨rv⟩’
 kkind [dq1 kkind dq2] = ‛’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛’

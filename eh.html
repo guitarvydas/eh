@@ -105,6 +105,8 @@ textarea {
       
 // Code Emitter
 
+      var transformedCode = output;
+      
       const boilerPlateImports = `
 ${lv}
 from message import Message
@@ -115,11 +117,12 @@ from receiver import Receiver
 ${rv}
 `;
       let childImports = '';
-      r && ([r, childImports] = test (output, "ChildImports", gChildImports, fChildImports));
-//      r && (r = test ("ClassBegin", gClassBegin, fClassBegin));
+      let classBegin = '';
+      r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
+      r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
 //x      r && (r = test ("Emitter", gEmitter, fEmitter));
 
-      let finalCode = boilerPlateImports + childImports;
+      let finalCode = boilerPlateImports + childImports + classBegin;
       finalCode = removeVerbatimBrackets (finalCode);
       console.log (finalCode);
       
