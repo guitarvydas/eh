@@ -1,12 +1,12 @@
-  const gClassBegin = gIdentityEmitter + String.raw`
-ClassBegin <: IdentityEmitter {
+  const gClass = gIdentityEmitter + String.raw`
+xClass <: IdentityEmitter {
 }
 `;
 
 var selfKind = '<TBD>';
 
-const fClassBegin = String.raw`
-ClassBegin {
+const fClass = String.raw`
+xClass {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
@@ -48,14 +48,14 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 kwcomponent [dq1 kcomponent dq2] = ‛’
 kwport [dq1 kport dq2] = ‛’
-ComponentName_self [q1 s q2] = ‛⟨s⟩’
-ComponentName_name [s] = ‛⟨s⟩’
-PortName [s] = ‛’
+ComponentName_self [q1 s q2] = ‛"⟨s⟩"’
+ComponentName_name [s] = ‛"⟨s⟩"’
+PortName [s] = ‛"⟨s⟩"’
 
-ChildList [lb Child* rb] = ‛self._children = [⟨Child⟩]’
-kkind [dq1 kkind dq2] = ‛’
-KindName [s] =  ‛⟨s⟩’
-kname [dq1 kname dq2] = ‛’
+ChildList [lb Child* rb] = ‛⟨Child⟩’
+kkind [dq1 kkind dq2] = ‛"kind"’
+KindName [s] =  ‛"⟨s⟩"’
+kname [dq1 kname dq2] = ‛"name"’
 
 StringList [lb vs1 s* optcomma* vs2 rb vs3] = ‛⟨vs1⟩⟨s⟩⟨optcomma⟩⟨vs2⟩⟨vs3⟩’
 string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
@@ -73,7 +73,10 @@ fSelfDefs {
   SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
   SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
 }
+`
+      + `      
 fChild {
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨ComponentName⟩,’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛B⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩B’
 }
-`      + fVerbatim;
+`
+      + fVerbatim;

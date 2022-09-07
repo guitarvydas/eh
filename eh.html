@@ -68,9 +68,8 @@ textarea {
     <script src="semreplacewithself.js"></script>
     <script src="identityemitter.js"></script>
     <script src="childimports.js"></script>
-    <script src="classbegin.js"></script>
+    <script src="class.js"></script>
     //<script src="children.js"></script>
-    <script src="classend.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -124,16 +123,12 @@ from receiver import Receiver
 ${rv}
 `;
       let childImports = '';
-      let classBegin = '';
-      let classEnd = '';
+      let xclass = '';
       r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-      r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
-      //r && ([r, children] = test (transformedCode, "Children", gChildren, fChildren));
-
-//x      r && (r = test ("Emitter", gEmitter, fEmitter));
+      r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
 
       if (r) {
-	  let finalCode = boilerPlateImports + childImports + classBegin;
+	  let finalCode = boilerPlateImports + childImports + xclass;
 	  finalCode = removeVerbatimBrackets (finalCode);
 	  finalCode = fixupCode (finalCode);
 	  finalCode = indenter (finalCode);
