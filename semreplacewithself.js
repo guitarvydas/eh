@@ -2,7 +2,7 @@
 DaSphase2 <: DaS {
 Component := SelfDef SelfKind ComponentDef
 SelfDef = "." "=" ComponentName
-SelfKind = "." "=" KindName
+SelfKind = "." "kind" "=" KindName
 ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
@@ -10,8 +10,9 @@ ComponentDef = "[" ComponentJSON "]" ","?
 const dasfmt2 = String.raw`
 DaSphase2 {
 ` + fComponents + `
-Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
-SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
+Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
+SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩.=⟨ComponentName⟩’
+SelfKind [kself keq kind Kind] = ‛.kind=⟨Kind⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -39,7 +40,6 @@ Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair r
 Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨maybeMapSelf (ComponentName)⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
-KindName [s] = ‛⟨s⟩’
 ComponentName [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 
