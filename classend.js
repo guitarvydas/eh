@@ -1,12 +1,12 @@
-  const gClassBegin = gIdentityEmitter + String.raw`
-ClassBegin <: IdentityEmitter {
+  const gClassEnd = gIdentityEmitter + String.raw`
+ClassEnd <: IdentityEmitter {
 }
 `;
 
 var selfKind = '<TBD>';
 
-const fClassBegin = String.raw`
-ClassBegin {
+const fClassEnd = String.raw`
+ClassEnd {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’

@@ -1,28 +1,23 @@
-  const gClassBegin = gIdentityEmitter + String.raw`
-ClassBegin <: IdentityEmitter {
+  const gChildren = gIdentityEmitter + String.raw`
+Children <: IdentityEmitter {
 }
 `;
 
 var selfKind = '<TBD>';
 
-const fClassBegin = String.raw`
-ClassBegin {
+const fChildren = String.raw`
+Children {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
 Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Container) (.
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛
 ⟨NonEmptyChildren⟩
-super ().__init__ (parent, name, self._children, self._connections)
-.)
 ’
 
-ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Leaf) (.
-super ().__init__ (parent, name, null, null)
-.)
-’
+ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
 
 EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛’
 NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
@@ -52,7 +47,7 @@ ComponentName_self [q1 s q2] = ‛⟨s⟩’
 ComponentName_name [s] = ‛⟨s⟩’
 PortName [s] = ‛’
 
-ChildList [lb Child* rb] = ‛self._children = [⟨Child⟩]’
+ChildList [lb Child* rb] = ‛⟨Child⟩’
 kkind [dq1 kkind dq2] = ‛’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛’
@@ -74,6 +69,6 @@ fSelfDefs {
   SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
 }
 fChild {
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨ComponentName⟩,’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')⟨rv⟩ ⟨ComponentName⟩, ’
 }
 `      + fVerbatim;

@@ -69,6 +69,8 @@ textarea {
     <script src="identityemitter.js"></script>
     <script src="childimports.js"></script>
     <script src="classbegin.js"></script>
+    //<script src="children.js"></script>
+    <script src="classend.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -123,8 +125,10 @@ ${rv}
 `;
       let childImports = '';
       let classBegin = '';
+      let classEnd = '';
       r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
       r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
+      //r && ([r, children] = test (transformedCode, "Children", gChildren, fChildren));
 
 //x      r && (r = test ("Emitter", gEmitter, fEmitter));
 

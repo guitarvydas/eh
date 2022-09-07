@@ -45,7 +45,6 @@ ComponentName_name [s] = ‛’
 PortName [s] = ‛’
 
 ChildList [lb Child* rb] = ‛⟨Child⟩’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩from ⟨KindName⟩ import ⟨KindName⟩⟨rv⟩’
 kkind [dq1 kkind dq2] = ‛’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛’
@@ -57,5 +56,11 @@ dq [c] = ‛⟨c⟩’
 
 }
 `
++ `
+fChild {
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩from ⟨KindName⟩ import ⟨KindName⟩⟨rv⟩’
+}
+`
       + fInsert
       + fVerbatim;
+
