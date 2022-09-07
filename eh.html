@@ -52,6 +52,7 @@ textarea {
 
 <!-- mechanisms -->
     <script src="selfid2.js"></script>
+    <script src="selfkind.js"></script>
     
 <!-- end user grammar -->
     <script src="dasgrammar.js"></script>
@@ -101,7 +102,7 @@ textarea {
       let r = undefined;
       let output = '';
       [r, output] = test (src, "DaS", dasgrammar, dasfmt);
-      r && ([r, output] = test (output, "DaSphase2", dasgrammar2, dasfmt2));
+//      r && ([r, output] = test (output, "DaSphase2", dasgrammar2, dasfmt2));
       
 // Code Emitter
 
@@ -118,8 +119,8 @@ ${rv}
 `;
       let childImports = '';
       let classBegin = '';
-      r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-      r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
+//      r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
+//      r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
 //x      r && (r = test ("Emitter", gEmitter, fEmitter));
 
       let finalCode = boilerPlateImports + childImports + classBegin;

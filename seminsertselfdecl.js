@@ -1,9 +1,10 @@
   var selfid = undefined;
+  var selfkind = undefined;
 
 const dasfmt = String.raw`
 DaS {
 ` + fComponents + `
-Component [lb ComponentJSON rb optcomma] = ‛\n.=⟨selfid⟩ ⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+Component [lb ComponentJSON rb optcomma] = ‛\n.=⟨selfid⟩\n.kind=⟨selfkind⟩\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -16,7 +17,7 @@ ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
 CField_id [dq1 k dq2 kcolon s] = ‛⟨selfid = s, ""⟩’
 CField_inputs [dq1 k dq2 kcolon s] = ‛’
 CField_name [dq1 k dq2 kcolon s] = ‛’
-CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩’
+CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩⟨selfkind = s,""⟩’
 CField_outputs [dq1 k dq2 kcolon s] = ‛’
 CField_synccode [dq1 k dq2 kcolon s] = ‛’
 CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨ConnectionBody⟩’

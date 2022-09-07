@@ -1,7 +1,8 @@
   const dasgrammar2 = dasgrammar + String.raw`
 DaSphase2 <: DaS {
-Component := SelfDef ComponentDef
+Component := SelfDef SelfKind ComponentDef
 SelfDef = "." "=" ComponentName
+SelfKind = "." "=" KindName
 ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
@@ -38,6 +39,7 @@ Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair r
 Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨maybeMapSelf (ComponentName)⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
+KindName [s] = ‛⟨s⟩’
 ComponentName [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 

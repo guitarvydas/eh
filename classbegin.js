@@ -10,8 +10,15 @@ Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
 Component [lb ComponentJSON rb optComma?] = ‛⟨ComponentJSON⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
-ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass CCC (Container) (.
+⟨NonEmptyChildren⟩
+super ().__init__ (parent, name, self._children, self._connections)
+.)
+’
+
+ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass LLL (Leaf) (.
+super ().__init__ (parent, name, null, null)
+’
 
 EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛’
 NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
@@ -37,12 +44,12 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 kwcomponent [dq1 kcomponent dq2] = ‛’
 kwport [dq1 kport dq2] = ‛’
-ComponentName_self [q1 s q2] = ‛’
-ComponentName_name [s] = ‛’
+ComponentName_self [q1 s q2] = ‛⟨s⟩’
+ComponentName_name [s] = ‛⟨s⟩’
 PortName [s] = ‛’
 
-ChildList [lb Child* rb] = ‛⟨Child⟩’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩from ⟨KindName⟩ import ⟨KindName⟩⟨rv⟩’
+ChildList [lb Child* rb] = ‛self._children = [⟨Child⟩]’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨ComponentName⟩,’
 kkind [dq1 kkind dq2] = ‛’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛’
