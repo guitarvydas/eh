@@ -127,11 +127,12 @@ ${rv}
       r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
 //x      r && (r = test ("Emitter", gEmitter, fEmitter));
 
-      let finalCode = boilerPlateImports + childImports + classBegin;
-      finalCode = removeVerbatimBrackets (finalCode);
-      finalCode = fixupCode (finalCode);
-      console.log (finalCode);
-      
+      if (r) {
+	  let finalCode = boilerPlateImports + childImports + classBegin;
+	  finalCode = removeVerbatimBrackets (finalCode);
+	  finalCode = fixupCode (finalCode);
+	  document.getElementById('output').value = finalCode;
+      }
   }
 
   </script>
