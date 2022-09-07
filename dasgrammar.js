@@ -1,5 +1,4 @@
-  const dasgrammar = String.raw`
-
+const verbatimgrammar = String.raw`
 Verbatim {
   Main = "<unused>"
   vs = verbatimspace*
@@ -14,6 +13,9 @@ Verbatim {
   lv = "\u{2039}" // must correspond to definitions in chars.js
   rv = "\u{203a}"
 }
+`;
+
+  const dasgrammar = verbatimgrammar + String.raw`
 
 DaS <: Verbatim {
 Main := Components

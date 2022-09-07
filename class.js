@@ -13,13 +13,13 @@ Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Container) (.
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Container): (.
 ⟨NonEmptyChildren⟩
 super ().__init__ (parent, name, self._children, self._connections)
 .)
 ’
 
-ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Leaf) (.
+ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Leaf): (.
 super ().__init__ (parent, name, null, null)
 .)
 ’
@@ -52,7 +52,7 @@ ComponentName_self [q1 s q2] = ‛"⟨s⟩"’
 ComponentName_name [s] = ‛"⟨s⟩"’
 PortName [s] = ‛"⟨s⟩"’
 
-ChildList [lb Child* rb] = ‛⟨Child⟩’
+ChildList [lb Child* rb] = ‛⟨fmtChild (Child)⟩’
 kkind [dq1 kkind dq2] = ‛"kind"’
 KindName [s] =  ‛"⟨s⟩"’
 kname [dq1 kname dq2] = ‛"name"’
@@ -74,9 +74,77 @@ fSelfDefs {
   SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
 }
 `
-      + `      
-fChild {
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛B⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩B’
+//       + `      
+// fChild {
+//   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩’
+// }
+// `
+      + fChild
+      + fVerbatim;
+
+
+
+// sub-parser for children of form
+// {"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}
+const childDeclGrammar = verbatimgrammar + String.raw`
+ChildDeclarations <: Verbatim {
+  Main := Child*
+  Child = "{" kkind ":" KindName "," kname ":" ComponentName "}" ","?
+kkind = dq "kind" dq
+ComponentName = string
+KindName = string
+kname = dq "name" dq
+
+
+StringList = "[" vs (string ","?)* vs "]" vs
+string (quoted string) = vs dq (~dq any)* dq vs
+dq (dquote)= "\""
+}
+`;
+
+const childDeclFmt = String.raw`
+ChildDeclarations {
+  Main [x*] = ‛⟨x⟩’
+  kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
+  KindName [s] =  ‛⟨s⟩’
+  kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
+}
+` + `
+fString {
+StringList [lb vs1 s* optcomma* vs2 rb vs3] = ‛⟨lb⟩⟨vs1⟩⟨s⟩⟨optcomma⟩⟨vs2⟩⟨rb⟩⟨vs3⟩’
+string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
+dq [c] = ‛⟨c⟩’
 }
 `
       + fVerbatim;
+
+const childListFmt = String.raw`
+ChildDeclarations {
+  Main [x*] = ‛⟨x⟩’
+  kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
+  KindName [s] =  ‛⟨s⟩’
+  kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨ComponentName⟩,’
+}
+`
+      + fString
+      + fVerbatim;
+
+
+
+function fmtChild (text) {
+    let instantiations = '';
+    let childlist = ''
+    let success = true;
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildDeclarations", childDeclGrammar, childDeclFmt));
+    success && ([success, childlist, errormessage] = transpile (text, "ChildDeclarations", childDeclGrammar, childListFmt));
+    if (success) {
+	return instantiations + '\nself._children = [' + childlist + ']';
+    } else {
+	var msg = `??? ${errormessage} ???`;
+	console.error (msg);
+	return msg;
+    }
+}
+
