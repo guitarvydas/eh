@@ -64,9 +64,12 @@ dq [c] = ‛⟨c⟩’
 
 }
 `
-      + fComponents
+//      + fComponents
 //      + fInsert
 + `
+fComponents {
+  Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛⟨vs0⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
+}
 fSelfDefs {
   SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
   SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
