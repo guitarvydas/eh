@@ -21,6 +21,7 @@ super ().__init__ (parent, name, self._children, self._connections)
 
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Leaf) (.
 super ().__init__ (parent, name, null, null)
+.)
 ’
 
 EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛’

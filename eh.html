@@ -78,6 +78,10 @@ textarea {
       return s.replace (/‹/g,'').replace (/›/g,'');
   }
   
+  function fixupCode (s) {
+      return s.replace (/,]/g,']');
+  }
+  
   function test (src, grammarName, grammar, fmt) {
       document.getElementById('input').innerHTML = src;      
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
@@ -125,6 +129,7 @@ ${rv}
 
       let finalCode = boilerPlateImports + childImports + classBegin;
       finalCode = removeVerbatimBrackets (finalCode);
+      finalCode = fixupCode (finalCode);
       console.log (finalCode);
       
   }
