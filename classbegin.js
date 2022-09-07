@@ -1,11 +1,11 @@
-  const gClassBegin = gImportsEmitter + String.raw`
+  const gClassBegin = gIdentityEmitter + String.raw`
 ClassBegin <: IdentityEmitter {
 }
 `;
 
 const fClassBegin = String.raw`
 ClassBegin {
-Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
+Components [selfID selfKind vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
 Component [lb ComponentJSON rb optComma?] = ‛⟨ComponentJSON⟩’

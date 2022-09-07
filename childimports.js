@@ -1,5 +1,5 @@
-  const gChildImports = gImportsEmitter + String.raw`
-ChildImports <: StockImports {
+  const gChildImports = gIdentityEmitter + String.raw`
+ChildImports <: IdentityEmitter {
 }
 `;
 
@@ -8,7 +8,7 @@ ChildImports {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
-Component [lb ComponentJSON rb optComma?] = ‛⟨ComponentJSON⟩’
+Component [selfID selfKind lb ComponentJSON rb optComma?] = ‛⟨ComponentJSON⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
@@ -51,6 +51,8 @@ StringList [lb vs1 s* optcomma* vs2 rb vs3] = ‛⟨vs1⟩⟨s⟩⟨optcomma⟩�
 string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 dq [c] = ‛⟨c⟩’
 
+
 }
 `
+      + fInsert;
       + fVerbatim;
