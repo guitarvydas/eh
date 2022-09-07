@@ -1,23 +1,19 @@
-  const dasgrammarIdentityEmitter = dasgrammar + String.raw`
-DaSphaseIdentityEmitter <: DaS {
-  ComponentName := 
-    | dq "." dq -- self
-    | string    -- name
-  verbatim =
-    | lv recursiveverbatim+ rv
-  recursiveverbatim =
-    | lv recursiveverbatim+ rv -- recur
-    | ~lv ~rv any              -- bottom
-
-  lv = "[$"
-  rv = "$]"
-  space += verbatim
+  const gImportsEmitter = gIdentityEmitter + String.raw`
+StockImports <: IdentityEmitter {
 }
 `;
 
-const dasfmtIdentityEmitter = String.raw`
-DaSphaseEmitter {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+const fImportsEmitter = String.raw`
+StockImports {
+Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
+⟨lv⟩
+from message import Message
+from container import Container
+from connect import Connect
+from sender import Sender
+from receiver import Receiver
+⟨rv⟩
+⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -56,16 +52,7 @@ Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] 
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
-
-StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
-string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
-dq [c] = ‛⟨c⟩’
-
-  verbatim [lv v rv] = ‛⟨lv⟩⟨v⟩⟨rv⟩’
-  recursiveverbatim_recur [lv recursive rv] = ‛⟨lv⟩⟨recursive⟩⟨rv⟩’
-  recursiveverbatim_bottom [c] = ‛⟨c⟩’
-
-  lv [open] = ‛⟨open⟩’
-  rv [close] = ‛⟨close⟩’
 }
-`;
+` 
+      + fString
+      + fVerbatim;

@@ -1,5 +1,5 @@
-  const dasgrammarEmitter = dasgrammarImportsEmitter + String.raw`
-DaSphaseEmitter <: DaSphaseImportsEmitter {
+  const gEmitter = gImportsEmitter + String.raw`
+Emitter <: StockImports {
 SelfReceiver = dq "receivers" dq ":" "[" "{" dq "receiver" dq ":" SelfPair "}" "]"
 SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
 SelfPair = "{" kwcomponent ":" dq "." dq "," kwport ":" PortName "}"
@@ -11,9 +11,10 @@ Connection :=
 }
 `;
 
-const dasfmtEmitter = String.raw`
-DaSphaseEmitter {
-Components [lb Component+ rb] = ‛⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+const fEmitter = String.raw`
+Emitter {
+Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛EMITTER:
+\n⟨vs0⟩⟨lb⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨rb⟩⟨vs3⟩⟨selfid2reset ()⟩’
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -34,10 +35,10 @@ CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨ConnectionBody⟩�
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 
-Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough) $}’
-Connection_down [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.down) $}’
-Connection_up [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.up) $}’
-Connection_route [lb Receiver kcomma Sender rb] = ‛\n{$ Connect (⟨Sender⟩, ⟨Receiver⟩, self.route) $}’
+Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩’
+Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩’
+Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩’
+Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩’
 
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
 Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
@@ -53,13 +54,12 @@ ComponentName [s] = ‛⟨stripQuotes (s)⟩’
 PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛[⟨Child⟩]’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n{$ ⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩') $} ⟨ComponentName⟩, ’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')⟨rv⟩ ⟨ComponentName⟩, ’
 kkind [dq1 kkind dq2] = ‛⟨kkind⟩’
 KindName [s] =  ‛⟨stripQuotes (s)⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
-StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
-string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
-dq [c] = ‛⟨c⟩’
 }
-`;
+`
+      + fString
+      + fVerbatim;

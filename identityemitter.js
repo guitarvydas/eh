@@ -1,19 +1,14 @@
-  const dasgrammarImportsEmitter = dasgrammarIdentityEmitter + String.raw`
-DaSphaseImportsEmitter <: DaSphaseIdentityEmitter {
+  const gIdentityEmitter = dasgrammar + String.raw`
+IdentityEmitter <: DaS {
+  ComponentName := 
+    | dq "." dq -- self
+    | string    -- name
 }
 `;
 
-const dasfmtImportsEmitter = String.raw`
-DaSphaseEmitter {
-Components [lb Component+ rb] = ‛
-[$
-from message import Message
-from container import Container
-from connect import Connect
-from sender import Sender
-from receiver import Receiver
-$]
-⟨lb⟩⟨Component⟩⟨rb⟩⟨selfid2reset ()⟩’
+const fIdentityEmitter = String.raw`
+IdentityEmitter {
+` + fComponents + `
 Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -52,9 +47,7 @@ Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] 
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
-
-StringList [lb s* optcomma* rb] = ‛⟨lb⟩⟨s⟩⟨optcomma⟩⟨rb⟩’
-string [dq1 c* dq2] = ‛⟨dq1⟩⟨c⟩⟨dq2⟩’
-dq [c] = ‛⟨c⟩’
 }
-`;
+`
+      + fString
+      + fVerbatim;
