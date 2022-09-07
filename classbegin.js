@@ -3,6 +3,8 @@ ClassBegin <: IdentityEmitter {
 }
 `;
 
+var selfKind = '<TBD>';
+
 const fClassBegin = String.raw`
 ClassBegin {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
@@ -11,13 +13,13 @@ Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass CCC (Container) (.
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Container) (.
 ⟨NonEmptyChildren⟩
 super ().__init__ (parent, name, self._children, self._connections)
 .)
 ’
 
-ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass LLL (Leaf) (.
+ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨selfKind⟩ (Leaf) (.
 super ().__init__ (parent, name, null, null)
 ’
 
@@ -62,5 +64,10 @@ dq [c] = ‛⟨c⟩’
 }
 `
       + fComponents
-      + fInsert
-      + fVerbatim;
+//      + fInsert
++ `
+fSelfDefs {
+  SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
+  SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
+}
+`      + fVerbatim;
