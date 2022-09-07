@@ -3,7 +3,7 @@
 Verbatim {
   Main = "<unused>"
   vs = verbatimspace*
-  verbatimspace = lv recursiveverbatim+ rv
+  verbatimspace = lv recursiveverbatim+ rv spaces
   recursiveverbatim = recursiveverbatim_recur | recursiveverbatim_bottom
   recursiveverbatim_recur = lv recursiveverbatim+ rv
   recursiveverbatim_bottom = anythingVerbatim
@@ -65,7 +65,7 @@ dq (dquote)= "\""
 const fVerbatim = String.raw`
 Verbatim {
   vs [verbatimspaces*] = ‛⟨verbatimspaces⟩’
-  verbatimspace [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
+  verbatimspace [lv recursiveverbatim+ rv ws] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩⟨ws⟩’
   recursiveverbatim [x] = ‛⟨x⟩’
   recursiveverbatim_recur [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
   recursiveverbatim_bottom [x] = ‛⟨x⟩’
