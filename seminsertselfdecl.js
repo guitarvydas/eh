@@ -3,7 +3,6 @@
 
 const dasfmt = String.raw`
 DaS {
-` + fComponents + `
 Component [lb ComponentJSON rb optcomma] = ‛\n.=⟨selfid⟩\n.kind=⟨selfkind⟩\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -42,7 +41,8 @@ kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
 }
 ` 
-      + fString;
+      + fComponents
+      + fString
       + fVerbatim;
 
 

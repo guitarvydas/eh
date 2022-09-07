@@ -9,7 +9,6 @@ ComponentDef = "[" ComponentJSON "]" ","?
 
 const dasfmt2 = String.raw`
 DaSphase2 {
-` + fComponents + `
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
@@ -49,6 +48,7 @@ kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
 }
 ` 
+      + fComponents
       + fString
       + fInsert
       + fVerbatim;
