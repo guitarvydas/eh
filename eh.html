@@ -49,6 +49,7 @@ textarea {
     <script src="panic.js"></script>
     <script src="quotes.js"></script>
     <script src="chars.js"></script>
+    <script src="indenter.js"></script>
 
 <!-- mechanisms -->
     <script src="selfid2.js"></script>
@@ -131,6 +132,7 @@ ${rv}
 	  let finalCode = boilerPlateImports + childImports + classBegin;
 	  finalCode = removeVerbatimBrackets (finalCode);
 	  finalCode = fixupCode (finalCode);
+	  finalCode = indenter (finalCode);
 	  document.getElementById('output').value = finalCode;
       }
   }
