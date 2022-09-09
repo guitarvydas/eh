@@ -205,7 +205,7 @@ Connections {
   kwcomponent [a b c] = ‛’
   kwport [a b c] = ‛’
 
-  Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+  Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛'⟨ComponentName⟩','⟨PortName⟩'’
 
   PortName [nodqstring] = ‛⟨nodqstring⟩’
   ComponentName [nodqstring] = ‛⟨nodqstring⟩’

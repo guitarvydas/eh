@@ -109,33 +109,34 @@ textarea {
       let r = undefined;
       let output = '';
       [r, output] = test (src, "DaS", dasgrammar, dasfmt);
-      r && ([r, output] = test (output, "DaSphase2", dasgrammar2, dasfmt2));
+      r && ([r, output] = test (output, "SelfReplacer", gSelfreplacer, fSelfreplacer));
+      console.log (output);
       
-// Code Emitter
+// // Code Emitter
 
-      var transformedCode = output;
+//       var transformedCode = output;
       
-      const boilerPlateImports = `
-${lv}
-from message import Message
-from container import Container
-from connect import Connect
-from sender import Sender
-from receiver import Receiver
-${rv}
-`;
-      let childImports = '';
-      let xclass = '';
-      r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-      r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
+//       const boilerPlateImports = `
+// ${lv}
+// from message import Message
+// from container import Container
+// from connect import Connect
+// from sender import Sender
+// from receiver import Receiver
+// ${rv}
+// `;
+//       let childImports = '';
+//       let xclass = '';
+//       r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
+//       r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
 
-      if (r) {
-	  let finalCode = boilerPlateImports + childImports + xclass;
-	  finalCode = removeVerbatimBrackets (finalCode);
-	  finalCode = fixupCode (finalCode);
-	  finalCode = indenter (finalCode);
-	  document.getElementById('output').value = finalCode;
-      }
+//       if (r) {
+// 	  let finalCode = boilerPlateImports + childImports + xclass;
+// 	  finalCode = removeVerbatimBrackets (finalCode);
+// 	  finalCode = fixupCode (finalCode);
+// 	  finalCode = indenter (finalCode);
+// 	  document.getElementById('output').value = finalCode;
+//       }
   }
 
   </script>

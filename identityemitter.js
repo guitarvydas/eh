@@ -1,5 +1,5 @@
-  const gIdentityEmitter = dasgrammar2 + String.raw`
-IdentityEmitter <: DaSphase2 {
+  const gIdentityEmitter = dasgrammar + String.raw`
+IdentityEmitter <: DaS {
   ComponentName := 
     | dq "." dq -- self
     | string    -- name

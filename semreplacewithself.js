@@ -1,5 +1,5 @@
-  const dasgrammar2 = dasgrammar + String.raw`
-DaSphase2 <: DaS {
+  const gSelfreplacer = dasgrammar + String.raw`
+SelfReplacer <: DaS {
 Component := SelfDef SelfKind ComponentDef
 SelfDef = "." "=" ComponentName
 SelfKind = "." "kind" "=" KindName
@@ -7,10 +7,10 @@ ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
 
-const dasfmt2 = String.raw`
-DaSphase2 {
-Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
-ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+const fSelfreplacer = String.raw`
+SelfReplacer {
+Component [SelfDef SelfKind ComponentDef] = ‛\nZZZ⟨SelfDef⟩zzz\n⟨SelfKind⟩\n⟨ComponentDef⟩’
+ComponentDef [lb ComponentJSON rb optcomma] = ‛XXX⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -48,6 +48,11 @@ kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
 }
 ` 
++ `
+ReplaceSelf {
+  SelfDef [kdot keq ComponentName] = ‛YYY⟨setSelfid2 (ComponentName)⟩’
+}
+`
       + fComponents
       + fString
       + fInsert
