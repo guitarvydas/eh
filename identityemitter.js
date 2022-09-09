@@ -10,7 +10,12 @@ IdentityEmitter <: DaS {
 }
 `;
 
-const fIdentityEmitter = String.raw`
+const fIdentityEmitter =
+        fComponents
+      + fInsert
+      + fString
+      + fVerbatim
+      + String.raw`
 IdentityEmitter {
 Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩’
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
@@ -55,7 +60,4 @@ kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 }
 
 `
-      + fComponents
-      + fInsert
-      + fString
-      + fVerbatim;
+;
