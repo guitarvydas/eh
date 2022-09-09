@@ -128,8 +128,7 @@ ${rv}
       let xclass = '';
       var nochange = '<empty nochange>';
       r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
-      console.log (nochange);
-      // r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
+      r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
       // r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
 
       // if (r) {

@@ -12,6 +12,7 @@ IdentityEmitter <: DaS {
 
 const fIdentityEmitter = String.raw`
 IdentityEmitter {
+Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩’
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
 ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
