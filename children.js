@@ -1,19 +1,22 @@
-  const gChildImports = gIdentityEmitter + String.raw`
-ChildImports <: IdentityEmitter {
+  const gChildren = gIdentityEmitter + String.raw`
+Children <: IdentityEmitter {
 }
 `;
 
-const fChildImports = String.raw`
-ChildImports {
+var selfKind = '<TBD>';
+
+const fChildren = String.raw`
+Children {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
-
 Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
-
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛
+⟨NonEmptyChildren⟩
+’
+
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
 
 EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛’
@@ -40,8 +43,8 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 kwcomponent [dq1 kcomponent dq2] = ‛’
 kwport [dq1 kport dq2] = ‛’
-ComponentName_self [q1 s q2] = ‛’
-ComponentName_name [s] = ‛’
+ComponentName_self [q1 s q2] = ‛⟨s⟩’
+ComponentName_name [s] = ‛⟨s⟩’
 PortName [s] = ‛’
 
 ChildList [lb Child* rb] = ‛⟨Child⟩’
@@ -53,14 +56,19 @@ StringList [lb vs1 s* optcomma* vs2 rb vs3] = ‛⟨vs1⟩⟨s⟩⟨optcomma⟩�
 string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 dq [c] = ‛⟨c⟩’
 
-
 }
 `
+//      + fComponents
+//      + fInsert
 + `
-fChild {
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩from ⟨KindName⟩ import ⟨KindName⟩⟨rv⟩’
+fComponents {
+  Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛⟨vs0⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
 }
-`
-      + fInsert
-      + fVerbatim;
-
+fSelfDefs {
+  SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
+  SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
+}
+fChild {
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')⟨rv⟩ ⟨ComponentName⟩, ’
+}
+`      + fVerbatim;

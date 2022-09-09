@@ -49,9 +49,11 @@ textarea {
     <script src="panic.js"></script>
     <script src="quotes.js"></script>
     <script src="chars.js"></script>
+    <script src="indenter.js"></script>
 
 <!-- mechanisms -->
     <script src="selfid2.js"></script>
+    <script src="selfkind.js"></script>
     
 <!-- end user grammar -->
     <script src="dasgrammar.js"></script>
@@ -59,15 +61,15 @@ textarea {
 <!-- reusable fmts -->
     <script src="fstring.js"></script>
     <script src="fmisc.js"></script>
+    <script src="finsert.js"></script>
 
 <!-- phases -->
     <script src="seminsertselfdecl.js"></script>
     <script src="semreplacewithself.js"></script>
     <script src="identityemitter.js"></script>
-    <script src="stockimports.js"></script>
     <script src="childimports.js"></script>
-    <script src="classbegin.js"></script>
-    <script src="emitter.js"></script>
+    <script src="class.js"></script>
+    //<script src="children.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -76,6 +78,10 @@ textarea {
 
   function removeVerbatimBrackets (s) {
       return s.replace (/‹/g,'').replace (/›/g,'');
+  }
+  
+  function fixupCode (s) {
+      return s.replace (/,]/g,']');
   }
   
   function test (src, grammarName, grammar, fmt) {
@@ -117,15 +123,17 @@ from receiver import Receiver
 ${rv}
 `;
       let childImports = '';
-      let classBegin = '';
+      let xclass = '';
       r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-      r && ([r, classBegin] = test (transformedCode, "ClassBegin", gClassBegin, fClassBegin));
-//x      r && (r = test ("Emitter", gEmitter, fEmitter));
+      r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
 
-      let finalCode = boilerPlateImports + childImports + classBegin;
-      finalCode = removeVerbatimBrackets (finalCode);
-      console.log (finalCode);
-      
+      if (r) {
+	  let finalCode = boilerPlateImports + childImports + xclass;
+	  finalCode = removeVerbatimBrackets (finalCode);
+	  finalCode = fixupCode (finalCode);
+	  finalCode = indenter (finalCode);
+	  document.getElementById('output').value = finalCode;
+      }
   }
 
   </script>

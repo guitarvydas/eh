@@ -1,16 +1,15 @@
   const dasgrammar2 = dasgrammar + String.raw`
 DaSphase2 <: DaS {
-Component := SelfDef ComponentDef
+Component := SelfDef SelfKind ComponentDef
 SelfDef = "." "=" ComponentName
+SelfKind = "." "kind" "=" KindName
 ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
 
 const dasfmt2 = String.raw`
 DaSphase2 {
-` + fComponents + `
-Component [SelfDef ComponentDef] = ‛\n⟨SelfDef⟩⟨ComponentDef⟩’
-SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
+Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -49,5 +48,7 @@ kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
 }
 ` 
-      + fString;
+      + fComponents
+      + fString
+      + fInsert
       + fVerbatim;

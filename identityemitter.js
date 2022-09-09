@@ -1,5 +1,5 @@
-  const gIdentityEmitter = dasgrammar + String.raw`
-IdentityEmitter <: DaS {
+  const gIdentityEmitter = dasgrammar2 + String.raw`
+IdentityEmitter <: DaSphase2 {
   ComponentName := 
     | dq "." dq -- self
     | string    -- name
@@ -9,7 +9,8 @@ IdentityEmitter <: DaS {
 const fIdentityEmitter = String.raw`
 IdentityEmitter {
 ` + fComponents + `
-Component [lb ComponentJSON rb optComma?] = ‛\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optComma⟩’
+Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
+ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -43,11 +44,14 @@ ComponentName_name [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩’
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 }
+
+SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
+SelfKind [kself keq kind Kind] = ‛.kind=⟨Kind⟩’
+
 `
       + fString
       + fVerbatim;
