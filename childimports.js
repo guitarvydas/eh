@@ -9,8 +9,7 @@ Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
 ⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
 
-Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
-ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
+Component [SelfDef SelfKind ComponentJSON optcomma] = ‛⟨ComponentJSON⟩’
 
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
