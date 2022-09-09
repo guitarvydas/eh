@@ -1,7 +1,7 @@
 const fInsert = String.raw`
 fSelfDefs {
-  SelfDef [kself keq ComponentName] = ‛⟨setSelfid2 (ComponentName)⟩’
-  SelfKind [kself keq kind Kind] = ‛⟨setSelfkind (Kind)⟩’
+  SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩⟨setSelfid2 (ComponentName)⟩’
+  SelfKind [kself keq kind Kind] = ‛.kind=⟨Kind⟩⟨setSelfkind (Kind)⟩’
 }
 `;
 

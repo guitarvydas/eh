@@ -48,11 +48,6 @@ kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 
 }
 ` 
-// + `
-// ReplaceSelf {
-//   SelfDef [kdot keq ComponentName] = ‛YYY⟨setSelfid2 (ComponentName)⟩’
-// }
-// `
       + fComponents
       + fString
       + fInsert

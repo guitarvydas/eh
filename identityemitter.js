@@ -1,5 +1,9 @@
   const gIdentityEmitter = dasgrammar + String.raw`
 IdentityEmitter <: DaS {
+  Component := SelfDef SelfKind ComponentDef
+  SelfDef = "." "=" ComponentName
+  SelfKind = "." "kind" "=" ComponentName
+  ComponentDef = vs "[" vs ComponentJSON vs "]" vs ","?
   ComponentName := 
     | dq "." dq -- self
     | string    -- name
