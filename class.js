@@ -154,7 +154,7 @@ function fmtChild (text) {
 const gConnections = String.raw`
 Connections {
   Connections = Connection*
-  Connection := 
+  Connection = 
     | "{" SelfReceiver "," SelfSender "}" -- passThrough
     | "{" Receiver "," SelfSender "}" -- down
     | "{" SelfReceiver "," Sender "}" -- up
@@ -165,7 +165,7 @@ Connections {
   SelfPair = "{" kwcomponent ":" dq "." dq "," kwport ":" PortName "}"
   Receiver = kwreceivers ":" "[" "{" kwreceiver ":" Pair "}" "]"
   Sender = kwsenders ":" "[" "{" kwsender ":" Pair "}" "]"
-  SelfPair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
+  Pair = "{" kwcomponent ":" ComponentName "," kwport ":" PortName "}"
 
 
   kwreceivers = dq "receivers" dq
@@ -186,15 +186,16 @@ Connections {
 const fConnections = String.raw`
 Connections {
   Connections [Connection*] = ‛⟨Connection⟩’
-  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩’
-  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩’
-  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩’
-  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩’
+  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩,’
+  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩,’
+  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩,’
+  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩,’
 
-  Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
-  Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
-  SelfReceiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
-  SelfSender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
+
+  Receiver [kwreceivers kcolon1 lbracket lbrace kwreceiver kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
+  Sender  [kwsenders kcolon1 lbracket lbrace kwsender kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
+  SelfReceiver [kwreceivers kcolon1 lbracket lbrace kwreceiver kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
+  SelfSender  [kwsenders kcolon1 lbracket lbrace kwsender kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
 
 
   kwreceivers [a b c] = ‛’
@@ -204,13 +205,14 @@ Connections {
   kwcomponent [a b c] = ‛’
   kwport [a b c] = ‛’
 
+  Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
 
   PortName [nodqstring] = ‛⟨nodqstring⟩’
   ComponentName [nodqstring] = ‛⟨nodqstring⟩’
 
   nodqstring [dq1 any* dq2] = ‛⟨any⟩’
   string [dq1 any* dq2] = ‛⟨dq1⟩⟨any⟩⟨dq2⟩’
-  dq [q] = ‛⟨c⟩’
+  dq [q] = ‛⟨q⟩’
 }
 `;
 
@@ -230,5 +232,15 @@ Connections {
 // ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 
 function fmtConnections (s) {
-    return s;
+    let instantiations = '';
+    let transpiled = ''
+    let success = true;
+    success && ([success, transpiled, errormessage] = transpile (s, "Connections", gConnections, fConnections));
+    if (success) {
+	return `\nself._connections = [(.${transpiled}.)\n]`;
+    } else {
+	var msg = `??? ${errormessage} ???`;
+	console.error (msg);
+	return msg;
+    }
 }

@@ -81,7 +81,9 @@ textarea {
   }
   
   function fixupCode (s) {
-      return s.replace (/,]/g,']');
+      console.log (s);
+      var fixed = s.replace (/,]/g,']').replace (/,\.\)\n]/g,'.)\n]');
+      return fixed;
   }
   
   function test (src, grammarName, grammar, fmt) {
