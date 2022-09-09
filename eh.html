@@ -113,8 +113,7 @@ textarea {
       
 // Code Emitter
 
-//      var transformedCode = output;
-//      console.log (transformedCode);
+      var transformedCode = output;
       
       const boilerPlateImports = `
 ${lv}
@@ -127,7 +126,9 @@ ${rv}
 `;
       let childImports = '';
       let xclass = '';
-//      r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
+      var nochange = '<empty nochange>';
+      r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
+      console.log (nochange);
       // r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
       // r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
 

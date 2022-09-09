@@ -12,9 +12,8 @@ IdentityEmitter <: DaS {
 
 const fIdentityEmitter = String.raw`
 IdentityEmitter {
-` + fComponents + `
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
-ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
+ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
@@ -44,18 +43,18 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
-ComponentName_name [s] = ‛⟨s⟩’
-PortName [s] = ‛⟨s⟩’
+ComponentName_name [s] = ‛"⟨s⟩"’
+PortName [s] = ‛"⟨s⟩"’
 
 ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩’
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
-KindName [s] =  ‛⟨s⟩’
+KindName [s] =  ‛"⟨s⟩"’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 }
 
-SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
-SelfKind [kself keq kind Kind] = ‛.kind=⟨Kind⟩’
-
 `
+      + fComponents
+      + fInsert
       + fString
       + fVerbatim;
