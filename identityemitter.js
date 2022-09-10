@@ -49,13 +49,13 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
-ComponentName_name [s] = ‛"⟨s⟩"’
-PortName [s] = ‛"⟨s⟩"’
+ComponentName_name [s] = ‛⟨s⟩’
+PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
 Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩’
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
-KindName [s] =  ‛"⟨s⟩"’
+KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 }
 

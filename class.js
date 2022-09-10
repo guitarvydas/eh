@@ -38,6 +38,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma]
 // 1.
 var gSubChildInstantiate = gClass + String.raw`
 ChildInstantiate <: xClass {
+  Main := Child "," Child
 }
 `;
 
@@ -45,6 +46,7 @@ var fSubChildInstantiate =
       fClass
     + String.raw`
 fSubChildInstantiate {
+  Main [child1 kcomma child2] = ‛⟨child1⟩⟨kcomma⟩⟨child2⟩’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
 }
 `;
