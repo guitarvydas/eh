@@ -65,10 +65,41 @@ function fmtChildInstances (text) {
 }
 
 
+// 2.
+var gSubChildList = gClass + String.raw`
+ChildList <: xClass {
+  Main := Child+
+}
+`;
+
+var fSubChildList =
+      fClass
+    + String.raw`
+fSubChildInstantiate {
+  Main [child+] = ‛⟨child⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lv⟩⟨ComponentName⟩,⟨rv⟩’
+}
+`;
+
+function fmtChildList (text) {
+    let instantiations = '';
+    let success = true;
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", gSubChildList, fSubChildList));
+    if (success) {
+	return instantiations;
+    } else {
+	var msg = `<??? ${errormessage} ???>`;
+	console.error (msg);
+	return msg;
+    }
+}
+
+
 /* calls sub-parsers and sub-fmts to format child lists */
 function fmtChild (text) {
     console.log (text);
     var instances = fmtChildInstances (text);
-    return instances + '\n*self._children* = [' + ']';;
+    var childList = fmtChildList (text);
+    return instances + '\nself._children = [' + childList + ']';;
 }
 
