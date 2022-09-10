@@ -6,17 +6,22 @@ xClass <: IdentityEmitter {
 var selfKind = ['<TBD>'];
 
 var fClass =
-      fIdentityEmitter;
-+ `
-fTest {
-Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛ZZZ⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩’
+    fIdentityEmitter
++ String.raw`
+override {
+  Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩’
+  Component [SelfDef SelfKind ComponentDef] = ‛\n⟨ComponentDef⟩’
+  ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛\n⟨vs1⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨vs4⟩’
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩’
+  ComponentJSON [x] = ‛⟨x⟩’
+  ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
+  NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
+  ChildList [lb Child* rb] = ‛⟨fmtChild (Child)⟩’
 }
 `;
 
-/*fClass {
-  Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛A*⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩a*’
-}
-*/
+
 
 /* Child formatter
    parses: {"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}
@@ -29,17 +34,29 @@ Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛ZZZ⟨vs1⟩⟨lb⟩⟨vs2⟩
       self.children = [cell_7, cell_8]
 */
 
+
+// 1.
 var gSubChildInstantiate = gClass + String.raw`
 ChildInstantiate <: xClass {
 }
 `;
 
-var fSubChildInstantiate = fClass + String.raw`
+var fSubChildInstantiate =
+      fClass
+    + String.raw`
 fSubChildInstantiate {
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
 }
 `;
 
+function dummy (text) {
+    return '***DUMMY***' + text + '***dummy***';
+}
+
+function fmtChild (text) {
+    console.log (text);
+    return dummy (text);
+}
 
 function fmtChildInstances (text) {
     let instantiations = '';
@@ -49,7 +66,7 @@ function fmtChildInstances (text) {
     if (success) {
 	return instantiations + '\nself._children = [' + childlist + ']';
     } else {
-	var msg = `??? ${errormessage} ???`;
+	var msg = `sub??? ${errormessage} sub???`;
 	console.error (msg);
 	return msg;
     }
