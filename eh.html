@@ -81,7 +81,7 @@ textarea {
   
   function fixupCode (s) {
       console.log (s);
-      var fixed = s.replace (/,]/g,']').replace (/,-\)\n]/g,'5)\n]');
+      var fixed = s.replace (/,]/g,']').replace (/,⟩]\n]/g,']\n]');
       return fixed;
   }
   
@@ -129,15 +129,13 @@ ${rv}
       r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
       r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
       r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
-/*
-      // if (r) {
-      // 	  let finalCode = boilerPlateImports + childImports + xclass;
-      // 	  finalCode = removeVerbatimBrackets (finalCode);
-      // 	  finalCode = fixupCode (finalCode);
-      // 	  finalCode = indenter (finalCode);
-      // 	  document.getElementById('output').value = finalCode;
-      // }
-*/
+      if (r) {
+      	  let finalCode = boilerPlateImports + childImports + xclass;
+      	  finalCode = removeVerbatimBrackets (finalCode);
+      	  finalCode = fixupCode (finalCode);
+      	  finalCode = indenter (finalCode);
+      	  document.getElementById('output').value = finalCode;
+      }
   }
 
   </script>
