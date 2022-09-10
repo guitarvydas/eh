@@ -5,7 +5,9 @@ Children <: IdentityEmitter {
 
 var selfKind = '<TBD>';
 
-const fChildren = String.raw`
+const fChildren =
+      fVerbatim
+      + String.raw`
 Children {
 Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
 ⟨vs0⟩
@@ -60,15 +62,13 @@ dq [c] = ‛⟨c⟩’
 `
 //      + fComponents
 //      + fInsert
+// + `
+// fComponents {
+//   Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛⟨vs0⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
+// }
 + `
-fComponents {
-  Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛⟨vs0⟩⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
-}
-fSelfDefs {
-  SelfDef [kself keq ComponentName] = ‛.=⟨ComponentName⟩’
-  SelfKind [kself keq kind KindName] = ‛.kind=⟨KindName⟩⟨selfKind=KindName,""⟩’
-}
 fChild {
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩')⟨rv⟩ ⟨ComponentName⟩, ’
 }
-`      + fVerbatim;
+`
+;

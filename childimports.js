@@ -3,14 +3,14 @@ ChildImports <: IdentityEmitter {
 }
 `;
 
-const fChildImports = String.raw`
+const fChildImports =
+        fComponents
+      + fInsert
+      + fVerbatim
+      + String.raw`
 ChildImports {
-Components [vs0 lb vs1 Component+ vs2 rb vs3] = ‛
-⟨vs0⟩
-⟨vs1⟩⟨Component⟩⟨vs2⟩⟨vs3⟩’
-
-Component [SelfDef SelfKind ComponentDef] = ‛⟨ComponentDef⟩’
-ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨ComponentJSON⟩’
+Component [SelfDef SelfKind ComponentDef] = ‛\n⟨ComponentDef⟩’
+ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨optcomma⟩’
 
 ComponentJSON [x] = ‛⟨x⟩’
 ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
@@ -57,10 +57,10 @@ dq [c] = ‛⟨c⟩’
 }
 `
 + `
-fChild {
+fOverride {
+  Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩’
+  ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛\n⟨vs1⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨vs4⟩’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩from ⟨KindName⟩ import ⟨KindName⟩⟨rv⟩’
 }
 `
-      + fInsert
-      + fVerbatim;
-
+;

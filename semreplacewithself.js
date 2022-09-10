@@ -1,5 +1,5 @@
-  const dasgrammar2 = dasgrammar + String.raw`
-DaSphase2 <: DaS {
+  const gSelfreplacer = dasgrammar + String.raw`
+SelfReplacer <: DaS {
 Component := SelfDef SelfKind ComponentDef
 SelfDef = "." "=" ComponentName
 SelfKind = "." "kind" "=" KindName
@@ -7,8 +7,8 @@ ComponentDef = "[" ComponentJSON "]" ","?
 }
 `;
 
-const dasfmt2 = String.raw`
-DaSphase2 {
+const fSelfreplacer = String.raw`
+SelfReplacer {
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
 ComponentDef [lb ComponentJSON rb optcomma] = ‛⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’

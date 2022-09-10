@@ -69,7 +69,6 @@ textarea {
     <script src="identityemitter.js"></script>
     <script src="childimports.js"></script>
     <script src="class.js"></script>
-    //<script src="children.js"></script>
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -81,7 +80,9 @@ textarea {
   }
   
   function fixupCode (s) {
-      return s.replace (/,]/g,']');
+      console.log (s);
+      var fixed = s.replace (/,]/g,']').replace (/,-\)\n]/g,'5)\n]');
+      return fixed;
   }
   
   function test (src, grammarName, grammar, fmt) {
@@ -107,7 +108,7 @@ textarea {
       let r = undefined;
       let output = '';
       [r, output] = test (src, "DaS", dasgrammar, dasfmt);
-      r && ([r, output] = test (output, "DaSphase2", dasgrammar2, dasfmt2));
+      r && ([r, output] = test (output, "SelfReplacer", gSelfreplacer, fSelfreplacer));
       
 // Code Emitter
 
@@ -124,16 +125,19 @@ ${rv}
 `;
       let childImports = '';
       let xclass = '';
+      var nochange = '<empty nochange>';
+      r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
       r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-      r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
+/*      r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
 
-      if (r) {
-	  let finalCode = boilerPlateImports + childImports + xclass;
-	  finalCode = removeVerbatimBrackets (finalCode);
-	  finalCode = fixupCode (finalCode);
-	  finalCode = indenter (finalCode);
-	  document.getElementById('output').value = finalCode;
-      }
+      // if (r) {
+      // 	  let finalCode = boilerPlateImports + childImports + xclass;
+      // 	  finalCode = removeVerbatimBrackets (finalCode);
+      // 	  finalCode = fixupCode (finalCode);
+      // 	  finalCode = indenter (finalCode);
+      // 	  document.getElementById('output').value = finalCode;
+      // }
+*/
   }
 
   </script>

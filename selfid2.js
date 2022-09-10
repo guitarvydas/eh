@@ -7,7 +7,7 @@
       return '';
   }
 
-  function maybeMapSelf (s) {
+function maybeMapSelf (s) {
       var selfid2 = stacktop (selfid2stack);
       if (s === selfid2) {
 	  return '"."';
