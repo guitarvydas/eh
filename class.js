@@ -38,7 +38,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma]
 // 1.
 var gSubChildInstantiate = gClass + String.raw`
 ChildInstantiate <: xClass {
-  Main := Child Child
+  Main := Child+
 }
 `;
 
@@ -46,20 +46,10 @@ var fSubChildInstantiate =
       fClass
     + String.raw`
 fSubChildInstantiate {
-  Main [child1 child2] = ‛⟨child1⟩⟨child2⟩’
+  Main [child+] = ‛⟨child⟩’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
 }
 `;
-
-function dummy (text) {
-    return '***DUMMY***' + text + '***dummy***';
-}
-
-function fmtChild (text) {
-    console.log (text);
-    var instances = fmtChildInstances (text);
-    return instances + '\n*self._children* = [' + ']';;
-}
 
 function fmtChildInstances (text) {
     let instantiations = '';
@@ -68,8 +58,17 @@ function fmtChildInstances (text) {
     if (success) {
 	return instantiations;
     } else {
-	var msg = `sub??? ${errormessage} sub???`;
+	var msg = `<??? ${errormessage} ???>`;
 	console.error (msg);
 	return msg;
     }
 }
+
+
+/* calls sub-parsers and sub-fmts to format child lists */
+function fmtChild (text) {
+    console.log (text);
+    var instances = fmtChildInstances (text);
+    return instances + '\n*self._children* = [' + ']';;
+}
+
