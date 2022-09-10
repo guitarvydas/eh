@@ -38,7 +38,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma]
 // 1.
 var gSubChildInstantiate = gClass + String.raw`
 ChildInstantiate <: xClass {
-  Main := Child "," Child
+  Main := Child Child
 }
 `;
 
@@ -46,7 +46,7 @@ var fSubChildInstantiate =
       fClass
     + String.raw`
 fSubChildInstantiate {
-  Main [child1 kcomma child2] = ‛⟨child1⟩⟨kcomma⟩⟨child2⟩’
+  Main [child1 child2] = ‛⟨child1⟩⟨child2⟩’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
 }
 `;
@@ -57,16 +57,16 @@ function dummy (text) {
 
 function fmtChild (text) {
     console.log (text);
-    return dummy (text);
+    var instances = fmtChildInstances (text);
+    return instances + '\n*self._children* = [' + ']';;
 }
 
 function fmtChildInstances (text) {
     let instantiations = '';
-    let childlist = ''
     let success = true;
     success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", gSubChildInstantiate, fSubChildInstantiate));
     if (success) {
-	return instantiations + '\nself._children = [' + childlist + ']';
+	return instantiations;
     } else {
 	var msg = `sub??? ${errormessage} sub???`;
 	console.error (msg);
