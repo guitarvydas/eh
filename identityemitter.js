@@ -17,7 +17,8 @@ const fIdentityEmitter =
       + fVerbatim
       + String.raw`
 IdentityEmitter {
-Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩’
+Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨resetselfkind ()⟩’
+SelfKind [kdot kkind keq ComponentName] = ‛⟨setselfkind (ComponentName)⟩’
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
 ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’

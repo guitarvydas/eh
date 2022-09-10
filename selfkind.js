@@ -1,15 +1,19 @@
 // selfkind mechanism ...
 
-  var selfkindstack = [];
-  
-  function setSelfkind (s) {
-      settop (selfkindstack, s);
-      return '';
-  }
+var selfkindstack = [];
 
-  function selfkindreset () {
-      stackreset (selfkindstack);
-      return '';
-  }
+function topselfkind () {
+    return stacktop (selfkindstack);
+}
+
+function setselfkind (s) {
+    settop (selfkindstack, s);
+    return '';
+}
+
+function resetselfkind () {
+    stackreset (selfkindstack);
+    return '';
+}
 
   
