@@ -48,6 +48,7 @@ var fSubChildInstantiate =
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
+  string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
 
@@ -78,6 +79,7 @@ var fSubChildList =
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lv⟩⟨ComponentName⟩,⟨rv⟩’
+  string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
 

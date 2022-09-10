@@ -81,7 +81,7 @@ textarea {
   
   function fixupCode (s) {
       console.log (s);
-      var fixed = s.replace (/,]/g,']').replace (/,⟩]\n]/g,']\n]');
+      var fixed = s.replace (/,]/g,']').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
       return fixed;
   }
   
