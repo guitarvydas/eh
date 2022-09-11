@@ -7,7 +7,7 @@ function topselfkind () {
 }
 
 function setselfkind (s) {
-    settop (selfkindstack, s);
+    settop (selfkindstack, pythonify (s));
     return '';
 }
 
