@@ -1,5 +1,5 @@
 # ė Overview
-Computer programs can be written using pluggable units of LEGO-like software.
+Computer programs can be written using pluggable units of LEGO®-like software.
 
 ė (spelled "eh" in ASCII) is a proof-of-concept that shows how to build a "Hello World" program using 3 pluggable software units.
 
@@ -18,8 +18,9 @@ An illustration of software-as-pluggable-units is shown in the diagram below.
 
 The diagram - for this POC - is drawn using off-the-shelf *draw.io* and transpiled to Python code using *make*.
 
-In general, software units - Components - can have 0 or more inputs and 0 or more outputs.
+In general, software units - Components - can have 0 or more inputs and 0 or more outputs.  In contrast, functional notation can only express components - functions - with exactly one input[^oneinput] and exactly one output.
 
+[^oneinput]: The concept of "multiple arguments" to a function is syntactic sugar for de-structuring of a single input parameter block of data that arrives as a whole and at the same time.
 # Secret Sauce
 The secret sauce of ė is 
 - The addition of *message passing* to complement constructs of *function calls*, i.e. the additional use of Queues instead of only using Stacks
