@@ -22,13 +22,11 @@ super ().__init__ (parent, name, self._children, self._connections)
   ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Leaf): (-
 super ().__init__ (parent, name, null, null)
 -)’
+
+ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
+
 }
 `;
-
-/*
-  ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨NonEmptyChildren⟩’
-  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
-*/
 
 
 /* Child formatter
