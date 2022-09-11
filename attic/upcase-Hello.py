@@ -7,4 +7,4 @@ class Hello (Procedure):
 
     def __init__ (self, parent, name):
         h1 = PortHandler ('*', self.f1)
-        super ().__init__ (parent=parent, name=name, children=null, connections=null)
+        super ().__init__ (parent=parent, name=name, portHandler=h1)

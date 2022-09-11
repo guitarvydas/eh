@@ -21,6 +21,7 @@ The diagram - for this POC - is drawn using off-the-shelf *draw.io* and transpil
 In general, software units - Components - can have 0 or more inputs and 0 or more outputs.  In contrast, functional notation can only express components - functions - with exactly one input[^oneinput] and exactly one output.
 
 [^oneinput]: The concept of "multiple arguments" to a function is syntactic sugar for de-structuring of a single input parameter block of data that arrives as a whole, all at the same time.
+The simplicity of this example belies the power of the paradigm.  For example, an earlier prototype of this system (Arrowgrams) was used to self-compile the transpiler.
 # Secret Sauce
 The secret sauce of ė is 
 - The addition of *asynchronous message passing* to complement the construct of *function calling*, i.e. the additional use of Queues instead of only using Stacks

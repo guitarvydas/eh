@@ -1,16 +1,13 @@
-all: test test2 test3 test4 test5.json
+all: src.js run
 
-test:
-	python3 test.py
+src.js: test5.json
+	echo 'const jsonsrc = String.raw`' > src.js
+	cat test5.json >> src.js
+	echo '`;' >> src.js
 
-test2:
-	python3 test2.py
-
-test3:
-	python3 test3.py
-
-test4:
-	python3 test4.py
+# copy/paste output code from eh.html into py/generated.py
+run:
+	(cd py ; make run)
 
 
 TOOLS = das
