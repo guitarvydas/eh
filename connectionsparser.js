@@ -51,7 +51,7 @@ function fmtConnections (text) {
     let success = true;
     success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections));
     if (success) {
-	return 'self._connections = [' + connections + ']';
+	return connections;
     } else {
 	var msg = `<??? ${errormessage} ???>`;
 	console.error (msg);

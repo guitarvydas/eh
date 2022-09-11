@@ -23,6 +23,7 @@ super ().__init__ (parent, name, self._children, self._connections)
 super ().__init__ (parent, name, null, null)
 -)’
 
+CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛self._connections = [(-⟨ConnectionBody⟩-)]’
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
 
 }
