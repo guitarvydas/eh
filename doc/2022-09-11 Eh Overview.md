@@ -29,3 +29,29 @@ The secret sauce of ė is
 Leaf Components are what is currently thought of as *functions* and *libraries*.
 
 Container Components are like *routers* (at the programming statement level, instead of the whole-computer level).  Containers compose applications using Leaf Components and other Container Components.  Containers can be nested to any depth, i.e. Containers are recursive layers.  Routing of messages is performed by Containers and is not hard-wired into Leaf Components, as is currently done with function-based programming languages.
+# 0D - Removing Implicit Dependencies
+0D - zero dependency - is the idea of removing all dependencies from a software unit.
+
+0D enables architectural flexibility.
+
+0D enables "build and forget".  A programmer can build and test and ship a software unit, knowing that *nothing* can change the unit's behaviour.
+
+Programmers *mis-believe* that they can "build and forget" software units by using code libraries, git, etc.  Yet, they find that making a small change "here" can cause something "over there" to behave differently.  Programmers must resort to wrapping *operating system processes* around their software units ("apps") to achieve the "build and forget" paradigm.
+
+## What Causes Implicit Dependencies?
+
+1. the use of functions and call/return
+2. hard-wired names in code
+3. hard-wired routing decisions, determined by the function-calling protocol
+
+## How To Workaround Implicit Dependencies?
+
+An easy solution to achieving 0D using present-day programming languages is to use Queues (FIFOs) for passing messages between software units.
+
+Functions use LIFOs, i.e. stacks, not queues.  
+
+Functions are suitable only for building synchronous, inside-the-box, clockwork functionality.  Attempts to use functions for building asynchronous software units - "build and forget" units - results in bloatware.  This bloatware is called "operating systems".
+
+Existing operating systems, such as Windows, MacOSX, Linux, ROS, etc. create Queues and provide low-level APIs for message-passing.  
+
+ė shows that it is possible to push message-passing down to the fine-grained function level rather than relegating all message passing to coarse-grained process levels.  Further, ė shows that this can be done - easily - with exising programming languages.  Most modern programming languages support closures and objects, which makes the implementation of fine-grained message-passing even easier.
