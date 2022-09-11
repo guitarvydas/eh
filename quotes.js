@@ -1,4 +1,4 @@
-  function stripQuotes (s) {
-      return s.replace (/"/g,'');
-  }
-  
+function stripQuotes (s) {
+    return s.replace (/"/g,'');
+}
+

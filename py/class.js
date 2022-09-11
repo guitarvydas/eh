@@ -19,15 +19,19 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma]
 ⟨ComponentField⟩
 super ().__init__ (parent, name, self._children, self._connections)
 -)’
-  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Leaf): (-
-super ().__init__ (parent, name, null, null)
--)’
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
 
+CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛self._connections = [(-⟨ConnectionBody⟩-)]’
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
 
 }
 `;
 
+/*
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Leaf): (-
+super ().__init__ (parent, name, null, null)
+-)’
+*/
 
 /* Child formatter
    parses: {"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}
