@@ -17,7 +17,8 @@ const fIdentityEmitter =
       + fVerbatim
       + String.raw`
 IdentityEmitter {
-Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩’
+Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨resetselfkind ()⟩’
+SelfKind [kdot kkind keq ComponentName] = ‛⟨setselfkind (ComponentName)⟩’
 Component [SelfDef SelfKind ComponentDef] = ‛\n⟨SelfDef⟩\n⟨SelfKind⟩\n⟨ComponentDef⟩’
 ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛⟨vs1⟩⟨lb⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨rb⟩⟨vs4⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
@@ -49,13 +50,13 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 kwcomponent [dq1 kcomponent dq2] = ‛⟨dq1⟩⟨kcomponent⟩⟨dq2⟩’
 kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
-ComponentName_name [s] = ‛"⟨s⟩"’
-PortName [s] = ‛"⟨s⟩"’
+ComponentName_name [s] = ‛⟨s⟩’
+PortName [s] = ‛⟨s⟩’
 
 ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
 Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩’
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
-KindName [s] =  ‛"⟨s⟩"’
+KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
 }
 
