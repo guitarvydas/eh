@@ -58,22 +58,26 @@ textarea {
 <!-- end user grammar -->
     <script src="dasgrammar.js"></script>
 
-<!-- reusable fmts -->
-    <script src="fstring.js"></script>
-    <script src="fmisc.js"></script>
-    <script src="finsert.js"></script>
+<!-- emitters -->
+    <!-- Python -->
+	<!-- reusable fmts -->
+	    <script src="py/fstring.js"></script>
+	    <script src="py/fmisc.js"></script>
+	    <script src="py/finsert.js"></script>
 
-<!-- phases -->
-    <script src="seminsertselfdecl.js"></script>
-    <script src="semreplacewithself.js"></script>
-    <script src="identityemitter.js"></script>
-    <script src="childimports.js"></script>
-    <script src="class.js"></script>
-<!-- sub-parsers used by class.js -->
-      <script src="childinstanceparser.js"></script>
-      <script src="childlistparser.js"></script>
-      <script src="connectionsparser.js"></script>
-<!-- end sub-parsers -->
+	<!-- phases -->
+	    <script src="py/seminsertselfdecl.js"></script>
+	    <script src="py/semreplacewithself.js"></script>
+	    <script src="py/identityemitter.js"></script>
+	    <script src="py/childimports.js"></script>
+	    <script src="py/class.js"></script>
+	<!-- sub-parsers used by class.js -->
+	      <script src="py/childinstanceparser.js"></script>
+	      <script src="py/childlistparser.js"></script>
+	      <script src="py/connectionsparser.js"></script>
+	<!-- end sub-parsers -->
+<!-- end emitters -->
+
 
 <!-- source code -->
     <script src="src.js"></script>
@@ -86,7 +90,7 @@ textarea {
   
   function fixupCode (s) {
       console.log (s);
-      var fixed = s.replace (/,]/g,']').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
+      var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
       return fixed;
   }
   
