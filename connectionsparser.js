@@ -12,26 +12,13 @@ Connections <: xClass {
   SelfSender = dq "senders" dq ":" "[" "{" dq "sender" dq ":" SelfPair "}" "]"
   SelfPair = "{" dq "component" dq ":" dq "." dq "," dq "port" dq ":" PortName "}"
 
-  Connection := "{" Receiver "," Sender "}"
-}
-`;
-
-
-/*
   Connection := 
     | "{" SelfReceiver "," SelfSender "}" -- passThrough
     | "{" Receiver "," SelfSender "}" -- down
     | "{" SelfReceiver "," Sender "}" -- up
     | "{" Receiver "," Sender "}" -- route
-
-*/
-
-/*
-  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩,’
-  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩,’
-  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩,’
-  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩,’
-*/
+}
+`;
 
 var fSubConnections =
       fClass
@@ -39,7 +26,11 @@ var fSubConnections =
 fSubConnections {
   Main [Connection*] = ‛⟨Connection⟩’
 
-  Connection [lb Receiver kcomma Sender rb] = ‛\nZ⟨lb⟩⟨Receiver⟩,⟨Sender⟩⟨rb⟩z’
+  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩,’
+  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩,’
+  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩,’
+  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩,’
+
   SelfReceiver [dq1 kwreceivers dq1 kcolon1 lbracket lbrace dq3 kwreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛SelfReceiver (⟨Pair⟩)’
   SelfSender  [dq1 kwsenders dq2 kcolon1 lbracket lbrace dq3 kwsender dq4 kcolon2 Pair rbrace rbracket] = ‛SelfSender (⟨Pair⟩)’
 
