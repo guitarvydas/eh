@@ -3,9 +3,13 @@ class Sender:
         self._who = component
         self._port = port
 
-    def match (self, othersender):
-        whomatch = (self._who == othersender._who)
-        portmatch = (self._port == othersender._port)
+    def match (self, othersender, port):
+        whomatch = None
+        portmatch = (self._port == port)
+        if (isinstance (othersender, Sender)):
+            whomatch = (self._who == othersender._who)
+        else:
+            whomatch = (self._who == othersender)
         return (whomatch and portmatch)
 
     @property

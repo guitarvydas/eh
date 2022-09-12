@@ -5,7 +5,7 @@ class PortHandler:
         self._port = port
         self._func = func
 
-    def match (self, portName):
+    def matchPort (self, portName):
         r = None
         if self._port == '*':
             r = True

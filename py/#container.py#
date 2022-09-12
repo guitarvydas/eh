@@ -54,7 +54,7 @@ class Container (EH):
         
     def handle (self, message):
         for connection in self._connections:
-            connection.conditionalHandle (self, message)
+            connection.on (self, message)
         self.runToCompletion ()
 
     def name (self):
