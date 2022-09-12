@@ -25,11 +25,14 @@ The simplicity of this example belies the power of the paradigm.  For example, a
 # Secret Sauce
 The secret sauce of ė is 
 - The addition of *asynchronous message passing* to complement the construct of *function calling*, i.e. the additional use of Queues instead of only using Stacks
-- Layering, hierarchy - software units come in two basic types (1) Leaves and (2) Containers.
+- Layering, hierarchy - software units come in two basic types (1) Leaves and (2) Containers
+- Components - software units - are *hierarchical state machines*[^hsm] that react to incoming messages.
 
-Leaf Components are what is currently thought of as *functions* and *libraries*.
+Leaf Components are what is currently thought of as *functions* and *libraries*.  Leaves are degenerate state machines, composed of only one (1) state - the *default state*.
 
 Container Components are like *routers* at the programming statement level, instead of the whole-computer level.  Containers compose applications using Leaf Components and other Container Components.  Containers can be nested to any depth, i.e. Containers are recursive layers.  Routing of messages is performed by Containers and is not hard-wired into Leaf Components, as is currently done with function-based programming languages.
+
+[^hsm] Hierarchical State Machines are much like Harel's Statecharts, except without concurrency (called *orthogonal states* in StateCharts).  Concurrency is lifted out of StateChart notation and made into a separate notation.  Operating system *processes* are simple state machine envelopes for synchronous, function-based code.  Operating systems impose no hierarchy on compositions of processes, therefore, are ad-hoc, unstructured versions of hierarchical state machines.  StateCharts use hierarchy to conquer the *state explosion problem*.
 # 0D - Removing Implicit Dependencies
 0D - zero dependency - is the idea of removing all dependencies from a software unit.
 
