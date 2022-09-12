@@ -1,10 +1,11 @@
 from sender import Sender
-from message import Message
+from inputmessage import InputMessage
+from outputmessage import OutputMessage
 from porthandler import PortHandler
 from state import State
 from eh import EH
 
-debugRouting = False
+debugRouting = True
 
 class Container (EH):
     def __init__ (self, parent, name, children, connections):
@@ -25,36 +26,36 @@ class Container (EH):
     def down (self, sender, receiver, inmessage):
         # from input of Container to input of Child
         if debugRouting:
-            print (f'punt {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = Message (receiver._port, inmessage.data, inmessage)
-        receiver._who.enqueueInput (mappedMessage)
+            print (f'down {inmessage} ... {sender.name ()} -> {receiver.name ()}')
+        mappedMessage = InputMessage (self, receiver._port, inmessage.data, inmessage)
+        receiver.enqueueInput (mappedMessage)
 
     def passthrough (self, sender, receiver, inmessage):
         # from input of Container to output of same Container
         if debugRouting:
             print (f'passthrough {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = Message (receiver._port, inmessage.data, inmessage)
+        mappedMessage = OutputMessage (self, receiver._port, inmessage.data, inmessage)
         self.enqueueOutput (mappedMessage)
 
     def route (self, sender, receiver, inmessage):
         # from output of Child to input of Child
         if debugRouting:
             print (f'route {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = Message (receiver._port, inmessage.data, inmessage)
-        receiver._who.enqueueInput (mappedMessage)
+        mappedMessage = InputMessage (inmessage.xfrom, receiver._port, inmessage.data, inmessage)
+        receiver.enqueueInput (mappedMessage)
 
     def up (self, sender, receiver, outmessage):
         # from output of Child to output of Container
         if debugRouting:
-            print (f'routeoutput {outmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = Message (receiver._port, outmessage.data, outmessage)
+            print (f'up {outmessage} ... {sender.name ()} -> {receiver.name ()}')
+        mappedMessage = OutputMessage (outmessage.xfrom, receiver._port, outmessage.data, outmessage)
         self.enqueueOutput (mappedMessage)
 
     # end routings
         
     def handle (self, message):
         for connection in self._connections:
-            connection.conditionalHandle (self, message)
+            connection.guardedDeliver (message)
         self.runToCompletion ()
 
     def name (self):
@@ -75,8 +76,8 @@ class Container (EH):
         return r
 
     def routeOutputs (self, child):
-        outputs = child.outputs ()
+        outputs = child.outputQueue ()
         child.clearOutputs ()
         for msg in outputs:
             for conn in self._connections:
-                conn.conditionalHandle (child, msg)
+                conn.guardedDeliver (msg)

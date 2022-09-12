@@ -1,6 +1,7 @@
-from message import Message
+from inputmessage import InputMessage
 from generated import HelloWorld
 hw = HelloWorld (None, '❲HelloWorld instance❳')
-hw.inject (Message ('stdin', True, 'test2'))
+hw.inject (InputMessage (hw, 'stdin', True, None))
 hw.run ()
-print (hw.outputs ())
+print (hw.outputsLIFODictionary ())
+print (hw.outputsFIFODictionary ())

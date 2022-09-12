@@ -4,10 +4,10 @@ class Connect:
         self._receiver = receiver
         self._routingFunction = routingFunction
 
-    def on (self, senderComponent, message):
-        senderMatch = (senderComponent == self._sender._who)
-        portMatch = (self._sender.port == message.port)
-        if (senderMatch and portMatch):
+    def guardedDeliver (self, message):
+        # try to deliver the message
+        # deliver only if message's from and port match this connection's sender's from and port, otherwise do nothing
+        if (self._sender.match (message.xfrom, message.port)):
             self._routingFunction (self._sender, self._receiver, message)
         else:
             pass

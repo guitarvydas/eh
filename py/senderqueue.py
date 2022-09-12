@@ -1,12 +1,12 @@
 from fifo import FIFO
 from sender import Sender
-from message import Message
+from outputmessage import OutputMessage
 
 class SenderQueue:
     def __init__ (self):
         self._outputq = FIFO ()
 
-    def outputs (self):
+    def outputsFIFODictionary (self):
         # return a dictionary of FIFOs, one FIFO per output port
         resultdict = {}
         for message in self._outputq.asDeque ():
@@ -21,6 +21,20 @@ class SenderQueue:
             resultdict2 [key] = r
         return resultdict2
 
+    def outputsLIFODictionary (self):
+        # return a dictionary of LIFOs, one LIFO per output port
+        resultdict = {}
+        for message in self._outputq.asDeque ():
+            if (not (message.port in resultdict)):
+                resultdict [message.port] = FIFO ()
+            resultdict [message.port].enqueue (message.data)
+        resultdict2 = {}
+        for key in resultdict:
+            fifo = resultdict [key]
+            r = list (fifo.asDeque ())
+            resultdict2 [key] = r
+        return resultdict2
+
     # internal - not exported
     def clearOutputs (self):
         self._outputq = FIFO ()
@@ -32,14 +46,9 @@ class SenderQueue:
     def dequeueOutput (self):
         return self._outputq.dequeue ()
 
-    def send (self, portname, data, causingMessage):
-        if (causingMessage == None):
-            trail = [None]
-        else:
-            trail = [causingMessage, causingMessage.trail]
-        m = Message (portname, data, trail)
-        m.updateState ('output')
-        self._outputq.enqueue (m)
+    def send (self, xfrom, portname, data, causingMessage):
+        m = OutputMessage (xfrom, portname, data, causingMessage)
+        self.enqueueOutput (m)
 
     def outputQueue (self):
         return self._outputq.asDeque ()
