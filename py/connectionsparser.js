@@ -27,10 +27,10 @@ fSubConnections {
   Main [Connection*] = ‛⟨Connection⟩’
 
   Connection [x] = ‛⟨x⟩’
-  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩,’
-  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩,’
-  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩,’
-  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩,’
+  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩PassThroughConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩DownConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩UpConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩RouteConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
 
   SelfReceiver [dq1 kwreceivers dq1 kcolon1 lbracket lbrace dq3 kwreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛SelfReceiver (⟨Pair⟩)’
   SelfSender  [dq1 kwsenders dq2 kcolon1 lbracket lbrace dq3 kwsender dq4 kcolon2 Pair rbrace rbracket] = ‛SelfSender (⟨Pair⟩)’

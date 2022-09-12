@@ -8,8 +8,6 @@ ${rv}
 `;
       let childImports = '';
       let xclass = ''; // "xclass" to avoid any hint of name clash with "class" keyword...
-      var nochange = '<empty nochange>';
-      r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
       r && ([r, xclass] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
       if (r) {
       	  let finalCode = boilerPlate + childImports + xclass;

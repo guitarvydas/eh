@@ -15,3 +15,6 @@ class Receiver:
     def enqueueInput (self, message):
         self._who.enqueueInput (message)
 
+    def enqueueOutput (self, message):
+        self._who.enqueueOutput (message)
+
