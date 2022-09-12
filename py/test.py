@@ -3,4 +3,5 @@ from generated import HelloWorld
 hw = HelloWorld (None, '❲HelloWorld instance❳')
 hw.inject (InputMessage (hw, 'stdin', True, None))
 hw.run ()
-print (hw.outputsDictionary ())
+print (hw.outputsLIFODictionary ())
+print (hw.outputsFIFODictionary ())

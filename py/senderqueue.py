@@ -6,7 +6,7 @@ class SenderQueue:
     def __init__ (self):
         self._outputq = FIFO ()
 
-    def outputsDictionary (self):
+    def outputsFIFODictionary (self):
         # return a dictionary of FIFOs, one FIFO per output port
         resultdict = {}
         for message in self._outputq.asDeque ():
@@ -18,6 +18,20 @@ class SenderQueue:
             fifo = resultdict [key]
             r = list (fifo.asDeque ())
             r.reverse () ## newest result first
+            resultdict2 [key] = r
+        return resultdict2
+
+    def outputsLIFODictionary (self):
+        # return a dictionary of LIFOs, one LIFO per output port
+        resultdict = {}
+        for message in self._outputq.asDeque ():
+            if (not (message.port in resultdict)):
+                resultdict [message.port] = FIFO ()
+            resultdict [message.port].enqueue (message.data)
+        resultdict2 = {}
+        for key in resultdict:
+            fifo = resultdict [key]
+            r = list (fifo.asDeque ())
             resultdict2 [key] = r
         return resultdict2
 
