@@ -15,6 +15,7 @@ class HelloWorld (Container):
     cell_8 = World (self, f'{name}-World');
     self._children = [cell_7,cell_8]
     self._connections = [
+      Connect (Sender (cell_8,'out2'), SelfReceiver (self,'out2'), self.up),
       Connect (SelfSender (self,'stdin'), Receiver (cell_7,'stdin'), self.down),
       Connect (Sender (cell_7,'stdout'), Receiver (cell_8,'stdin'), self.route),
       Connect (Sender (cell_8,'stdout'), SelfReceiver (self,'stdout'), self.up)

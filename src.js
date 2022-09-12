@@ -5,6 +5,10 @@ const jsonsrc = String.raw`
       "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
       "connections": [
 	{
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":"out2"}} ],
+	  "senders": [ {"sender": {"component":"cell_8", "port":"out2"}} ]
+	},
+	{
 	  "receivers": [ {"receiver": {"component":"cell_7", "port":"stdin"}} ],
 	  "senders": [ {"sender": {"component":"cell_6", "port":"stdin"}} ]
 	},
@@ -21,7 +25,7 @@ const jsonsrc = String.raw`
       "inputs": ["cell_17" ],
       "kind":"HelloWorld",
       "name":"HelloWorld",
-      "outputs": ["cell_15" ],
+      "outputs": ["cell_15", "cell_20" ],
       "synccode":""
     }
   ],
@@ -45,7 +49,7 @@ const jsonsrc = String.raw`
       "inputs": ["cell_11" ],
       "kind":"World",
       "name":"World",
-      "outputs": ["cell_14" ],
+      "outputs": ["cell_14", "cell_19" ],
       "synccode":""
     }
   ]
