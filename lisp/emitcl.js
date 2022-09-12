@@ -10,7 +10,7 @@ ${rv}
       let xclass = ''; // "xclass" to avoid any hint of name clash with "class" keyword...
       r && ([r, xclass] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
       if (r) {
-      	  let finalCode = boilerPlate + childImports + xclass;
+      	  let finalCode = xclass;
       	  finalCode = removeVerbatimBrackets (finalCode);
       	  finalCode = fixupCode (finalCode);
       	  finalCode = indenter (finalCode);

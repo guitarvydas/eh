@@ -1,6 +1,6 @@
 var gSubChildList = gClass + String.raw`
 ChildList <: xClass {
-  Main := Child
+  Main := Child vs
 }
 `;
 
@@ -8,8 +8,8 @@ var fSubChildList =
       fClass
     + String.raw`
 fSubChildList {
-  Main [child] = ‛⟨child⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛⟨lv⟩⟨ComponentName⟩,⟨rv⟩⟨more⟩’
+  Main [child vs] = ‛⟨child⟩⟨vs⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛⟨lv⟩⟨ComponentName⟩⟨rv⟩⟨more⟩’
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;

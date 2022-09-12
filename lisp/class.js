@@ -54,9 +54,15 @@ super ().__init__ (parent, name, null, null)
 
 
 /* calls sub-parsers and sub-fmts to format child lists */
-function cl_fmtChild (text) {
+function old_cl_fmtChild (text) {
     var instances = cl_fmtChildInstances (text);
     var childList = cl_fmtChildList (text);
     return instances + '\nself._children = [' + childList + ']';;
+}
+
+function cl_fmtChild (text) {
+    var childList = cl_fmtChildList (text);
+    var wrappedinstances = cl_fmtChildInstances (text + childList);
+    return wrappedinstances;
 }
 
