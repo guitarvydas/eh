@@ -1,10 +1,10 @@
-var gSubChildInstantiate = gClass + String.raw`
+var cl_gSubChildInstantiate = cl_gClass + String.raw`
 ChildInstantiate <: xClass {
   Main := Child+
 }
 `;
 
-var fSubChildInstantiate =
+var cl_fSubChildInstantiate =
       fClass
     + String.raw`
 fSubChildInstantiate {
@@ -14,10 +14,10 @@ fSubChildInstantiate {
 }
 `;
 
-function fmtChildInstances (text) {
+function cl_fmtChildInstances (text) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", gSubChildInstantiate, fSubChildInstantiate));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", cl_gSubChildInstantiate, cl_fSubChildInstantiate));
     if (success) {
 	return instantiations;
     } else {

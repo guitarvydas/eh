@@ -1,9 +1,9 @@
-  var gClass = gIdentityEmitter + String.raw`
+  var cl_gClass = gIdentityEmitter + String.raw`
 xClass <: IdentityEmitter {
 }
 `;
 
-var fClass =
+var cl_fClass =
     fIdentityEmitter
 + String.raw`
 override {
@@ -13,15 +13,14 @@ override {
 Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩’
   ComponentJSON [x] = ‛⟨x⟩’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
-  ChildList [lb Child* rb] = ‛⟨fmtChild (Child)⟩’
+  ChildList [lb Child* rb] = ‛⟨cl_fmtChild (Child)⟩’
   ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
+def __init__ (self, parent, name):(-
 ⟨NonEmptyChildren⟩
 ⟨ComponentField⟩
 super ().__init__ (parent, name, self._children, self._connections)
--)’
-  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Leaf): (-
-super ().__init__ (parent, name, null, null)
--)’
+-)-)’
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
 
 CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛self._connections = [(-⟨ConnectionBody⟩-)]’
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
@@ -29,6 +28,11 @@ ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)
 }
 `;
 
+/*
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Leaf): (-
+super ().__init__ (parent, name, null, null)
+-)’
+*/
 
 /* Child formatter
    parses: {"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}
@@ -50,10 +54,9 @@ ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)
 
 
 /* calls sub-parsers and sub-fmts to format child lists */
-function fmtChild (text) {
-    console.log (text);
-    var instances = fmtChildInstances (text);
-    var childList = fmtChildList (text);
+function cl_fmtChild (text) {
+    var instances = cl_fmtChildInstances (text);
+    var childList = cl_fmtChildList (text);
     return instances + '\nself._children = [' + childList + ']';;
 }
 

@@ -1,10 +1,10 @@
-var gSubChildList = gClass + String.raw`
+var cl_gSubChildList = gClass + String.raw`
 ChildList <: xClass {
   Main := Child+
 }
 `;
 
-var fSubChildList =
+var cl_fSubChildList =
       fClass
     + String.raw`
 fSubChildList {
@@ -14,10 +14,10 @@ fSubChildList {
 }
 `;
 
-function fmtChildList (text) {
+function cl_fmtChildList (text) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", gSubChildList, fSubChildList));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", cl_gSubChildList, cl_fSubChildList));
     if (success) {
 	return instantiations;
     } else {

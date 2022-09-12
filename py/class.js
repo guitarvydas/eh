@@ -55,7 +55,6 @@ super ().__init__ (parent, name, null, null)
 
 /* calls sub-parsers and sub-fmts to format child lists */
 function fmtChild (text) {
-    console.log (text);
     var instances = fmtChildInstances (text);
     var childList = fmtChildList (text);
     return instances + '\nself._children = [' + childList + ']';;

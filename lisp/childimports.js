@@ -1,9 +1,9 @@
-  const gChildImports = gIdentityEmitter + String.raw`
+  const cl_gChildImports = gIdentityEmitter + String.raw`
 ChildImports <: IdentityEmitter {
 }
 `;
 
-const fChildImports =
+const cl_fChildImports =
         fIdentityEmitter
       + String.raw`
 `
@@ -18,6 +18,7 @@ fOverride {
   ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
   ChildList [lb Child* rb] = ‛⟨Child⟩’
+  string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `
 ;
