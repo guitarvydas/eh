@@ -63,13 +63,13 @@ textarea {
 
 <!-- emitters -->
 	<!-- reusable fmts -->
-	    <script src="py/fstring.js"></script>
-	    <script src="py/fmisc.js"></script>
-	    <script src="py/finsert.js"></script>
+	    <script src="common/fstring.js"></script>
+	    <script src="common/fmisc.js"></script>
+	    <script src="common/finsert.js"></script>
 	<!-- common -->
-	    <script src="py/seminsertselfdecl.js"></script>
-	    <script src="py/semreplacewithself.js"></script>
-	    <script src="py/identityemitter.js"></script>
+	    <script src="common/seminsertselfdecl.js"></script>
+	    <script src="common/semreplacewithself.js"></script>
+	    <script src="common/identityemitter.js"></script>
 
     <!-- Python -->
 	<!-- phases -->
@@ -82,16 +82,16 @@ textarea {
 	<!-- end sub-parsers -->
         <script src="py/emitpython.js"></script>
 	      
-    <!-- Common Lisp -->
-	<!-- phases -->
-	    <script src="lisp/childimports.js"></script>
-	    <script src="lisp/class.js"></script>
-	<!-- sub-parsers used by class.js -->
-	      <script src="lisp/childinstanceparser.js"></script>
-	      <script src="lisp/childlistparser.js"></script>
-	      <script src="lisp/connectionsparser.js"></script>
-	<!-- end sub-parsers -->
-        <script src="lisp/emitcl.js"></script>
+    <!-- <\!-- Common Lisp -\-> -->
+    <!-- 	<\!-- phases -\-> -->
+    <!-- 	    <script src="lisp/childimports.js"></script> -->
+    <!-- 	    <script src="lisp/class.js"></script> -->
+    <!-- 	<\!-- sub-parsers used by class.js -\-> -->
+    <!-- 	      <script src="lisp/childinstanceparser.js"></script> -->
+    <!-- 	      <script src="lisp/childlistparser.js"></script> -->
+    <!-- 	      <script src="lisp/connectionsparser.js"></script> -->
+    <!-- 	<\!-- end sub-parsers -\-> -->
+    <!--     <script src="lisp/emitcl.js"></script> -->
 <!-- end emitters -->
 
 
@@ -136,7 +136,7 @@ textarea {
 
       var transformedCode = output;
       emitPython (transformedCode);
-      emitCommonLisp (transformedCode);
+      // emitCommonLisp (transformedCode);
   }
 
   </script>

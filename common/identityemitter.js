@@ -53,8 +53,8 @@ ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
 ComponentName_name [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 
-ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
-Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩’
+ChildList [lb Child rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’

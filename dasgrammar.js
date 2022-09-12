@@ -51,8 +51,8 @@ kwport = dq "port" dq
 ComponentName = string
 PortName = string
 
-ChildList = "[" Child* "]"
-Child = "{" kkind ":" KindName "," kname ":" ComponentName "}" ","?
+ChildList = "[" Child "]"
+Child = "{" kkind ":" KindName "," kname ":" ComponentName "}" ","? Child?
 kkind = dq "kind" dq
 KindName = string
 kname = dq "name" dq

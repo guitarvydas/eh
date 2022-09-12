@@ -40,8 +40,8 @@ kwport [dq1 kport dq2] = ‛⟨dq1⟩⟨kport⟩⟨dq2⟩’
 ComponentName [s] = ‛⟨s⟩’
 PortName [s] = ‛⟨s⟩’
 
-ChildList [lb Child* rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
-Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩’
+ChildList [lb Child rb] = ‛⟨lb⟩⟨Child⟩⟨rb⟩’
+Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon⟩⟨ComponentName⟩⟨rb⟩⟨optcomma⟩⟨more⟩’
 kkind [dq1 kkind dq2] = ‛⟨dq1⟩⟨kkind⟩⟨dq2⟩’
 KindName [s] =  ‛⟨s⟩’
 kname [dq1 kname dq2] = ‛⟨dq1⟩⟨kname⟩⟨dq2⟩’
