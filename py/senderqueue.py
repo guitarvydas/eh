@@ -6,7 +6,7 @@ class SenderQueue:
     def __init__ (self):
         self._outputq = FIFO ()
 
-    def outputs (self):
+    def outputsDictionary (self):
         # return a dictionary of FIFOs, one FIFO per output port
         resultdict = {}
         for message in self._outputq.asDeque ():
@@ -34,8 +34,7 @@ class SenderQueue:
 
     def send (self, xfrom, portname, data, causingMessage):
         m = OutputMessage (xfrom, portname, data, causingMessage)
-        m.updateState ('output')
-        self._outputq.enqueue (m)
+        self.enqueueOutput (m)
 
     def outputQueue (self):
         return self._outputq.asDeque ()
