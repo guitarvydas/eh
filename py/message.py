@@ -13,9 +13,9 @@ class BaseMessage:
         return self._data
 
 class Message (BaseMessage):
-    def __init__ (self, from, port, data, trail):
+    def __init__ (self, xfrom, port, data, trail):
         super ().__init__ (data)
-        self._from = from
+        self._xfrom = xfrom
         self._port = port
         self._trail = trail
 
@@ -23,8 +23,8 @@ class Message (BaseMessage):
         return "<??? (Error, this is a virtual message and should never be seen): '%s','%s'>" % (self.port, self.data)
 
     @property
-    def from (self):
-        return self._from
+    def xfrom (self):
+        return self._xfrom
 
     @property
     def port (self):

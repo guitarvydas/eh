@@ -7,9 +7,7 @@ class Connect:
     def guardedDeliver (self, message):
         # try to deliver the message
         # deliver only if message's from and port match this connection's sender's from and port, otherwise do nothing
-        senderMatch = (message.from == self._sender._who)
-        portMatch = (self._sender.port == message.port)
-        if (senderMatch and portMatch):
+        if (self._sender.match (message.xfrom, message.port)):
             self._routingFunction (self._sender, self._receiver, message)
         else:
             pass

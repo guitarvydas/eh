@@ -32,8 +32,8 @@ class SenderQueue:
     def dequeueOutput (self):
         return self._outputq.dequeue ()
 
-    def send (self, from, portname, data, causingMessage):
-        m = OutputMessage (from, portname, data, causingMessage)
+    def send (self, xfrom, portname, data, causingMessage):
+        m = OutputMessage (xfrom, portname, data, causingMessage)
         m.updateState ('output')
         self._outputq.enqueue (m)
 

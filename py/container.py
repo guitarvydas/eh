@@ -41,14 +41,14 @@ class Container (EH):
         # from output of Child to input of Child
         if debugRouting:
             print (f'route {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = InpuMessage (inmessage.from, receiver._port, inmessage.data, inmessage)
+        mappedMessage = InpuMessage (inmessage.xfrom, receiver._port, inmessage.data, inmessage)
         receiver.enqueueInput (mappedMessage)
 
     def up (self, sender, receiver, outmessage):
         # from output of Child to output of Container
         if debugRouting:
             print (f'routeoutput {outmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = OutputMessage (outmessage.from, receiver._port, outmessage.data, outmessage)
+        mappedMessage = OutputMessage (outmessage.xfrom, receiver._port, outmessage.data, outmessage)
         self.enqueueOutput (mappedMessage)
 
     # end routings
