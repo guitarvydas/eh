@@ -1,6 +1,6 @@
 from fifo import FIFO
 from sender import Sender
-from message import Message
+from outputmessage import OutputMessage
 
 class SenderQueue:
     def __init__ (self):
@@ -32,12 +32,8 @@ class SenderQueue:
     def dequeueOutput (self):
         return self._outputq.dequeue ()
 
-    def send (self, portname, data, causingMessage):
-        if (causingMessage == None):
-            trail = [None]
-        else:
-            trail = [causingMessage, causingMessage.trail]
-        m = Message (portname, data, trail)
+    def send (self, from, portname, data, causingMessage):
+        m = OutputMessage (from, portname, data, causingMessage)
         m.updateState ('output')
         self._outputq.enqueue (m)
 

@@ -1,25 +1,25 @@
 class Sender:
     def __init__ (self, component, port):
-        self._who = component
+        self._from = component
         self._port = port
 
     def match (self, othersender, port):
-        whomatch = None
+        frommatch = None
         portmatch = (self._port == port)
         if (isinstance (othersender, Sender)):
-            whomatch = (self._who == othersender._who)
+            frommatch = (self._from == othersender._from)
         else:
-            whomatch = (self._who == othersender)
-        return (whomatch and portmatch)
+            frommatch = (self._from == othersender)
+        return (frommatch and portmatch)
 
     @property
     def port (self):
         return self._port
 
     @property
-    def who (self):
-        return self._who
+    def from (self):
+        return self._from
 
     def name (self):
-        return f'{self._who.name ()}/{self._port}'
+        return f'{self._from.name ()}/{self._port}'
 

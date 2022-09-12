@@ -7,10 +7,8 @@ class Receiver:
     def port (self):
         return self._port
 
-    @property
-    def who (self):
-        return self._who
-
+    # _who is used internally only and is never accessed externally
+    
     def name (self):
         return f'{self._who.name ()}/{self._port}'
 
