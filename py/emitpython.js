@@ -46,14 +46,12 @@ ${rv}
     }
     r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
     dump (xclass);
-/*
     if (r) {
-      	let finalCode = boilerPlateImports + ' [A] ' + childImports + ' [B] ' + xclass;
+      	let finalCode = boilerPlateImports + childImports + xclass;
       	finalCode = removeVerbatimBrackets (finalCode);
       	finalCode = fixupCode (finalCode);
       	finalCode = indenter (finalCode);
-      	document.getElementById('pyoutput').value = 'PYTHON:\n' + finalCode;
+      	document.getElementById('pyoutput').value = finalCode;
     }
-*/
 }
 
