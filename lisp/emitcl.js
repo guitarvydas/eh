@@ -9,22 +9,9 @@ function emitCommonLisp (transformedCode) {
 
     const boilerPlateImports = `
 ${lv}
-from message import Message
-from sender import Sender
-from selfsender import SelfSender
-from receiver import Receiver
-from selfreceiver import SelfReceiver
-from upconnect import UpConnect
-from downconnect import DownConnect
-from routeconnect import RouteConnect
-from passthroughconnect import PassThroughConnect
-from container import Container
 ${rv}
 `;
     let xclass = ''; // "xclass" to avoid any hint of name clash with "class" keyword...
-    let childImports = '';
-    r && ([r, childImports] = test (transformedCode, "ChildImports", cl_gChildImports, cl_fChildImports));
-    dump (childImports);
 
     {
 	// intermediate tests - xclass invokes these for real
@@ -47,7 +34,7 @@ ${rv}
     r && ([r, xclass] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
     dump (xclass);
     if (r) {
-      	let finalCode = boilerPlateImports + childImports + xclass;
+      	let finalCode = boilerPlateImports + xclass;
       	finalCode = removeVerbatimBrackets (finalCode);
       	finalCode = fixupCode (finalCode);
       	finalCode = indenter (finalCode);
