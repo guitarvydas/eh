@@ -24,9 +24,9 @@ ${rv}
     let childImports = '';
     let xclass = ''; // "xclass" to avoid any hint of name clash with "class" keyword...
     r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-    dump (childImports);
-/*
     r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
+    dump (xclass);
+/*
     if (r) {
       	let finalCode = boilerPlateImports + ' [A] ' + childImports + ' [B] ' + xclass;
       	finalCode = removeVerbatimBrackets (finalCode);
