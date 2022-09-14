@@ -5,21 +5,19 @@ const dasfmt = String.raw`
 DaS {
 Component [lb ComponentJSON rb optcomma] = ‛\n.=⟨selfid⟩\n.kind=⟨selfkind⟩\n⟨lb⟩⟨ComponentJSON⟩⟨rb⟩⟨optcomma⟩’
 ComponentJSON [x] = ‛⟨x⟩’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
-ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛⟨lb⟩⟨NonEmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
+ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛⟨lb⟩⟨EmptyChildren⟩⟨ComponentField⟩⟨rb⟩’
 
 EmptyChildren [dq1 kchildren dq2 kcolon lb rb optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨lb⟩⟨rb⟩⟨optcomma⟩’
 NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨dq1⟩⟨kchildren⟩⟨dq2⟩⟨kcolon⟩⟨ChildList⟩⟨optcomma⟩’
 
-ComponentField [CField optcomma?] = ‛\n⟨CField⟩’
-
-CField_id [dq1 k dq2 kcolon s] = ‛⟨selfid = s, ""⟩’
-CField_inputs [dq1 k dq2 kcolon s] = ‛’
-CField_name [dq1 k dq2 kcolon s] = ‛’
-CField_kind [dq1 k dq2 kcolon s] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩⟨selfkind = s,""⟩’
-CField_outputs [dq1 k dq2 kcolon s] = ‛’
-CField_synccode [dq1 k dq2 kcolon s] = ‛’
-CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨ConnectionBody⟩’
+CField_id [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨selfid = s, ""⟩⟨rec⟩’
+CField_inputs [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
+CField_name [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
+CField_kind [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨s⟩⟨selfkind = s,""⟩⟨rec⟩’
+CField_outputs [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
+CField_synccode [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
+CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨ConnectionBody⟩⟨rec⟩’
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
 

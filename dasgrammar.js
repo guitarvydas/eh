@@ -22,23 +22,20 @@ Main := Components
 Components = vs "[" vs Component+ vs "]" vs
 Component = "[" ComponentJSON "]" ","?
 ComponentJSON = ComponentLeafJSON | ComponentContainerJSON
-ComponentContainerJSON = "{" NonEmptyChildren ComponentField+ "}"
-ComponentLeafJSON = "{" EmptyChildren ComponentField+ "}"
+ComponentContainerJSON = "{" NonEmptyChildren CField "}"
+ComponentLeafJSON = "{" EmptyChildren CField "}"
 
 EmptyChildren (EmptyChildren) = dq "children" dq ":" "[" "]" ","?
 NonEmptyChildren (NonEmptyChildren) = dq "children" dq ":" ChildList ","?
 
-ComponentField = CField ","?
-
 CField =
-  | dq "id" dq ":" string                   -- id
-  | dq "inputs" dq ":" StringList           -- inputs
-  | dq "name" dq ":" string                 -- name
-  | dq "kind" dq ":" string                 -- kind
-  | dq "outputs" dq ":" StringList          -- outputs
-  | dq "synccode" dq ":" string             -- synccode
-  | dq "connections" dq ":" ConnectionBody  -- connections
-
+  | dq "id" dq ":" string ","? CField?                   -- id
+  | dq "inputs" dq ":" StringList ","? CField?           -- inputs
+  | dq "name" dq ":" string ","? CField?                 -- name
+  | dq "kind" dq ":" string ","? CField?                 -- kind
+  | dq "outputs" dq ":" StringList ","? CField?          -- outputs
+  | dq "synccode" dq ":" string ","? CField?             -- synccode
+  | dq "connections" dq ":" ConnectionBody ","? CField?  -- connections
 ConnectionBody = "[" (Connection ","?)* "]"
 
 Connection = "{" Receiver "," Sender "}"

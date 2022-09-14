@@ -14,7 +14,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma?
   ComponentJSON [x] = ‛⟨x⟩’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
   ChildList [lb Child rb] = ‛⟨cl_fmtChild (Child)⟩’
-  ComponentContainerJSON [lb NonEmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
+  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
 def __init__ (self, parent, name):(-
 ⟨NonEmptyChildren⟩
 ⟨ComponentField⟩
