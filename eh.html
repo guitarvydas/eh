@@ -23,8 +23,10 @@ textarea {
 </textarea>
 
 
-<p>output:</p>
-<textarea id="output" rows="20" cols="120" placeholder="transpiled output" style="background-color:oldlace;">
+<p>output: Python, Lisp</p>
+<textarea id="pyoutput" rows="20" cols="80" placeholder="python" style="background-color:oldlace;">
+</textarea>
+<textarea id="cloutput" rows="20" cols="80" placeholder="common lisp" style="background-color:oldlace;">
 </textarea>
 
 <p>input:</p>
@@ -60,16 +62,18 @@ textarea {
     <script src="dasgrammar.js"></script>
 
 <!-- emitters -->
-    <!-- Python -->
 	<!-- reusable fmts -->
-	    <script src="py/fstring.js"></script>
-	    <script src="py/fmisc.js"></script>
-	    <script src="py/finsert.js"></script>
+	    <script src="common/fstring.js"></script>
+	    <script src="common/fmisc.js"></script>
+	    <script src="common/finsert.js"></script>
+	<!-- common -->
+	    <script src="common/seminsertselfdecl.js"></script>
+	    <script src="common/semreplacewithself.js"></script>
+	    <script src="common/identityemitter.js"></script>
+	    <script src="common/fignore.js"></script>
 
+    <!-- Python -->
 	<!-- phases -->
-	    <script src="py/seminsertselfdecl.js"></script>
-	    <script src="py/semreplacewithself.js"></script>
-	    <script src="py/identityemitter.js"></script>
 	    <script src="py/childimports.js"></script>
 	    <script src="py/class.js"></script>
 	<!-- sub-parsers used by class.js -->
@@ -77,6 +81,18 @@ textarea {
 	      <script src="py/childlistparser.js"></script>
 	      <script src="py/connectionsparser.js"></script>
 	<!-- end sub-parsers -->
+        <script src="py/emitpython.js"></script>
+	      
+    <!-- <\!-- Common Lisp -\-> -->
+    <!-- 	<\!-- phases -\-> -->
+    <!-- 	    <script src="lisp/childimports.js"></script> -->
+    <!-- 	    <script src="lisp/class.js"></script> -->
+    <!-- 	<\!-- sub-parsers used by class.js -\-> -->
+    <!-- 	      <script src="lisp/childinstanceparser.js"></script> -->
+    <!-- 	      <script src="lisp/childlistparser.js"></script> -->
+    <!-- 	      <script src="lisp/connectionsparser.js"></script> -->
+    <!-- 	<\!-- end sub-parsers -\-> -->
+    <!--     <script src="lisp/emitcl.js"></script> -->
 <!-- end emitters -->
 
 
@@ -90,7 +106,6 @@ textarea {
   }
   
   function fixupCode (s) {
-      console.log (s);
       var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
       return fixed;
   }
@@ -99,11 +114,9 @@ textarea {
       document.getElementById('input').innerHTML = src;      
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
       if (success) {
-	  document.getElementById('output').value = transpiled;
           document.getElementById('status').innerHTML = "OK";
 	  return [true, transpiled];
       } else {
-          document.getElementById('output').value = '<error>';
           document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
 	  return [false, errormessage];
       }
@@ -123,31 +136,10 @@ textarea {
 // Code Emitter
 
       var transformedCode = output;
-      
-      const boilerPlateImports = `
-${lv}
-from message import Message
-from sender import Sender
-from selfsender import SelfSender
-from receiver import Receiver
-from selfreceiver import SelfReceiver
-from connect import Connect
-from container import Container
-${rv}
-`;
-      let childImports = '';
-      let xclass = ''; // "xclass" to avoid any hint of name clash with "class" keyword...
-      var nochange = '<empty nochange>';
-      r && ([r, nochange] = test (transformedCode, "IdentityEmitter", gIdentityEmitter, fIdentityEmitter));
-      r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
-      r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
-      if (r) {
-      	  let finalCode = boilerPlateImports + childImports + xclass;
-      	  finalCode = removeVerbatimBrackets (finalCode);
-      	  finalCode = fixupCode (finalCode);
-      	  finalCode = indenter (finalCode);
-      	  document.getElementById('output').value = finalCode;
-      }
+      emitPython (transformedCode);
+/*      
+      emitCommonLisp (transformedCode);
+*/
   }
 
   </script>

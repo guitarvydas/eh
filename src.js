@@ -51,3 +51,38 @@ const jsonsrc = String.raw`
   ]
 ]
 `;
+
+/* testing...
+const jsonsrc = String.raw`
+[
+  [
+    {
+      "children": [ {"kind":"Hello", "name":"test1"},  {"kind":"World", "name":"test2"} ],
+      "connections": [
+	{
+	  "receivers": [ {"receiver": {"component":"test1", "port":"stdin"}} ],
+	  "senders": [ {"sender": {"component":"test0", "port":"stdin"}} ]
+	},
+      ],
+      "id":"test0",
+      "kind":"Test",
+      "name":"testname",
+    }
+  ],
+  [
+    {
+      "children": [ {"kind":"Hello", "name":"xxx1"},  {"kind":"World", "name":"xxx2"} ],
+      "connections": [
+	{
+	  "receivers": [ {"receiver": {"component":"xxx1", "port":"stdin"}} ],
+	  "senders": [ {"sender": {"component":"xxx0", "port":"stdin"}} ]
+	},
+      ],
+      "id":"xxx0",
+      "kind":"Xxx",
+      "name":"xxxname",
+    }
+  ]
+]
+`;
+*/

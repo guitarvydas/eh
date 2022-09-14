@@ -1,19 +1,13 @@
-from message import Message
-
 class Connect:
-    def __init__ (self, sender, receiver, func):
+    def __init__ (self, sender, receiver, routingFunction):
         self._sender = sender
         self._receiver = receiver
-        self._exec = func
+        self._routingFunction = routingFunction
 
-    def attemptToHandle (self, sender, message):
-        if sender.matchSender (self._sender):
-            m = self.mapMessageForReceiver (message, self._sender)
-            self._exec (self._sender, self._receiver, m)
-
-    def matchSender (self, other):
-        return self._sender.matchSender (other)
-
-    def mapMessageForReceiver (self, message, sender):
-        mapped = Message (self._receiver.port, message.data, [sender, message.trail])
-        return mapped
+    def guardedDeliver (self, message):
+        # try to deliver the message
+        # deliver only if message's from and port match this connection's sender's from and port, otherwise do nothing
+        if (self._sender.match (message.xfrom, message.port)):
+            self._routingFunction (self._sender, self._receiver, message)
+        else:
+            pass

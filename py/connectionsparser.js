@@ -22,15 +22,21 @@ Connections <: xClass {
 
 var fSubConnections =
       fClass
+    + fIdentityIgnore
++ `Names {
+ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
+ComponentName_name [s] = ‛⟨s⟩’
+PortName [s] = ‛⟨s⟩’
+}`
     + String.raw`
 fSubConnections {
   Main [Connection*] = ‛⟨Connection⟩’
 
   Connection [x] = ‛⟨x⟩’
-  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.passThrough)⟨rv⟩,’
-  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.down)⟨rv⟩,’
-  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.up)⟨rv⟩,’
-  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩Connect (⟨Sender⟩, ⟨Receiver⟩, self.route)⟨rv⟩,’
+  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩PassThroughConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩DownConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩UpConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩RouteConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
 
   SelfReceiver [dq1 kwreceivers dq1 kcolon1 lbracket lbrace dq3 kwreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛SelfReceiver (⟨Pair⟩)’
   SelfSender  [dq1 kwsenders dq2 kcolon1 lbracket lbrace dq3 kwsender dq4 kcolon2 Pair rbrace rbracket] = ‛SelfSender (⟨Pair⟩)’
@@ -40,6 +46,14 @@ fSubConnections {
   Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
   Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
   Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨ComponentName⟩,'⟨PortName⟩'’
+
+  ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
+
+ComponentJSON [x] = ‛\n⟨x⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n⟨NonEmptyChildren⟩⟨ComponentField⟩’
+NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨ChildList⟩’
+ChildList [lb Child rb] = ‛\n⟨Child⟩’
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛\n⟨KindName⟩,⟨ComponentName⟩⟨more⟩’
 
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }

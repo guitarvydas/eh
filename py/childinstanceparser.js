@@ -6,10 +6,11 @@ ChildInstantiate <: xClass {
 
 var fSubChildInstantiate =
       fClass
+    + fIdentityIgnore
     + String.raw`
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩⟨more⟩’
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
