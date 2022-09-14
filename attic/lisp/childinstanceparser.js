@@ -1,21 +1,22 @@
-var cl_gSubChildInstantiate = gClass + String.raw`
+var cl_gSubChildInstantiate = cl_gClass + String.raw`
 ChildInstantiate <: xClass {
   Main := Child+
+  Child := "{" kkind ":" KindName "," kname ":" ComponentName "}" ","? vs Child?
 }
 `;
 
 var cl_fSubChildInstantiate =
       fClass
-    + fIdentityIgnore
     + String.raw`
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩⟨more⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? vs more?] = ‛\n⟨lv⟩(let ((⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩)⟨vs⟩\n⟨more⟩)’
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
 
 function cl_fmtChildInstances (text) {
+    console.log (text);
     let instantiations = '';
     let success = true;
     success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", cl_gSubChildInstantiate, cl_fSubChildInstantiate));
