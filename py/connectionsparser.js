@@ -32,7 +32,7 @@ PortName [s] = ‛⟨s⟩’
 fSubConnections {
   Main [Connection*] = ‛⟨Connection⟩’
 
-  Connection [x] = ‛(AA)⟨x⟩(aa)’
+  Connection [x] = ‛⟨x⟩’
   Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩PassThroughConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
   Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩DownConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
   Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩UpConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
@@ -49,19 +49,17 @@ fSubConnections {
 
   ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 
-ComponentJSON [x] = ‛\n(Z)⟨x⟩(z)’
-ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n(Y)⟨NonEmptyChildren⟩⟨ComponentField⟩(y)’
-NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n(J)⟨ChildList⟩(j)’
-ChildList [lb Child rb] = ‛\n(UU)⟨Child⟩(uu)’
-Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛\n(QQ)⟨KindName⟩@⟨ComponentName⟩⟨more⟩(qq)’
+ComponentJSON [x] = ‛\n⟨x⟩’
+ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n⟨NonEmptyChildren⟩⟨ComponentField⟩’
+NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨ChildList⟩’
+ChildList [lb Child rb] = ‛\n⟨Child⟩’
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛\n⟨KindName⟩,⟨ComponentName⟩⟨more⟩’
 
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
 
 function fmtConnections (text) {
-    console.log ('fmtConnections');
-    console.log (text);
     let connections = '';
     let success = true;
     success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections));
