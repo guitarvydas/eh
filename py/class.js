@@ -5,6 +5,7 @@ xClass <: IdentityEmitter {
 
 var fClass =
     fIdentityEmitter
+    + fIdentityIgnore
 + String.raw`
 override {
   Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩!⟨Component⟩~⟨vs3⟩⟨vs4⟩⟨resetselfkind ()⟩’
@@ -24,7 +25,13 @@ super ().__init__ (parent, name, self._children, self._connections)
 
 CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨lv⟩self._connections = [(-⟨ConnectionBody⟩-)]⟨rv⟩⟨rec⟩’
 ConnectionBody [lb Connection* optcomma* rb] = ‛^⟨fmtConnections (Connection)⟩&’
+Connection [lb Receiver kcomma Sender rb] = ‛⟨lb⟩⟨Receiver⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩’
 
+Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
+
+Sender [dq1 ksenders dq2 kcolon1 klbracket klbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨ksenders⟩⟨dq2⟩⟨kcolon1⟩⟨klbracket⟩⟨klbrace⟩⟨dq3⟩⟨ksender⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
+
+Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
 
 }
 `;

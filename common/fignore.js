@@ -1,7 +1,6 @@
 const fIdentityIgnore = String.raw`
 Ignore {
   ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛\n⟨vs1⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨vs4⟩’
-  ComponentJSON [x] = ‛⟨x⟩’
   Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩⟨resetselfkind ()⟩’
   SelfDef [kdot keq ComponentName] = ‛’
   ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛⟨vs1⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨vs4⟩’

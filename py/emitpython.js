@@ -44,7 +44,6 @@ ${rv}
 	let connections = fmtConnections (connectionstest);
 	dump (connections);
     }
-/*
     r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
     dump (xclass);
 /*
