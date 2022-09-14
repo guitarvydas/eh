@@ -5,7 +5,6 @@ xClass <: IdentityEmitter {
 
 var fClass =
     fIdentityEmitter
-    + fIdentityIgnore
 + String.raw`
 override {
   Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩!⟨Component⟩~⟨vs3⟩⟨vs4⟩⟨resetselfkind ()⟩’
@@ -23,7 +22,7 @@ super ().__init__ (parent, name, self._children, self._connections)
 -)-)’
   ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
 
-CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛self._connections = [(-⟨ConnectionBody⟩-)]⟨rec⟩’
+CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨lv⟩self._connections = [(-⟨ConnectionBody⟩-)]⟨rv⟩⟨rec⟩’
 ConnectionBody [lb Connection* optcomma* rb] = ‛^⟨fmtConnections (Connection)⟩&’
 
 
@@ -53,6 +52,6 @@ ConnectionBody [lb Connection* optcomma* rb] = ‛^⟨fmtConnections (Connection
 function fmtChild (text) {
     var instances = fmtChildInstances (text);
     var childList = fmtChildList (text);
-    return instances + '\nself._children = [' + childList + ']';;
+    return `${instances}\n${lv}self._children = [${childList}]${rv}`;
 }
 

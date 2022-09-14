@@ -41,11 +41,14 @@ fSubConnections {
   Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
   Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨ComponentName⟩,'⟨PortName⟩'’
 
+  ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
+
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
 
 function fmtConnections (text) {
+    console.log (text);
     let connections = '';
     let success = true;
     success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections));

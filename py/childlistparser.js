@@ -9,7 +9,7 @@ var fSubChildList =
     + String.raw`
 fSubChildList {
   Main [child vs] = ‛⟨child⟩⟨vs⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛⟨lv⟩⟨ComponentName⟩⟨rv⟩⟨more⟩’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛⟨lv⟩⟨ComponentName⟩⟨rv⟩,⟨more⟩’
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;
