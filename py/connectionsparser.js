@@ -25,8 +25,8 @@ var fSubConnections =
     + fIdentityIgnore
 + `Names {
 ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
-ComponentName_name [s] = ‛\n(SS)⟨s⟩(ss)’
-PortName [s] = ‛\n(RR)⟨s⟩(rr)’
+ComponentName_name [s] = ‛⟨s⟩’
+PortName [s] = ‛⟨s⟩’
 }`
     + String.raw`
 fSubConnections {

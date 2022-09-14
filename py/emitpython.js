@@ -29,23 +29,21 @@ ${rv}
     {
 	// intermediate tests - xclass invokes these for real
 
-	var childtest = '{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}';
+	var childtest = String.raw`{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}`;
 	let childInstances = fmtChildInstances (childtest);
 	dump (childInstances);
 
 	let childList = fmtChildList (childtest);
 	dump (childList);
-/*
-	var connectionstest = '"connections":[ 
+
+	let connectionstest = String.raw`
 {"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":"cell_6","port":"stdin"}}]}
 {"receivers":[{"receiver":{"component":"cell_8","port":"stdin"}}],"senders":[{"sender":{"component":"cell_7","port":"stdout"}}]}
 {"receivers":[{"receiver":{"component":"cell_6","port":"stdout"}}],"senders":[{"sender":{"component":"cell_8","port":"stdout"}}]}
-]';
-*/
+`;
+	let connections = fmtConnections (connectionstest);
+	dump (connections);
     }
-/*
-    var childList = fmtChildList (transformedCode);
-    dump (childList);
 /*
     r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
     dump (xclass);
