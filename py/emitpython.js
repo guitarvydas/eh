@@ -29,10 +29,12 @@ ${rv}
     {
 	// intermediate tests - xclass invokes these for real
 
-/*
-	var childtest = '"children":[{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}]';
+	var childtest = '{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}';
 	let childInstances = fmtChildInstances (childtest);
 	dump (childInstances);
+
+	let childList = fmtChildList (childtest);
+	dump (childList);
 /*
 	var connectionstest = '"connections":[ 
 {"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":"cell_6","port":"stdin"}}]}

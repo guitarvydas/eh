@@ -6,6 +6,7 @@ ChildInstantiate <: xClass {
 
 var fSubChildInstantiate =
       fClass
+    + fIdentityIgnore
     + String.raw`
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’

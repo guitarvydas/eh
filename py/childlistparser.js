@@ -6,6 +6,7 @@ ChildList <: xClass {
 
 var fSubChildList =
       fClass
+    + fIdentityIgnore
     + String.raw`
 fSubChildList {
   Main [child vs] = ‛⟨child⟩⟨vs⟩’
