@@ -21,10 +21,29 @@ from passthroughconnect import PassThroughConnect
 from container import Container
 ${rv}
 `;
-    let childImports = '';
     let xclass = ''; // "xclass" to avoid any hint of name clash with "class" keyword...
+    let childImports = '';
     r && ([r, childImports] = test (transformedCode, "ChildImports", gChildImports, fChildImports));
     dump (childImports);
+
+    {
+	// intermediate tests - xclass invokes these for real
+
+/*
+	var childtest = '"children":[{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}]';
+	let childInstances = fmtChildInstances (childtest);
+	dump (childInstances);
+/*
+	var connectionstest = '"connections":[ 
+{"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":"cell_6","port":"stdin"}}]}
+{"receivers":[{"receiver":{"component":"cell_8","port":"stdin"}}],"senders":[{"sender":{"component":"cell_7","port":"stdout"}}]}
+{"receivers":[{"receiver":{"component":"cell_6","port":"stdout"}}],"senders":[{"sender":{"component":"cell_8","port":"stdout"}}]}
+]';
+*/
+    }
+/*
+    var childList = fmtChildList (transformedCode);
+    dump (childList);
 /*
     r && ([r, xclass] = test (transformedCode, "xClass", gClass, fClass));
     dump (xclass);

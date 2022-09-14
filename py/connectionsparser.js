@@ -22,6 +22,12 @@ Connections <: xClass {
 
 var fSubConnections =
       fClass
+    + fIdentityIgnore
++ `Names {
+ComponentName_self [q1 s q2] = ‛⟨q1⟩⟨s⟩⟨q2⟩’
+ComponentName_name [s] = ‛\n(SS)⟨s⟩(ss)’
+PortName [s] = ‛\n(RR)⟨s⟩(rr)’
+}`
     + String.raw`
 fSubConnections {
   Main [Connection*] = ‛⟨Connection⟩’

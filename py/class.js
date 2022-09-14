@@ -50,6 +50,8 @@ ConnectionBody [lb Connection* optcomma* rb] = ‛^⟨fmtConnections (Connection
 
 /* calls sub-parsers and sub-fmts to format child lists */
 function fmtChild (text) {
+    console.log ('fmtchild');
+    console.log (text);
     var instances = fmtChildInstances (text);
     var childList = fmtChildList (text);
     return `${instances}\n${lv}self._children = [${childList}]${rv}`;
