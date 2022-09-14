@@ -1,4 +1,4 @@
-const full_jsonsrc = String.raw`
+const jsonsrc = String.raw`
 [
   [
     {
@@ -52,32 +52,37 @@ const full_jsonsrc = String.raw`
 ]
 `;
 
+/* testing...
 const jsonsrc = String.raw`
 [
   [
     {
-      "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
+      "children": [ {"kind":"Hello", "name":"test1"},  {"kind":"World", "name":"test2"} ],
       "connections": [
 	{
-	  "receivers": [ {"receiver": {"component":"cell_7", "port":"stdin"}} ],
-	  "senders": [ {"sender": {"component":"cell_6", "port":"stdin"}} ]
+	  "receivers": [ {"receiver": {"component":"test1", "port":"stdin"}} ],
+	  "senders": [ {"sender": {"component":"test0", "port":"stdin"}} ]
 	},
-	{
-	  "receivers": [ {"receiver": {"component":"cell_8", "port":"stdin"}} ],
-	  "senders": [ {"sender": {"component":"cell_7", "port":"stdout"}} ]
-	},
-	{
-	  "receivers": [ {"receiver": {"component":"cell_6", "port":"stdout"}} ],
-	  "senders": [ {"sender": {"component":"cell_8", "port":"stdout"}} ]
-	}
       ],
-      "id":"cell_6",
-      "inputs": ["cell_17" ],
-      "kind":"HelloWorld",
-      "name":"HelloWorld",
-      "outputs": ["cell_15" ],
-      "synccode":""
+      "id":"test0",
+      "kind":"Test",
+      "name":"testname",
+    }
+  ],
+  [
+    {
+      "children": [ {"kind":"Hello", "name":"xxx1"},  {"kind":"World", "name":"xxx2"} ],
+      "connections": [
+	{
+	  "receivers": [ {"receiver": {"component":"xxx1", "port":"stdin"}} ],
+	  "senders": [ {"sender": {"component":"xxx0", "port":"stdin"}} ]
+	},
+      ],
+      "id":"xxx0",
+      "kind":"Xxx",
+      "name":"xxxname",
     }
   ]
 ]
 `;
+*/
