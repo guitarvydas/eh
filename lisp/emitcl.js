@@ -1,6 +1,6 @@
 
 function dump (s) {
-    document.getElementById('pyoutput').value = 'DUMP:\n' + s;
+    document.getElementById('cloutput').value = 'DUMP:\n' + s;
 }
 
 function emitCommonLisp (transformedCode) {

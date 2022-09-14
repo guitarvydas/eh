@@ -15,7 +15,7 @@ fSubChildList {
 }
 `;
 
-function fmtChildList (text) {
+function cl_fmtChildList (text) {
     let instantiations = '';
     let success = true;
     success && ([success, instantiations, errormessage] = transpile (text, "ChildList", cl_gSubChildList, cl_fSubChildList));

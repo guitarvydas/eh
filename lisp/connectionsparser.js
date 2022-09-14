@@ -59,7 +59,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma?
 }
 `;
 
-function fmtConnections (text) {
+function cl_fmtConnections (text) {
     let connections = '';
     let success = true;
     success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections));
