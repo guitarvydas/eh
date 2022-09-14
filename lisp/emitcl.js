@@ -1,6 +1,6 @@
 
 function dump (s) {
-    document.getElementById('cloutput').value = 'DUMP:\n' + s;
+    document.getElementById('cloutput').value = s;
 }
 
 function emitCommonLisp (transformedCode) {
@@ -19,10 +19,10 @@ ${rv}
 	var childtest = String.raw`{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}`;
 	let childInstances = cl_fmtChildInstances (childtest);
 	dump (childInstances);
-
 	let childList = cl_fmtChildList (childtest);
 	dump (childList);
 
+/*
 	let connectionstest = String.raw`
 {"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":"cell_6","port":"stdin"}}]}
 {"receivers":[{"receiver":{"component":"cell_8","port":"stdin"}}],"senders":[{"sender":{"component":"cell_7","port":"stdout"}}]}
@@ -30,7 +30,9 @@ ${rv}
 `;
 	let connections = cl_fmtConnections (connectionstest);
 	dump (connections);
+*/
     }
+/*
     r && ([r, xclass] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
     dump (xclass);
     if (r) {
@@ -40,5 +42,6 @@ ${rv}
       	finalCode = indenter (finalCode);
       	document.getElementById('cloutput').value = finalCode;
     }
+*/
 }
 
