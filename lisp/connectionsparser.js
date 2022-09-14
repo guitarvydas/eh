@@ -33,19 +33,19 @@ fSubConnections {
   Main [Connection*] = ‛⟨Connection⟩’
 
   Connection [x] = ‛⟨x⟩’
-  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩PassThroughConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
-  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩DownConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
-  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩UpConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
-  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩RouteConnect (⟨Sender⟩, ⟨Receiver⟩)⟨rv⟩,’
+  Connection_passThrough [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩(make-instance 'PassThroughConnect :sender ⟨Sender⟩ :receiver ⟨Receiver⟩)⟨rv⟩ ’
+  Connection_down [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩(make-instance 'DownConnect :sender ⟨Sender⟩ :receiver ⟨Receiver⟩)⟨rv⟩ ’
+  Connection_up [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩(make-instance 'UpConnect :sender ⟨Sender⟩ :receiver ⟨Receiver⟩)⟨rv⟩ ’
+  Connection_route [lb Receiver kcomma Sender rb] = ‛\n⟨lv⟩(make-instance 'RouteConnect :sender ⟨Sender⟩ :receiver ⟨Receiver⟩)⟨rv⟩ ’
 
-  SelfReceiver [dq1 kwreceivers dq1 kcolon1 lbracket lbrace dq3 kwreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛SelfReceiver (⟨Pair⟩)’
-  SelfSender  [dq1 kwsenders dq2 kcolon1 lbracket lbrace dq3 kwsender dq4 kcolon2 Pair rbrace rbracket] = ‛SelfSender (⟨Pair⟩)’
+  SelfReceiver [dq1 kwreceivers dq1 kcolon1 lbracket lbrace dq3 kwreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛(make-instance 'SelfReceiver ⟨Pair⟩)’
+  SelfSender  [dq1 kwsenders dq2 kcolon1 lbracket lbrace dq3 kwsender dq4 kcolon2 Pair rbrace rbracket] = ‛(make-instance 'SelfSender ⟨Pair⟩)’
 
-  SelfPair [lb dq1 kwcomponent dq2 kcolon1 dq1 kdot dq2 kcomma dq3 kwport dq4 kcolon2 PortName rb] = ‛self,'⟨PortName⟩'’
+  SelfPair [lb dq1 kwcomponent dq2 kcolon1 dq1 kdot dq2 kcomma dq3 kwport dq4 kcolon2 PortName rb] = ‛:component self :port "⟨PortName⟩"’
 
-  Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛Receiver (⟨Pair⟩)’
-  Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛Sender (⟨Pair⟩)’
-  Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨ComponentName⟩,'⟨PortName⟩'’
+  Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛(make-instance 'Receiver ⟨Pair⟩)’
+  Sender  [dq1 ksenders dq2 kcolon1 lbracket lbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛(make-instance 'Sender ⟨Pair⟩)’
+  Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛:component ⟨ComponentName⟩ :port "⟨PortName⟩"’
 
   ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 
@@ -59,12 +59,12 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma?
 }
 `;
 
-function cl_fmtConnections (text) {
+function cl_fmtConnections (text, innerCode) {
     let connections = '';
     let success = true;
     success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections));
     if (success) {
-	return connections;
+	return `${lv}(let ((connections (list ${connections})))\n${innerCode})${rv}`;
     } else {
 	var msg = `<??? ${errormessage} ???>`;
 	console.error (msg);
