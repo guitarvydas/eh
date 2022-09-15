@@ -1,5 +1,5 @@
 
-function dump (s) {
+function cl_dump (s) {
     document.getElementById('cloutput').value = s;
 }
 
@@ -18,9 +18,9 @@ ${rv}
 
 	var childtest = String.raw`{"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}`;
 	let childInstances = cl_fmtChildInstances (childtest);
-	dump (childInstances);
+	cl_dump (childInstances);
 	let childList = cl_fmtChildList (childtest);
-	dump (childList);
+	cl_dump (childList);
 
 	let connectionstest = String.raw`
 {"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":".","port":"stdin"}}]}
@@ -28,7 +28,7 @@ ${rv}
 {"receivers":[{"receiver":{"component":".","port":"stdout"}}],"senders":[{"sender":{"component":"cell_8","port":"stdout"}}]}
 `;
 	let connections = cl_fmtConnections (connectionstest, "connections");
-	dump (connections);
+	cl_dump (connections);
     }
 /*
     r && ([r, xclass] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
