@@ -36,6 +36,7 @@ CField_kind [dq1 k dq2 kcolon s kcomma? rec?] = ‛\n(D)⟨rec⟩(d)’
 CField_outputs [dq1 k dq2 kcolon s kcomma? rec?] = ‛\n(E)⟨rec⟩(e)’
 CField_synccode [dq1 k dq2 kcolon s kcomma? rec?] = ‛\n(F)⟨rec⟩(f)’
 CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛\n(G)⟨ConnectionBody⟩⟨rec⟩(g)’
+CField_insert [dq1 k dq2 kcolon vs kcomma? rec?] = ‛\n⟨vs⟩⟨rec⟩’
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛\n(T)⟨Connection⟩(t)’
 

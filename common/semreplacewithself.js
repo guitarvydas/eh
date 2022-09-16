@@ -25,6 +25,7 @@ CField_kind [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨k
 CField_outputs [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
 CField_synccode [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
 CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨dq1⟩⟨k⟩⟨dq2⟩⟨kcolon⟩⟨ConnectionBody⟩⟨rec⟩’
+CField_insert [dq1 k dq2 kcolon vs kcomma? rec?] = ‛"@":⟨vs⟩⟨rec⟩’
 
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨lb⟩⟨Connection⟩⟨rb⟩’
 

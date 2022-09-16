@@ -64,7 +64,7 @@ function cl_fmtConnections (text, innerCode) {
     let success = true;
     success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections));
     if (success) {
-	return `${lv}(let ((connections (list ${connections})))\n${innerCode})${rv}`;
+	return `${lv}(let ((-(connections (list (- ${connections} -))))\n${innerCode}-))${rv}`;
     } else {
 	var msg = `<??? ${errormessage} ???>`;
 	console.error (msg);

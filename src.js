@@ -19,6 +19,7 @@ const jsonsrc = String.raw`
       ],
       "id":"cell_6",
       "inputs": ["cell_17" ],
+      "@": ‹***Mello***›,
       "kind":"JelloWorld",
       "name":"JelloWorld",
       "outputs": ["cell_15" ],
