@@ -55,6 +55,8 @@ NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛\n⟨ChildL
 ChildList [lb Child rb] = ‛\n⟨Child⟩’
 Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛\n⟨KindName⟩,⟨ComponentName⟩⟨more⟩’
 
+CField_insert [dq1 k dq2 kcolon vs kcomma? rec?] = ‛\n⟨vs⟩⟨rec⟩’
+
   string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
 }
 `;

@@ -5,7 +5,6 @@ xClass <: IdentityEmitter {
 
 var cl_fClass =
     fIdentityEmitter
-    + fIdentityIgnore
 + String.raw`
 override {
   Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩⟨resetselfkind ()⟩’
@@ -14,27 +13,26 @@ override {
 Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
   ComponentJSON [x] = ‛⟨x⟩’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
-  ChildList [lb Child rb] = ‛⟨fmtChild (Child)⟩’
+  ChildList [lb Child rb] = ‛⟨cl_fmtChild (Child)⟩’
   ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
 def __init__ (self, parent, name):(-
 ⟨NonEmptyChildren⟩
 ⟨ComponentField⟩
 super ().__init__ (parent, name, self._children, self._connections)
 -)-)’
-  ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛’
 
-CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨lv⟩self._connections = [(-⟨ConnectionBody⟩-)]⟨rv⟩⟨rec⟩’
-ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
-Connection [lb Receiver kcomma Sender rb] = ‛⟨lb⟩⟨Receiver⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩’
-
-Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
-
-Sender [dq1 ksenders dq2 kcolon1 klbracket klbrace dq3 ksender dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨ksenders⟩⟨dq2⟩⟨kcolon1⟩⟨klbracket⟩⟨klbrace⟩⟨dq3⟩⟨ksender⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
-
-Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = ‛⟨lb⟩⟨kwcomponent⟩⟨kcolon1⟩⟨ComponentName⟩⟨kcomma⟩⟨kwport⟩⟨kcolon2⟩⟨PortName⟩⟨rb⟩’
+CField_connections [dq1 k dq2 kcolon ConnectionBody] = ‛self._connections = [(-⟨ConnectionBody⟩-)]’
+ConnectionBody [lb Connection* optcomma* rb] = ‛⟨cl_fmtConnections (Connection)⟩’
 
 }
 `;
+
+/*
+  ComponentLeafJSON  [lb EmptyChildren ComponentField+ rb] = ‛\nclass ⟨topselfkind ()⟩ (Leaf): (-
+super ().__init__ (parent, name, null, null)
+-)’
+*/
 
 /* Child formatter
    parses: {"kind":"Hello","name":"cell_7"},{"kind":"World","name":"cell_8"}
@@ -56,9 +54,15 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 
 /* calls sub-parsers and sub-fmts to format child lists */
-function cl_fmtChild (text) {
+function old_cl_fmtChild (text) {
     var instances = cl_fmtChildInstances (text);
     var childList = cl_fmtChildList (text);
-    return `${instances}\n${lv}self._children = [${childList}]${rv}`;
+    return instances + '\nself._children = [' + childList + ']';;
+}
+
+function cl_fmtChild (text) {
+    var childList = cl_fmtChildList (text);
+    var wrappedinstances = cl_fmtChildInstances (text + childList);
+    return wrappedinstances;
 }
 

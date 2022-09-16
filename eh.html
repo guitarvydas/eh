@@ -53,6 +53,7 @@ textarea {
     <script src="quotes.js"></script>
     <script src="pythonify.js"></script>
     <script src="indenter.js"></script>
+    <script src="util/splice.js"></script>
 
 <!-- mechanisms -->
     <script src="selfid2.js"></script>
@@ -83,16 +84,16 @@ textarea {
 	<!-- end sub-parsers -->
         <script src="py/emitpython.js"></script>
 	      
-    <!-- <\!-- Common Lisp -\-> -->
-    <!-- 	<\!-- phases -\-> -->
-    <!-- 	    <script src="lisp/childimports.js"></script> -->
-    <!-- 	    <script src="lisp/class.js"></script> -->
-    <!-- 	<\!-- sub-parsers used by class.js -\-> -->
-    <!-- 	      <script src="lisp/childinstanceparser.js"></script> -->
-    <!-- 	      <script src="lisp/childlistparser.js"></script> -->
-    <!-- 	      <script src="lisp/connectionsparser.js"></script> -->
-    <!-- 	<\!-- end sub-parsers -\-> -->
-    <!--     <script src="lisp/emitcl.js"></script> -->
+    <!-- Common Lisp -->
+	<!-- phases -->
+	    <script src="lisp/childimports.js"></script>
+	    <script src="lisp/class.js"></script>
+	<!-- sub-parsers used by class.js -->
+	      <script src="lisp/childinstanceparser.js"></script>
+	      <script src="lisp/childlistparser.js"></script>
+	      <script src="lisp/connectionsparser.js"></script>
+	<!-- end sub-parsers -->
+        <script src="lisp/emitcl.js"></script>
 <!-- end emitters -->
 
 
@@ -137,9 +138,7 @@ textarea {
 
       var transformedCode = output;
       emitPython (transformedCode);
-/*      
       emitCommonLisp (transformedCode);
-*/
   }
 
   </script>

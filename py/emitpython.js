@@ -37,9 +37,9 @@ ${rv}
 	dump (childList);
 
 	let connectionstest = String.raw`
-{"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":"cell_6","port":"stdin"}}]}
+{"receivers":[{"receiver":{"component":"cell_7","port":"stdin"}}],"senders":[{"sender":{"component":".","port":"stdin"}}]}
 {"receivers":[{"receiver":{"component":"cell_8","port":"stdin"}}],"senders":[{"sender":{"component":"cell_7","port":"stdout"}}]}
-{"receivers":[{"receiver":{"component":"cell_6","port":"stdout"}}],"senders":[{"sender":{"component":"cell_8","port":"stdout"}}]}
+{"receivers":[{"receiver":{"component":".","port":"stdout"}}],"senders":[{"sender":{"component":"cell_8","port":"stdout"}}]}
 `;
 	let connections = fmtConnections (connectionstest);
 	dump (connections);

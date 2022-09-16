@@ -17,6 +17,7 @@ Ignore {
   CField_outputs [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
   CField_synccode [dq1 k dq2 kcolon s kcomma? rec?] = ‛⟨rec⟩’
   CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨ConnectionBody⟩⟨rec⟩’
+  CField_insert [dq1 k dq2 kcolon vs kcomma? rec?] = ‛⟨rec⟩’
 
   ConnectionBody [lb Connection* optcomma* rb] = ‛⟨Connection⟩’
 

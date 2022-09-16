@@ -36,6 +36,8 @@ CField =
   | dq "outputs" dq ":" StringList ","? CField?          -- outputs
   | dq "synccode" dq ":" string ","? CField?             -- synccode
   | dq "connections" dq ":" ConnectionBody ","? CField?  -- connections
+  | dq "@" dq ":" vs ","? CField?                        -- insert
+
 ConnectionBody = "[" (Connection ","?)* "]"
 
 Connection = "{" Receiver "," Sender "}"
