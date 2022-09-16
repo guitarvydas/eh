@@ -14,17 +14,17 @@ override {
 Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
   ComponentJSON [x] = ‛⟨x⟩’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
-  ChildList [lb Child rb] = ‛⟨fmtChild (Child)⟩’
+  ChildList [lb Child rb] = ‛⟨Child⟩’
+
   ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
 def __init__ (self, parent, name):(-
-⟨NonEmptyChildren⟩
-⟨ComponentField⟩
-super ().__init__ (parent, name, self._children, self._connections)
--)-)’
+⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩
+’
+
   ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
 
-CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨lv⟩self._connections = [(-⟨ConnectionBody⟩-)]⟨rv⟩⟨rec⟩’
-ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
+CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨ConnectionBody⟩⟨rec⟩’
+ConnectionBody [lb Connection* optcomma* rb] = ‛⟨cl_fmtConnections (Connection,'super ().__init__ (parent, name, self._children, self._connections)')⟩’
 Connection [lb Receiver kcomma Sender rb] = ‛⟨lb⟩⟨Receiver⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩’
 
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
