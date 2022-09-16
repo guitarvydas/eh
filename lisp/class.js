@@ -11,17 +11,17 @@ override {
   Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩⟨resetselfkind ()⟩’
   Component [SelfDef SelfKind ComponentDef] = ‛\n⟨ComponentDef⟩’
   ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛\n⟨vs1⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨vs4⟩’
-Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
   ComponentJSON [x] = ‛⟨x⟩’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
   ChildList [lb Child rb] = ‛⟨Child⟩’
 
-  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
-def __init__ (self, parent, name):(-
+  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n(defun new-⟨topselfkind ()⟩ (Container)
 ⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩
-’
+)’
 
   ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
+
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
 
 CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨ConnectionBody⟩⟨rec⟩’
 ConnectionBody [lb Connection* optcomma* rb] = ‛⟨cl_fmtConnections (Connection,'super ().__init__ (parent, name, self._children, self._connections)')⟩’
