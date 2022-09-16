@@ -39,10 +39,9 @@ ${rv}
 	gencode = childInstances;
 
     }
-/*
-    r && ([r, gencode] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
-    dump (gencode);
-*/
+
+//    r && ([r, gencode] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
+
     if (r) {
       	let finalCode = boilerPlateImports + gencode;
       	finalCode = removeVerbatimBrackets (finalCode);

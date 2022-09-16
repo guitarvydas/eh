@@ -57,8 +57,24 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 /* calls sub-parsers and sub-fmts to format child lists */
 function cl_fmtChild (text) {
-    var instances = cl_fmtChildInstances (text);
-    var childList = cl_fmtChildList (text);
-    return `${instances}\n${lv}self._children = [${childList}]${rv}`;
+
+    throw 'connections first, then cihld list, then child instances'
+    ;
+    
+	let retval = "(make-instance 'container :children children :connections connections)"
+	let connections = cl_fmtConnections (connectionstest, retval);
+	cl_dump (connections);
+
+	let childList = cl_fmtChildList (childtest, connections);
+	cl_dump (childList);
+	gencode = childList;
+
+	var innerText = childList;
+	console.log (childList);
+
+	let childInstances = cl_fmtChildInstances (childtest, innerText);
+	cl_dump (childInstances);
+	gencode = childInstances;
+    return `${gencode}`
 }
 
