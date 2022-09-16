@@ -13,5 +13,5 @@ class PassThroughConnect:
             receiver = self._receiver
             sender = self._sender
             print (f'passThrough {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-            mappedMessage = InputMessage (self, receiver._port, inmessage.data, inmessage)
+            mappedMessage = OutputMessage (self, receiver._port, inmessage.data, inmessage)
             receiver.enqueueOutput (mappedMessage)
