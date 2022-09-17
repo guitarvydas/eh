@@ -7,8 +7,8 @@
    (child-machine :accessor child-machine :initarg :child-machine :initform nil)))
 
 (defmethod enter ((self State))
-  (when (fenter self) (funcall (fenter self)
-  (when (child-machine self) (enter (child-machine self)))
+  (when (fenter self) (funcall (fenter self)))
+  (when (child-machine self) (enter (child-machine self))))
 
 (defmethod exit ((self State))
   (when (child-machine self) (exit (child-machine self)))
@@ -20,7 +20,7 @@
 	  ((child-machine self) (handle (child-machine self) message))
 	  (t nil))))
 
-(defmethod step ((self State))
+(defmethod xstep ((self State))
   (cond ((child-machine self) (step (child-machine self)))
 	(t)))
 

@@ -1,11 +1,11 @@
 (defclass Sender ()
-  ((xfrom :accessor xfrom :initarg :xfrom)
+  ((from :accessor from :initarg :from)
    (port :accessor port :initarg :port)))
 
 (defmethod match ((self Sender) othersender port)
-  (and (eq (xfrom self) othersender)
+  (and (eq (from self) othersender)
        (equalp (port self) port)))
 
 (defmethod name ((self Sender))
-  (format nil "~a/~a" (name (xfrom self)) (port self)))
+  (format nil "~a/~a" (name (from self)) (port self)))
 

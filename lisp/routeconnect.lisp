@@ -1,7 +1,7 @@
-(defclass RouteConnect (Connector))
+(defclass RouteConnect (Connector) ())
 
 (defmethod guarded-deliver ((self RouteConnect) inmessage)
-  (cond ((match (sender self) (xfrom inmessage) (port inmessage))
+  (cond ((match (sender self) (from inmessage) (port inmessage))
 	 (let ((receiver (receiver self)))
 	   (let ((sender (sender self)))
 	     (format *standard-output* "ROUTE ~a .... ~a -> ~a" inmessage (name sender) (name receiver))
