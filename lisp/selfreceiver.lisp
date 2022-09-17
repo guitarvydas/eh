@@ -1,0 +1,3 @@
+
+(defclass SelfReceiver (Receiver) ())
+x      

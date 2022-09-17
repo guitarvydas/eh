@@ -2,7 +2,7 @@ const jsonsrc = String.raw`
 [
   [
     {
-      "children": [ {"kind":"Jello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
+      "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
       "connections": [
 	{
 	  "receivers": [ {"receiver": {"component":"cell_7", "port":"stdin"}} ],
@@ -20,8 +20,8 @@ const jsonsrc = String.raw`
       "id":"cell_6",
       "inputs": ["cell_17" ],
       "@": ‹***Mello***›,
-      "kind":"JelloWorld",
-      "name":"JelloWorld",
+      "kind":"HelloWorld",
+      "name":"HelloWorld",
       "outputs": ["cell_15" ],
       "synccode":""
     }
@@ -32,8 +32,8 @@ const jsonsrc = String.raw`
       "connections": [],
       "id":"cell_7",
       "inputs": ["cell_12" ],
-      "kind":"Jello",
-      "name":"Jello",
+      "kind":"Hello",
+      "name":"Hello",
       "outputs": ["cell_10" ],
       "synccode":""
     }
@@ -58,7 +58,7 @@ const jsonsrc = String.raw`
 [
   [
     {
-      "children": [ {"kind":"Jello", "name":"test1"},  {"kind":"World", "name":"test2"} ],
+      "children": [ {"kind":"Hello", "name":"test1"},  {"kind":"World", "name":"test2"} ],
       "connections": [
 	{
 	  "receivers": [ {"receiver": {"component":"test1", "port":"stdin"}} ],
@@ -72,7 +72,7 @@ const jsonsrc = String.raw`
   ],
   [
     {
-      "children": [ {"kind":"Jello", "name":"xxx1"},  {"kind":"World", "name":"xxx2"} ],
+      "children": [ {"kind":"Hello", "name":"xxx1"},  {"kind":"World", "name":"xxx2"} ],
       "connections": [
 	{
 	  "receivers": [ {"receiver": {"component":"xxx1", "port":"stdin"}} ],

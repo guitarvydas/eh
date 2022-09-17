@@ -11,20 +11,23 @@ override {
   Components [vs1 lb vs2 Component+ vs3 rb vs4] = ‛⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩⟨resetselfkind ()⟩’
   Component [SelfDef SelfKind ComponentDef] = ‛\n⟨ComponentDef⟩’
   ComponentDef [vs1 lb vs2 ComponentJSON vs3 rb vs4 optcomma] = ‛\n⟨vs1⟩⟨vs2⟩⟨ComponentJSON⟩⟨vs3⟩⟨vs4⟩’
-Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
   ComponentJSON [x] = ‛⟨x⟩’
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
-  ChildList [lb Child rb] = ‛⟨fmtChild (Child)⟩’
-  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\nclass ⟨topselfkind ()⟩ (Container): (-
-def __init__ (self, parent, name):(-
-⟨NonEmptyChildren⟩
-⟨ComponentField⟩
-super ().__init__ (parent, name, self._children, self._connections)
--)-)’
+  ChildList [lb Child rb] = ‛⟨Child⟩’
+
+  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n(defun new-⟨topselfkind ()⟩ ()
+⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩)’
+
   ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
 
-CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨lv⟩self._connections = [(-⟨ConnectionBody⟩-)]⟨rv⟩⟨rec⟩’
-ConnectionBody [lb Connection* optcomma* rb] = ‛⟨fmtConnections (Connection)⟩’
+Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma? more?] = ‛⟨lb⟩⟨kkind⟩⟨kcolon1⟩⟨KindName⟩⟨kcomma⟩⟨kname⟩⟨kcolon2⟩⟨ComponentName⟩⟨rb⟩⟨optComma⟩⟨more⟩’
+
+CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨ConnectionBody⟩⟨rec⟩’
+ConnectionBody [lb Connection* optcomma* rb] 
+  = ‛⟨cl_fmtConnections (Connection,
+                         "(make-instance 'Container :parent parent :name name :children children :connections connections)"
+                        )⟩’
+
 Connection [lb Receiver kcomma Sender rb] = ‛⟨lb⟩⟨Receiver⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩’
 
 Receiver [dq1 kreceivers dq2 kcolon1 lbracket lbrace dq3 kreceiver dq4 kcolon2 Pair rbrace rbracket] = ‛⟨dq1⟩⟨kreceivers⟩⟨dq2⟩⟨kcolon1⟩⟨lbracket⟩⟨lbrace⟩⟨dq3⟩⟨kreceiver⟩⟨dq4⟩⟨kcolon2⟩⟨Pair⟩⟨rbrace⟩⟨rbracket⟩’
@@ -57,8 +60,24 @@ Pair [lb kwcomponent kcolon1 ComponentName kcomma kwport kcolon2 PortName rb] = 
 
 /* calls sub-parsers and sub-fmts to format child lists */
 function cl_fmtChild (text) {
-    var instances = cl_fmtChildInstances (text);
-    var childList = cl_fmtChildList (text);
-    return `${instances}\n${lv}self._children = [${childList}]${rv}`;
+
+    throw 'connections first, then cihld list, then child instances'
+    ;
+    
+	let retval = "(make-instance 'container :children children :connections connections)"
+	let connections = cl_fmtConnections (connectionstest, retval);
+	cl_dump (connections);
+
+	let childList = cl_fmtChildList (childtest, connections);
+	cl_dump (childList);
+	gencode = childList;
+
+	var innerText = childList;
+	console.log (childList);
+
+	let childInstances = cl_fmtChildInstances (childtest, innerText);
+	cl_dump (childInstances);
+	gencode = childInstances;
+    return `${gencode}`
 }
 

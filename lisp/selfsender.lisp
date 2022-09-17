@@ -1,0 +1,1 @@
+(defclass SelfSender (Sender) ())

@@ -41,10 +41,6 @@ class State:
             return False
 
 # worker bees
-    def Fail (self, message):
-        raise Exception (f'unhandled message {message.port} for {self.name}')
-        return False
-
     def handlerChain (self, message, handlers, subMachine):
         if 0 < len (handlers):
             handler = handlers [0]
