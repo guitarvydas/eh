@@ -1,11 +1,12 @@
-(defclass Procedure (EH)
-  ((port-handler :accessor port-handler :initarg :port-handler)))
+(defconstant +default-name+ "idle")
 
-(defmethod initialize-instance :after ((self Procedure) &key &allow-other-keys)
-  (let ((default-name "default"))
-    (let ((s (make-instance 'State :machine self :name default-name
-			  :handlers (list (port-handler self))
-			  :enter nil :exit nil :child-machine nil)))
-      (setf (states self) (list s))
-      (setf (default-state-name self) default-name))))
-    
+(defclass Procedure (EH)
+  ((port-handler :accessor port-handler :initarg :port-handler))
+  (:default-initargs
+   :default-state-name +default-name+))
+  
+(defmethod initialize-instance :after ((self Procedure)  &key &allow-other-keys)  
+  (setf (states self) (list (make-instance 'State :machine self :name +default-name+
+                                :handlers (list (port-handler self))
+                                :enter nil :exit nil :child-machine nil)))
+  (initialize-hsm self))

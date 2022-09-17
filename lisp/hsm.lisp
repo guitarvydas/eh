@@ -6,12 +6,13 @@
    (states :accessor states :initarg :states)
    (state :accessor state :initform nil)))
 
-(defmethod initialize-instance :after ((self HSM) &key &allow-other-keys)
+(defmethod initialize-hsm ((self HSM))
+  (setf (state self) (lookup-state self (default-state-name self)))
   (reset self))
 
 (defmethod reset ((self HSM))
   (exit self)
-  (set (state self) (lookup-state self (default-state-name self) (states self)))
+  (setf (state self) (lookup-state self (default-state-name self)))
   (enter self))
 
 (defmethod enter ((self HSM))
@@ -38,8 +39,11 @@
 (defmethod is-busy ((self HSM))
   (is-busy (state self)))
 
-(defmethod lookup-state ((self HSM) state-name state-list)
+(defmethod lookup-state ((self HSM) state-name)
+  (lookup-state-rec self state-name (states self)))
+
+(defmethod lookup-state-rec ((self HSM) state-name state-list)
   (when state-list
     (cond ((equalp (name (first state-list)) state-name)
 	   (first state-list))
-	  (t (lookup-state self state-name (rest state-list))))))
+	  (t (lookup-state-rec self state-name (rest state-list))))))

@@ -1,5 +1,8 @@
+(proclaim '(optimize (debug 3) (safety 3) (speed 0)))
+
 (defun ld (fname)
   (let ((root "/Users/tarvydas/quicklisp/local-projects/eh/lisp"))
+    (declare (optimize (debug 3) (safety 3) (speed 0)))
     (let ((name (format nil "~a/~a" root fname)))
       (load name))))
 
@@ -28,3 +31,4 @@
 (ld "hello.lisp")
 (ld "world.lisp")
 (ld "helloworld.lisp")
+(ld "test.lisp")

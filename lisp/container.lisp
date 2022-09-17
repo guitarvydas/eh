@@ -1,12 +1,20 @@
 (defclass Container (EH) 
-  ((children :accessor children :initarg :children)
-   (connections :accessor connections :initarg :connections)))
+  ((children :accessor children :initarg :children :initform nil)
+   (connections :accessor connections :initarg :connections :initform nil))
+  (:default-initargs
+   :default-state-name "idle"))
 
-(defmethod initialize-instance :after ((self EH) &key &allow-other-keys)
-  (setf (default-state-name self) "default")
-  (let ((handler (make-instance 'PortHandler  :port "*" :func #'handle)))
-    (let ((s (make-instance 'State :machine self :name (default-state-name self) :enter nil :handlers (list handler) :exit nil :child-machine nil)))
-    (setf (states self) (list s)))))
+(defmethod initialize-instance :after ((self Container)  &key &allow-other-keys)  
+   (let ((states (list (make-instance 'State 
+                                      :machine self
+                                      :name "idle"
+                                      :enter nil
+                                      :handlers (list (make-instance 'PortHandler  :port "*" :func #'handle))
+                                      :exit nil
+                                      :child-machine nil))))
+     (setf (states self) states)
+     (initialize-hsm self)))
+
 
 (defmethod handle ((self EH) message)
   (mapc #'(lambda (connection)
