@@ -14,7 +14,7 @@
   (not (is-empty (inputq self))))
 
 (defmethod enqueue-input ((self ReceiverQueue) message)
-  (enqueue-input (inputq self) message))
+  (enqueue (inputq self) message))
 
 (defmethod dequeue-input ((self ReceiverQueue))
   (dequeue (inputq self)))

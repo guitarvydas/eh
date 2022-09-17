@@ -1,5 +1,5 @@
 (defclass OutputMessage (Message) ())
 
 (defmethod print-object ((self OutputMessage) stream)
-  (format stream "<output: ~a ~a>" (port self) (data self)))
+  (format stream "{output: [~a] ~a}" (port self) (data self)))
         
