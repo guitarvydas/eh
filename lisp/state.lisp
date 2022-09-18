@@ -15,7 +15,7 @@
   (when (fexit self) (funcall (fexit self))))
 
 (defmethod handle ((self State) message)
-  (let ((r (handler-chain self (handlers self) (child-machine self))))
+  (let ((r (handler-chain self message (handlers self) (child-machine self))))
     (cond (r r)
 	  ((child-machine self) (handle (child-machine self) message))
 	  (t nil))))
@@ -34,7 +34,9 @@
     (let ((handler (first handlers))
 	  (rest-of-handlers (rest handlers)))
       (cond ((match-port handler (port message))
-	     (funcall (func handler) message)
+	     (funcall (func handler) self message)
 	     t)
 	    (t (handler-chain self message rest-of-handlers sub-machine))))))
     
+(defmethod send ((self State) from port-name data causing-message)
+  (send (machine self) from port-name data causing-message))

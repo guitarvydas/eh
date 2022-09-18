@@ -2,6 +2,6 @@
   ()
   (:default-initargs
    :port-handler (make-instance 'PortHandler :port "*" 
-					     :func (lambda (self message)
-						     (send self self "stdout" (data message) message)
-						     (send self self "stdout" "world" message)))))
+				     :func (lambda (self message)
+					     (send self (machine self) "stdout" (data message) message)
+					     (send self (machine self) "stdout" "world" message)))))

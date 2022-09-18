@@ -3,7 +3,7 @@
 
 (defmethod outputs-LIFO-dictionary ((self SenderQueue))
   (let ((htable (make-hash-table :test 'equalp)))
-    (add-outputs-to-hash-table htable (outputq self))
+    (add-outputs-to-hash-table htable (as-list (outputq self)))
     htable))
 
 (defun add-outputs-to-hash-table (htable outputs)
@@ -31,7 +31,7 @@
 
 ;; internal - not exported
 (defmethod clear-outputs ((self SenderQueue))
-  (set (outputq self) nil))
+  (setf (outputq self) nil))
 
 (defmethod enqueue-output ((self SenderQueue) message)
   (enqueue (outputq self) message))

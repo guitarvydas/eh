@@ -1,6 +1,7 @@
 (defclass Runnable ()
   ((parent :accessor parent :initform nil :initarg :parent)
-   (name :accessor name :initarg :name)))
+   (name :accessor name :initarg :name)
+   (top :accessor top :initarg :top)))
 
 (defmethod run ((self Runnable))
   (loop

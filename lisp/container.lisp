@@ -16,13 +16,13 @@
      (initialize-hsm self)))
 
 
-(defmethod handle ((self EH) message)
+(defmethod handle ((self Container) message)
   (mapc #'(lambda (connection)
 	    (guarded-deliver connection message))
 	(connections self))
   (run-to-completion self))
 
-(defmethod run-to-completion ((self EH))
+(defmethod run-to-completion ((self Container))
   (loop
     while (any-child-ready self)
     do (mapc #'(lambda (child)
@@ -30,15 +30,15 @@
 		 (route-outputs self child))
 	     (children self))))
 
-(defmethod any-child-ready ((self EH))
+(defmethod any-child-ready ((self Container))
   (mapc #'(lambda (child)
 	    (when (is-ready child)
 	      (return-from any-child-ready t)))
 	(children self))
   nil)
 
-(defmethod route-outputs ((self EH) child)
-  (let ((outputs (output-queue child)))
+(defmethod route-outputs ((self Container) child)
+  (let ((outputs (as-list (output-queue child))))
     (clear-outputs child)
     (mapc #'(lambda (msg)
 	      (mapc #'(lambda (conn)

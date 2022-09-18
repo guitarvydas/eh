@@ -16,3 +16,6 @@
 
 (defmethod is-empty ((self FIFO))
   (null (elements self)))
+
+(defmethod as-list ((self FIFO))
+  (elements self))
