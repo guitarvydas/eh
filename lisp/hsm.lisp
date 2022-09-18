@@ -35,8 +35,8 @@
 (defmethod handle ((self HSM) message)
   (handle (state self) message))
 
-(defmethod xstep ((self HSM))
-  (xstep (state self)))
+(defmethod eh::step ((self HSM))
+  (eh::step (state self)))
 
 (defmethod is-busy ((self HSM))
   (is-busy (state self)))
