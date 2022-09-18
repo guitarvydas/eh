@@ -9,14 +9,14 @@ class SenderQueue:
     def outputsFIFODictionary (self):
         # return a dictionary of FIFOs, one FIFO per output port
         resultdict = {}
-        for message in self._outputq.asDeque ():
+        for message in self._outputq.asList ():
             if (not (message.port in resultdict)):
                 resultdict [message.port] = FIFO ()
             resultdict [message.port].enqueue (message.data)
         resultdict2 = {}
         for key in resultdict:
             fifo = resultdict [key]
-            r = list (fifo.asDeque ())
+            r = fifo.asList ()
             r.reverse () ## newest result first
             resultdict2 [key] = r
         return resultdict2
@@ -24,14 +24,14 @@ class SenderQueue:
     def outputsLIFODictionary (self):
         # return a dictionary of LIFOs, one LIFO per output port
         resultdict = {}
-        for message in self._outputq.asDeque ():
+        for message in self._outputq.asList ():
             if (not (message.port in resultdict)):
                 resultdict [message.port] = FIFO ()
             resultdict [message.port].enqueue (message.data)
         resultdict2 = {}
         for key in resultdict:
             fifo = resultdict [key]
-            r = list (fifo.asDeque ())
+            r = fifo.asList ()
             resultdict2 [key] = r
         return resultdict2
 
@@ -51,4 +51,4 @@ class SenderQueue:
         self.enqueueOutput (m)
 
     def outputQueue (self):
-        return self._outputq.asDeque ()
+        return self._outputq.asList ()
