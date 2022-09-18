@@ -1,7 +1,10 @@
 (defclass World (Procedure)
-  ()
-  (:default-initargs
-   :port-handler (make-instance 'PortHandler :port "*" 
-				     :func (lambda (self message)
-					     (send self (machine self) "stdout" (data message) message)
-					     (send self (machine self) "stdout" "world" message)))))
+  ())
+
+(defmethod initialize-instance :before ((compiletime-self World) &key &allow-other-keys)
+  (setf (port-handler compiletime-self)
+	(make-instance 'PortHandler :port "*" 
+				    :func (lambda (runtime-self message)
+					    (send runtime-self compiletime-self "stdout" (data message) message)
+					    (send runtime-self compiletime-self "stdout" "world" message)))))
+   
