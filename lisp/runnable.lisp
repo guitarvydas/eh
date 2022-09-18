@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass Runnable ()
   ((parent :accessor parent :initform nil :initarg :parent)
    (name :accessor name :initarg :name)

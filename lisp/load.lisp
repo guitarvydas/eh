@@ -6,6 +6,7 @@
     (let ((name (format nil "~a/~a" root fname)))
       (load name))))
 
+(ld "package.lisp")
 (ld "fifo.lisp")
 (ld "message.lisp")
 (ld "inputmessage.lisp")

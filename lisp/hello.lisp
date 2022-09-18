@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass Hello (Procedure)
   ())
 
@@ -5,6 +7,5 @@
   (setf (port-handler compiletime-self)
 	(make-instance 'PortHandler :port "*" 
 				    :func (lambda (runtime-self message)
-					    (format *standard-output* "~%Hello self ~a" compiletime-self)
 					    (send runtime-self compiletime-self "stdout" "hello" message)))))
 

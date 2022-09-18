@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass World (Procedure)
   ())
 

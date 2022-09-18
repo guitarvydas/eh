@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass Sender ()
   ((from :accessor from :initarg :from)
    (port :accessor port :initarg :port)))

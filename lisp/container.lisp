@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass Container (EH) 
   ((children :accessor children :initarg :children :initform nil)
    (connections :accessor connections :initarg :connections :initform nil))

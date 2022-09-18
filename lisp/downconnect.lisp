@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass DownConnect (Connector) ())
 
 (defmethod guarded-deliver ((self DownConnect) inmessage)

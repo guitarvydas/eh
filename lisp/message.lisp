@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass BaseMessage ()
   ((data :accessor data :initarg :data)))
 
