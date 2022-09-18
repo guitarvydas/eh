@@ -17,7 +17,7 @@
           (declare (ignore value-stack))
           (unless success
             (setf (gethash key htable) ()))
-          (set (gethash key htable)
+          (setf (gethash key htable)
                (cons data (gethash key htable)))))
       (add-outputs-to-hash-table htable rest-of-outputs))))
 
