@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass Hello (Procedure)
   ())
 

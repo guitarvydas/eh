@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defconstant +default-name+ "idle")
 
 (defclass Procedure (EH)

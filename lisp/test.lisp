@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defun test ()
   (let ((hw (new-HelloWorld nil "hello world")))
     (let ((m (make-instance 'InputMessage :port "stdin" :data t :from hw :trail nil)))

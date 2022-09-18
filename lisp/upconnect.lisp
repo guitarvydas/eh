@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass UpConnect (Connector) ())
 
 (defmethod guarded-deliver ((self UpConnect) inmessage)

@@ -1,4 +1,4 @@
-
+(in-package "EH")
 
 (defun new-HelloWorld (parent name)
   (let ((self (make-instance 'Container :parent parent :name name)))

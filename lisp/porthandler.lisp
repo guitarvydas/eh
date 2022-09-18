@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass PortHandler ()
   ((port :accessor port :initarg :port)
    (func :accessor func :initarg :func)))

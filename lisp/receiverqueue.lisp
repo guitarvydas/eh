@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass ReceiverQueue ()
   ((inputq :accessor inputq :initform (make-instance 'FIFO))))
 

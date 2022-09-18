@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass HSM ()
   ((name :accessor name :initarg :name)
    (default-state-name :accessor default-state-name :initarg :default-state-name)

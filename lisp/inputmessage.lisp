@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass InputMessage (Message) ())
 
 (defmethod print-object ((self InputMessage) stream)

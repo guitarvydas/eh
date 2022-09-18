@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass FIFO () 
   ((elements :accessor elements :initform nil)))
 

@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass SenderQueue ()
   ((outputq :accessor outputq :initform (make-instance 'FIFO))))
 

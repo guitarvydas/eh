@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass PassThroughConnect (Connector) ())
 
 (defmethod guarded-deliver ((self PassThroughConnect) inmessage)

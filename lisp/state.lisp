@@ -1,3 +1,5 @@
+(in-package "EH")
+
 (defclass State ()
   ((machine :accessor machine :initarg :machine)
    (name :accessor name :initarg :name)
