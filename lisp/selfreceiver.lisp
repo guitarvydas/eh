@@ -1,3 +1,3 @@
 
 (defclass SelfReceiver (Receiver) ())
-x      
+    

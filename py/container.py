@@ -22,36 +22,6 @@ class Container (EH):
     def noop (self):
         pass
 
-    # 4 possible routings...
-    def down (self, sender, receiver, inmessage):
-        # from input of Container to input of Child
-        if debugRouting:
-            print (f'down {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = InputMessage (self, receiver._port, inmessage.data, inmessage)
-        receiver.enqueueInput (mappedMessage)
-
-    def passthrough (self, sender, receiver, inmessage):
-        # from input of Container to output of same Container
-        if debugRouting:
-            print (f'passthrough {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = OutputMessage (self, receiver._port, inmessage.data, inmessage)
-        self.enqueueOutput (mappedMessage)
-
-    def route (self, sender, receiver, inmessage):
-        # from output of Child to input of Child
-        if debugRouting:
-            print (f'route {inmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = InputMessage (inmessage.xfrom, receiver._port, inmessage.data, inmessage)
-        receiver.enqueueInput (mappedMessage)
-
-    def up (self, sender, receiver, outmessage):
-        # from output of Child to output of Container
-        if debugRouting:
-            print (f'up {outmessage} ... {sender.name ()} -> {receiver.name ()}')
-        mappedMessage = OutputMessage (outmessage.xfrom, receiver._port, outmessage.data, outmessage)
-        self.enqueueOutput (mappedMessage)
-
-    # end routings
         
     def handle (self, message):
         for connection in self._connections:
