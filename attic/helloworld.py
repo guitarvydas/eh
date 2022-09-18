@@ -12,8 +12,8 @@ class HelloWorld (Container):
         w = World (None, f'❲{name}[World instance]❳')
         self._children = [h, w]
         self._connections = [
-            Connect (Sender (self, 'stdin'), Receiver (h, 'stdin'), self.punt),
+            Connect (Sender (self, 'stdin'), Receiver (h, 'stdin'), self.down),
             Connect (Sender (h, 'stdout'), Receiver (w, 'stdin'), self.route),
-            Connect (Sender (w, 'stdout'), Receiver (self, 'stdout'), self.routeoutput)
+            Connect (Sender (w, 'stdout'), Receiver (self, 'stdout'), self.up)
             ]
         super ().__init__ (parent, name, self._children, self._connections)
