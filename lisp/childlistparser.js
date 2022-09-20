@@ -18,7 +18,7 @@ fSubChildList {
 function cl_fmtChildList (text, insert) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", cl_gSubChildList, cl_fSubChildList));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", cl_gSubChildList, cl_fSubChildList, ohm));
     if (success) {
 	return `‹(let (-((-(children (list (-${instantiations}-)))-))-)\n${insert})›`;
     } else {
