@@ -18,7 +18,7 @@ fSubChildInstantiate {
 function fmtChildInstances (text) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", gSubChildInstantiate, fSubChildInstantiate));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", gSubChildInstantiate, fSubChildInstantiate, ohm));
     if (success) {
 	return instantiations;
     } else {
