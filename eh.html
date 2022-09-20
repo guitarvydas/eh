@@ -103,25 +103,29 @@ textarea {
 
 <script>
 
-  // function removeVerbatimBrackets (s) {
-  //     return s.replace (/‹/g,'').replace (/›/g,'');
-  // }
-  
-  // function fixupCode (s) {
-  //     var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
-  //     return fixed;
-  // }
+/*
+  function removeVerbatimBrackets (s) {
+      console.log ('u');
+      return s.replace (/‹/g,'').replace (/›/g,'');
+  }
+*/
   
   function test (src, grammarName, grammar, fmt) {
+      console.log ('a');
       document.getElementById('input').innerHTML = src;      
+      console.log ('b');
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm);
+      console.log ('c');
       if (success) {
+      console.log ('e');
           document.getElementById('status').innerHTML = "OK";
 	  return [true, transpiled];
       } else {
+      console.log ('e');
           document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
 	  return [false, errormessage];
       }
+      console.log ('f');
   }
 
   function generate () {
