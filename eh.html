@@ -53,6 +53,7 @@ textarea {
     <script src="pythonify.js"></script>
     <script src="indenter.js"></script>
     <script src="util/splice.js"></script>
+    <script src="util/fixup.js"></script>
 
 <!-- mechanisms -->
     <script src="selfid2.js"></script>
@@ -105,10 +106,10 @@ textarea {
       return s.replace (/‹/g,'').replace (/›/g,'');
   }
   
-  function fixupCode (s) {
-      var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
-      return fixed;
-  }
+  // function fixupCode (s) {
+  //     var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
+  //     return fixed;
+  // }
   
   function test (src, grammarName, grammar, fmt) {
       document.getElementById('input').innerHTML = src;      
