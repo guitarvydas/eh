@@ -9,6 +9,9 @@ src.js: test5.json
 run:
 	(cd py ; make run)
 
+nodeversion:
+	./scrape.bash
+
 
 TOOLS = das
 NODEMODULES=\
