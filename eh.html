@@ -53,6 +53,7 @@ textarea {
     <script src="pythonify.js"></script>
     <script src="indenter.js"></script>
     <script src="util/splice.js"></script>
+    <script src="util/fixupverbatim.js"></script>
     <script src="util/fixup.js"></script>
 
 <!-- mechanisms -->
@@ -102,9 +103,9 @@ textarea {
 
 <script>
 
-  function removeVerbatimBrackets (s) {
-      return s.replace (/‹/g,'').replace (/›/g,'');
-  }
+  // function removeVerbatimBrackets (s) {
+  //     return s.replace (/‹/g,'').replace (/›/g,'');
+  // }
   
   // function fixupCode (s) {
   //     var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
