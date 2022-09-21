@@ -111,21 +111,15 @@ textarea {
 */
   
   function test (src, grammarName, grammar, fmt) {
-      console.log ('a');
       document.getElementById('input').innerHTML = src;      
-      console.log ('b');
       [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm);
-      console.log ('c');
       if (success) {
-      console.log ('e');
           document.getElementById('status').innerHTML = "OK";
 	  return [true, transpiled];
       } else {
-      console.log ('e');
           document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
 	  return [false, errormessage];
       }
-      console.log ('f');
   }
 
   function generate () {
@@ -142,9 +136,22 @@ textarea {
 // Code Emitter
 
       var transformedCode = output;
-      emitPython (transformedCode);
-      emitCommonLisp (transformedCode);
+
+      var pyCode = emitPython (transformedCode);
+      document.getElementById('pyoutput').value = pyCode;
+      
+      var lispCode = emitCommonLisp (transformedCode);
+      document.getElementById('cloutput').value = lispCode;
+      
   }
+
+function dump (s) {
+    document.getElementById('pyoutput').value = 'DUMP:\n' + s;
+}
+
+function cl_dump (s) {
+    document.getElementById('cloutput').value = s;
+}
 
   </script>
 </body>
