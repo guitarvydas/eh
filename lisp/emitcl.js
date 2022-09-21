@@ -1,8 +1,4 @@
 
-function cl_dump (s) {
-    document.getElementById('cloutput').value = s;
-}
-
 function emitCommonLisp (transformedCode) {
     let r = true;
     let output = '';
@@ -54,7 +50,7 @@ ${rv}
       	finalCode = removeVerbatimBrackets (finalCode);
       	finalCode = fixupCode (finalCode);
       	finalCode = indenter (finalCode);
-      	document.getElementById('cloutput').value = finalCode;
+	return finalCode;
     }
 }
 
