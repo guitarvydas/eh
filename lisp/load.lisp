@@ -31,5 +31,5 @@
 (ld "procedure.lisp")
 (ld "hello.lisp")
 (ld "world.lisp")
-(ld "helloworld.lisp")
+(ld "generated.lisp")
 (ld "test.lisp")
