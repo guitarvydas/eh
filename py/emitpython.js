@@ -1,7 +1,4 @@
 
-function dump (s) {
-    document.getElementById('pyoutput').value = 'DUMP:\n' + s;
-}
 
 function emitPython (transformedCode) {
     let r = true;
@@ -51,7 +48,7 @@ ${rv}
       	finalCode = removeVerbatimBrackets (finalCode);
       	finalCode = fixupCode (finalCode);
       	finalCode = indenter (finalCode);
-      	document.getElementById('pyoutput').value = finalCode;
+	return finalCode;
     }
 }
 
