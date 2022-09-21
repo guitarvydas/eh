@@ -12,6 +12,9 @@ run:
 eh-body.js:
 	./scrape.bash
 
+neh.js: eh-body.js neh-head.js neh-tail.js
+	cat neh-head.js eh-body.js neh-tail.js >neh.js
+
 
 TOOLS = das
 NODEMODULES=\
