@@ -15,6 +15,9 @@ eh-body.js:
 neh.js: eh-body.js neh-head.js neh-tail.js
 	cat neh-head.js eh-body.js neh-tail.js >neh.js
 
+runpy: neh.js
+	node neh.js >py/generated.py
+	(cd py ; python3 test.py)
 
 TOOLS = das
 NODEMODULES=\
