@@ -8,9 +8,8 @@ textarea {
 </head>
 <body>
 
-<h1>Drawing Transpiler</h1>
-
-<h2>Run 'make', then paste the generated JSON file (e.g. test5.json) into src.js</h2>
+<h1>Drawing Transpiler (consolidated version)</h1>
+<h2> all code in one file (see eh.html for original source - more readable) </h2>
 
 <button onclick="generate ()">Generate</button>
 
@@ -41,21 +40,12 @@ textarea {
 <script src="https://unpkg.com/ohm-js@16/dist/ohm.min.js"></script>
 
 <script src="eh-body.js"></script>
-
 <script>
 
-  function removeVerbatimBrackets (s) {
-      return s.replace (/‹/g,'').replace (/›/g,'');
-  }
-  
-  function fixupCode (s) {
-      var fixed = s.replace (/,]/g,']').replace (/,\-\)]/g,'\n-)]').replace (/,⟩]\n]/g,']\n]').replace (/\n\n+/g, '\n');
-      return fixed;
-  }
   
   function test (src, grammarName, grammar, fmt) {
       document.getElementById('input').innerHTML = src;      
-      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt);
+      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm);
       if (success) {
           document.getElementById('status').innerHTML = "OK";
 	  return [true, transpiled];
@@ -79,9 +69,22 @@ textarea {
 // Code Emitter
 
       var transformedCode = output;
-      emitPython (transformedCode);
-      emitCommonLisp (transformedCode);
+
+      var pyCode = emitPython (transformedCode);
+      document.getElementById('pyoutput').value = pyCode;
+      
+/*
+      var lispCode = emitCommonLisp (transformedCode);
+      document.getElementById('cloutput').value = lispCode;
+*/
+      
   }
+
+function dump (s) {
+}
+
+function cl_dump (s) {
+}
 
   </script>
 </body>

@@ -103,12 +103,6 @@ textarea {
 
 <script>
 
-/*
-  function removeVerbatimBrackets (s) {
-      console.log ('u');
-      return s.replace (/‹/g,'').replace (/›/g,'');
-  }
-*/
   
   function test (src, grammarName, grammar, fmt) {
       document.getElementById('input').innerHTML = src;      
@@ -140,8 +134,10 @@ textarea {
       var pyCode = emitPython (transformedCode);
       document.getElementById('pyoutput').value = pyCode;
       
+/*
       var lispCode = emitCommonLisp (transformedCode);
       document.getElementById('cloutput').value = lispCode;
+*/
       
   }
 

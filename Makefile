@@ -9,7 +9,7 @@ src.js: test5.json
 run:
 	(cd py ; make run)
 
-nodeversion:
+eh-body.js:
 	./scrape.bash
 
 
