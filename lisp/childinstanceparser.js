@@ -12,7 +12,11 @@ var cl_fSubChildInstantiate =
     + String.raw`
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? Code? more?] = ‛\n⟨lv⟩(let ((⟨ComponentName⟩ (make-instance '⟨KindName⟩ :parent self :name (format nil "~a-~a" name "⟨KindName⟩"))))⟨rv⟩\n⟨Code⟩⟨more⟩)’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? Code? more?] = ‛⟨lv⟩
+(let ((⟨ComponentName⟩ (make-instance '⟨KindName⟩ :parent self :name (format nil "~a-~a" name "⟨KindName⟩"))))
+⟨Code⟩
+⟨rv⟩
+⟨more⟩)’
 
   Code [dq1 kat dq2 kcolon vs optComma? more?] = ‛⟨vs⟩⟨more⟩’
 

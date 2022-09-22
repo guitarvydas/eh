@@ -15,8 +15,15 @@ override {
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
   ChildList [lb Child rb] = ‛⟨Child⟩’
 
-  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n(defun new-⟨topselfkind ()⟩ ()
-⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩)’
+  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛
+(in-package "EH")
+
+(defun new-⟨topselfkind ()⟩ (parent name)
+(let ((self (make-instance 'Container :parent parent :name name)))
+⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩
+(setf (children self) children)
+(setf (connections self) connections)
+self))’
 
   ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
 
