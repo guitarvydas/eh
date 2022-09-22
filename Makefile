@@ -16,7 +16,7 @@ neh.js: eh-body.js neh-head.js neh-tail.js
 	cat neh-head.js eh-body.js neh-tail.js >neh.js
 
 nehl.js: eh-body.js neh-head.js nehl-tail.js
-	cat neh-head.js eh-body.js nehl-tail.js >neh.js
+	cat neh-head.js eh-body.js nehl-tail.js >nehl.js
 
 runpy: neh.js
 	node neh.js >py/generated.py
@@ -24,7 +24,7 @@ runpy: neh.js
 
 runcl: nehl.js
 	node nehl.js >lisp/generated.lisp
-	(cd py ; python3 test.py)
+	(cd lisp ; ./sbclrun.bash)
 
 TOOLS = das
 NODEMODULES=\
