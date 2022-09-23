@@ -10,7 +10,53 @@
 // Ohm-JS
 const ohm = require ('ohm-js')    
 
-function compilefmt (fmtsrc, ohmlib) {
+/// helpers
+function _ruleInit () {
+}
+
+function traceSpaces () {
+    var s = '';
+    var n = traceDepth;
+    while (n > 0) {
+        s += ' ';
+        n -= 1;
+    }
+    s += `[${traceDepth.toString ()}]`;
+    return s;
+}
+
+function _ruleEnter (ruleName) {
+    if (tracing) {
+        traceDepth += 1;
+        var s = traceSpaces ();
+        s += 'enter: ';
+        s += ruleName.toString ();
+        console.log (s);
+    }
+}
+
+function _ruleExit (ruleName) {
+    if (tracing) {
+        var s = traceSpaces ();
+        traceDepth -= 1;
+        s += 'exit: ';
+        s += ruleName.toString ();
+        console.log (s);
+    }
+}
+
+function getFmtGrammar () {
+    return fmtGrammar;
+}
+
+  // helper functions
+  var ruleName = "???";
+  function setRuleName (s) { ruleName = s; return "";}
+  function getRuleName () { return ruleName; }
+
+/// end helpers
+
+function compilefmt (fmtsrc, ohmlang) {
     // expand the string fmtsrc into JavaScript suitable for
     // inclusion as a semantic object for Ohm.js
     //
@@ -20,11 +66,13 @@ function compilefmt (fmtsrc, ohmlib) {
     
 
     // Step 1a. Create (internal) fmt transpiler. 
-    var internalgrammar = ohmlib.grammar (fmtGrammar);
+    var internalgrammar = ohmlang.grammar (fmtGrammar);
     var fmtcst = internalgrammar.match (fmtsrc);
 
     if (fmtcst.failed ()) {
-        return [false, "FORMAT: syntax error\n(Use Ohm-Editor to debug format specification (grammar: fmt.ohm))\n\n" + internalgrammar.trace (fmtsrc)];
+        // return [false, "FORMAT: syntax error\n(Use Ohm-Editor to debug format specification (grammar: fmt.ohm))\n\n" + internalgrammar.trace (fmtsrc)];
+	console.error (internalgrammar);
+        return [false, "FORMAT: syntax error\n(Use Ohm-Editor to debug format specification (grammar: fmt.ohm)) rightmostPosition=" + fmtcst.getRightmostFailurePosition()];
     }
     // Step 1b. Transpile User's FMT spec to a JS object (for use with Ohm-JS)
     try {
@@ -297,6 +345,74 @@ _ruleExit ("${getRuleName ()}");
 };
 // yyy
 
+// return 3 item from transpile
+function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt) {
+    [matchsuccess, trgrammar, cst, errormessage] = patternmatch (src, grammarName, grammars, ohmlang);
+    if (!matchsuccess) {
+	return [false, "", "pattern matching error<br><br>" + errormessage];
+    } else {
+	[success, semanticsFunctionsAsString] = compfmt (fmt, ohmlang);
+	if (!success) {
+	    return [false, null, 'error compiling .fmt specification<br><br>' + err.message + ' ' + semanticsFunctionsAsString];
+	}
+	var evalableSemanticsFunctions = '(' + semanticsFunctionsAsString + ')';
+	var sem = trgrammar.createSemantics ();
+	try {
+	    semobj = eval (evalableSemanticsFunctions);
+	} catch (err) {
+	    console.error (evalableSemanticsFunctions);
+	    console.error (fmt);
+	    return [false, null, 'error evaling .fmt specification<br><br>' + err.message];
+	}
+	try {
+	    sem.addOperation ("_fmt", semobj);
+	} catch (err) {
+	    return [false, null, "error in .fmt specification<br><br>" + err.message];
+	}
+        var generatedFmtWalker = sem (cst);
+        try {
+	    //tracing = true;
+	    var generated = generatedFmtWalker._fmt ();
+	} catch (err) {
+	    return [false, "", err.message];
+	}
+	return [true, generated, ""];
+    }
+}
+
+
+function patternmatch (src, grammarName, grammars, ohmlang) {
+    try {
+	var grammarSpecs = ohmlang.grammars (grammars);
+    } catch (err) {
+	return [false, undefined, undefined, err.message];
+    }
+    try {
+	var pmgrammar = grammarSpecs [grammarName];
+    } catch (err) {
+	return [false, undefined, undefined, `grammar ${grammarName} not found in given grammars`];
+    }
+    if (pmgrammar === undefined) {
+	return [false, undefined, undefined, `grammar '${grammarName}' not found in given grammars`];
+    }
+
+    try {
+	var cst = pmgrammar.match (src);
+    } catch (err) {
+	return [false, undefined, undefined, err.message];
+    }
+    if (cst.failed ()) {
+	return [false, pmgrammar, cst, cst.message];
+    } else { 
+	return [true, pmgrammar, cst, ""];
+    }
+	
+}
+
+
+/// helpers
+var tracing = false;
+
 function _ruleInit () {
 }
 
@@ -340,65 +456,7 @@ function getFmtGrammar () {
   function setRuleName (s) { ruleName = s; return "";}
   function getRuleName () { return ruleName; }
 
-
-// return 3 item from transpile
-function transpile (src, grammarName, grammars, fmt, ohmlib) {
-    [matchsuccess, trgrammar, cst, errormessage] = patternmatch (src, grammarName, grammars, ohmlib);
-    if (!matchsuccess) {
-	return [false, "", "pattern matching error<br><br>" + errormessage];
-    } else {
-	[success, semanticsFunctionsAsString] = compilefmt (fmt, ohmlib);
-	var evalableSemanticsFunctions = '(' + semanticsFunctionsAsString + ')';
-	var sem = trgrammar.createSemantics ();
-	try {
-	    semobj = eval (evalableSemanticsFunctions);
-	} catch (err) {
-	    return [false, null, 'error compiling .fmt specification<br><br>' + err.message + ' ' + semanticsFunctionsAsString];
-	}
-	try {
-	    sem.addOperation ("_fmt", semobj);
-	} catch (err) {
-	    return [false, null, "error in .fmt specification<br><br>" + err.message];
-	}
-        var generatedFmtWalker = sem (cst);
-        try {
-	    //tracing = true;
-	    var generated = generatedFmtWalker._fmt ();
-	} catch (err) {
-	    return [false, "", err.message];
-	}
-	return [true, generated, ""];
-    }
-}
-
-
-function patternmatch (src, grammarName, grammars, ohmlib) {
-    try {
-	var grammarSpecs = ohmlib.grammars (grammars);
-    } catch (err) {
-	return [false, undefined, undefined, err.message];
-    }
-    try {
-	var pmgrammar = grammarSpecs [grammarName];
-    } catch (err) {
-	return [false, undefined, undefined, `grammar ${grammarName} not found in given grammars`];
-    }
-    if (pmgrammar === undefined) {
-	return [false, undefined, undefined, `grammar '${grammarName}' not found in given grammars`];
-    }
-
-    try {
-	var cst = pmgrammar.match (src);
-    } catch (err) {
-	return [false, undefined, undefined, err.message];
-    }
-    if (cst.failed ()) {
-	return [false, pmgrammar, cst, cst.message];
-    } else { 
-	return [true, pmgrammar, cst, ""];
-    }
-	
-}
+/// end helpers
 
   function stacktop (stack) {
       var len = stack.length;
@@ -942,7 +1000,7 @@ fSubChildInstantiate {
 function fmtChildInstances (text) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", gSubChildInstantiate, fSubChildInstantiate, ohm));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildInstantiate", gSubChildInstantiate, fSubChildInstantiate, ohm, compilefmt));
     if (success) {
 	return instantiations;
     } else {
@@ -972,7 +1030,7 @@ fSubChildList {
 function fmtChildList (text) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", gSubChildList, fSubChildList, ohm));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", gSubChildList, fSubChildList, ohm, compilefmt));
     if (success) {
 	return instantiations;
     } else {
@@ -1049,7 +1107,7 @@ CField_insert [dq1 k dq2 kcolon vs kcomma? rec?] = ‛\n⟨vs⟩⟨rec⟩’
 function fmtConnections (text) {
     let connections = '';
     let success = true;
-    success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections, ohm));
+    success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections, ohm, compilefmt));
     if (success) {
 	return connections;
     } else {
@@ -1151,8 +1209,12 @@ override {
   NonEmptyChildren [dq1 kchildren dq2 kcolon ChildList optcomma?] = ‛⟨ChildList⟩’
   ChildList [lb Child rb] = ‛⟨Child⟩’
 
-  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛\n(defun new-⟨topselfkind ()⟩ ()
-⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩)’
+  ComponentContainerJSON [lb NonEmptyChildren ComponentField rb] = ‛
+(in-package "EH")
+
+(defun new-⟨topselfkind ()⟩ (parent name)
+(let ((self (make-instance 'Container :parent parent :name name)))
+⟨cl_fmtChildInstances (NonEmptyChildren, cl_fmtChildList (NonEmptyChildren, ComponentField))⟩))’
 
   ComponentLeafJSON  [lb EmptyChildren ComponentField rb] = ‛’
 
@@ -1160,9 +1222,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma?
 
 CField_connections [dq1 k dq2 kcolon ConnectionBody kcomma? rec?] = ‛⟨ConnectionBody⟩⟨rec⟩’
 ConnectionBody [lb Connection* optcomma* rb] 
-  = ‛⟨cl_fmtConnections (Connection,
-                         "(make-instance 'Container :parent parent :name name :children children :connections connections)"
-                        )⟩’
+  = ‛⟨cl_fmtConnections (Connection, "\n(setf (children self) children)\n(setf (connections self) connections)\nself" )⟩’
 
 Connection [lb Receiver kcomma Sender rb] = ‛⟨lb⟩⟨Receiver⟩⟨kcomma⟩⟨Sender⟩⟨rb⟩’
 
@@ -1231,7 +1291,11 @@ var cl_fSubChildInstantiate =
     + String.raw`
 fSubChildInstantiate {
   Main [child+] = ‛⟨child⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? Code? more?] = ‛\n⟨lv⟩(let ((⟨ComponentName⟩ (make-instance '⟨KindName⟩ :parent self :name (format nil "~a-~a" name "⟨KindName⟩"))))⟨rv⟩\n⟨Code⟩⟨more⟩)’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? Code? more?] = ‛⟨lv⟩
+(let ((⟨ComponentName⟩ (make-instance '⟨KindName⟩ :parent self :name (format nil "~a-~a" name "⟨KindName⟩"))))
+⟨Code⟩
+⟨rv⟩
+⟨more⟩)’
 
   Code [dq1 kat dq2 kcolon vs optComma? more?] = ‛⟨vs⟩⟨more⟩’
 
@@ -1251,7 +1315,7 @@ function cl_fmtChildInstances (text, verbatim) {
     let instantiations = '';
     let success = true;
     let expandedtext = `${text}, "@":${verbatim}`;
-    success && ([success, instantiations, errormessage] = transpile (expandedtext, "ChildInstantiate", cl_gSubChildInstantiate, cl_fSubChildInstantiate, ohm));
+    success && ([success, instantiations, errormessage] = transpile (expandedtext, "ChildInstantiate", cl_gSubChildInstantiate, cl_fSubChildInstantiate, ohm, compilefmt));
     if (success) {
 	return instantiations;
     } else {
@@ -1281,7 +1345,7 @@ fSubChildList {
 function cl_fmtChildList (text, insert) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", cl_gSubChildList, cl_fSubChildList, ohm));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", cl_gSubChildList, cl_fSubChildList, ohm, compilefmt));
     if (success) {
 	return `‹(let (-((-(children (list (-${instantiations}-)))-))-)\n${insert})›`;
     } else {
@@ -1356,7 +1420,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma?
 function cl_fmtConnections (text, innerCode) {
     let connections = '';
     let success = true;
-    success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections, ohm));
+    success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections, ohm, compilefmt));
     if (success) {
 	return `${lv}(let ((-(connections (list (- ${connections} -))))\n${innerCode}-))${rv}`;
     } else {
@@ -1514,7 +1578,7 @@ const jsonsrc = String.raw`
 */
 // node version ("neh") tail code  
   function test (src, grammarName, grammar, fmt) {
-      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm);
+      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm, compilefmt);
       if (success) {
 	  return [true, transpiled];
       } else {

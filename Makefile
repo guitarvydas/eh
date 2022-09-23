@@ -9,7 +9,7 @@ src.js: test5.json
 run:
 	(cd py ; make run)
 
-eh-body.js:
+eh-body.js: eh.html fmt-js/fmt-js.js fmt-js/transpile.js
 	./scrape.bash
 
 neh.js: eh-body.js neh-head.js neh-tail.js
@@ -22,8 +22,40 @@ runpy: neh.js
 	node neh.js >py/generated.py
 	(cd py ; python3 test.py)
 
-runcl: nehl.js
+LISPFILES =\
+lisp/connector.lisp \
+lisp/container.lisp \
+lisp/downconnect.lisp \
+lisp/eh.lisp \
+lisp/fifo.lisp \
+lisp/generated.lisp \
+lisp/hello.lisp \
+lisp/hsm.lisp \
+lisp/inputmessage.lisp \
+lisp/load.lisp \
+lisp/message.lisp \
+lisp/outputmessage.lisp \
+lisp/package.lisp \
+lisp/passthroughconnect.lisp \
+lisp/porthandler.lisp \
+lisp/procedure.lisp \
+lisp/receiver.lisp \
+lisp/receiverqueue.lisp \
+lisp/routeconnect.lisp \
+lisp/runnable.lisp \
+lisp/selfreceiver.lisp \
+lisp/selfsender.lisp \
+lisp/sender.lisp \
+lisp/senderqueue.lisp \
+lisp/state.lisp \
+lisp/test.lisp \
+lisp/upconnect.lisp \
+lisp/world.lisp
+
+lisp/generated.lisp: nehl.js
 	node nehl.js >lisp/generated.lisp
+
+runcl: lisp/generated.lisp $(LISPFILES)
 	(cd lisp ; ./sbclrun.bash)
 
 TOOLS = das

@@ -1,6 +1,6 @@
 // node version ("neh") tail code  
   function test (src, grammarName, grammar, fmt) {
-      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm);
+      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm, compilefmt);
       if (success) {
 	  return [true, transpiled];
       } else {
