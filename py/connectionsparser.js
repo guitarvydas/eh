@@ -64,7 +64,7 @@ CField_insert [dq1 k dq2 kcolon vs kcomma? rec?] = ‛\n⟨vs⟩⟨rec⟩’
 function fmtConnections (text) {
     let connections = '';
     let success = true;
-    success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections, ohm));
+    success && ([success, connections, errormessage] = transpile (text, "Connections", gSubConnections, fSubConnections, ohm, compilefmt));
     if (success) {
 	return connections;
     } else {

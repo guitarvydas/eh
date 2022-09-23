@@ -62,7 +62,7 @@ Child [lb kkind kcolon1 KindName kcomma kname kcolon2 ComponentName rb optComma?
 function cl_fmtConnections (text, innerCode) {
     let connections = '';
     let success = true;
-    success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections, ohm));
+    success && ([success, connections, errormessage] = transpile (text, "Connections", cl_gSubConnections, cl_fSubConnections, ohm, compilefmt));
     if (success) {
 	return `${lv}(let ((-(connections (list (- ${connections} -))))\n${innerCode}-))${rv}`;
     } else {
