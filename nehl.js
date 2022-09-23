@@ -1,3 +1,15 @@
+// node version ("neh") head code - makefile, "make neh"
+// neh.js consists of 3 parts:
+// 1. neh-head.js
+// 2. eh-body.js
+// 3. neh-tail.js
+
+// (2) eh-body.js is generated from "eh.html" using "make eh-body.js"
+// (1) and (3) have been manually created
+
+// Ohm-JS
+const ohm = require ('ohm-js')    
+
 /// helpers
 function _ruleInit () {
 }
@@ -1550,3 +1562,48 @@ const jsonsrc = String.raw`
   ]
 ]
 `;
+// node version ("neh") tail code  
+  function test (src, grammarName, grammar, fmt) {
+      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm, compilefmt);
+      if (success) {
+	  return [true, transpiled];
+      } else {
+	  return [false, errormessage];
+      }
+  }
+
+  function generate () {
+      src = jsonsrc;
+
+// Information Gatherer ("semantics" passes)
+
+      let r = undefined;
+      let output = '';
+      [r, output] = test (src, "DaS", dasgrammar, dasfmt);
+      r && ([r, output] = test (output, "SelfReplacer", gSelfreplacer, fSelfreplacer));
+      
+// Code Emitter
+
+      var transformedCode = output;
+
+/*
+      var pyCode = emitPython (transformedCode);
+      return pyCode;
+*/
+
+      var lispCode = emitCommonLisp (transformedCode);
+      return lispCode;
+      
+  }
+
+function dump (s) {
+}
+
+function cl_dump (s) {
+}
+
+
+
+var result = generate ();
+console.log (result);
+

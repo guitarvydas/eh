@@ -85,6 +85,7 @@ clean:
 	rm -f nehl.js neh.js
 	rm -f lisp/generated.lisp py/generated.py
 	rm -f fb.pl
+	rm -f eh-body.js
 
 npmstuff:
 	npm install ohm-js yargs atob pako

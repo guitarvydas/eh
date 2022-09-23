@@ -10,7 +10,8 @@ from downconnect import DownConnect
 from routeconnect import RouteConnect
 from passthroughconnect import PassThroughConnect
 from container import Container
-⟨vs1⟩⟨vs2⟩⟨Component⟩⟨vs3⟩⟨vs4⟩
+from Hello import Hello
+from World import World
 class HelloWorld (Container): 
   def __init__ (self, parent, name):
     cell_7 = Hello (self, f'{name}-Hello');

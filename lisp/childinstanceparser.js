@@ -36,11 +36,7 @@ function cl_fmtChildInstances (text, verbatim) {
     let instantiations = '';
     let success = true;
     let expandedtext = `${text}, "@":${verbatim}`;
-    console.log ('a');
-    console.log (cl_gSubChildInstantiate);
-    console.log (expandedtext);
     success && ([success, instantiations, errormessage] = transpile (expandedtext, "ChildInstantiate", cl_gSubChildInstantiate, cl_fSubChildInstantiate, ohm, compilefmt));
-    console.log ('b');
     if (success) {
 	return instantiations;
     } else {
