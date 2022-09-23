@@ -1,8 +1,8 @@
 all: src.js runpy runcl
 
-src.js: test5.json
+src.js: helloworld.json
 	echo 'const jsonsrc = String.raw`' > src.js
-	cat test5.json >> src.js
+	cat helloworld.json >> src.js
 	echo '`;' >> src.js
 
 # copy/paste output code from eh.html into py/generated.py
@@ -72,18 +72,19 @@ tools:
 	(cd das/das2f ; make)
 	(cd das/das2j ; make)
 
-test5.json : npmstuff tools test5.drawio
-	das/generate.bash $(TOOLS) test5.drawio
-	mv out.json test5.json
+helloworld.json : npmstuff tools helloworld.drawio
+	das/generate.bash $(TOOLS) helloworld.drawio
+	mv out.json helloworld.json
 
 clean:
 	(cd das ; make clean)
 	rm -f junk*
-	rm -f test5.json
+	rm -f helloworld.json
 	rm -rf _*
 	rm -f *~
 	rm -f nehl.js neh.js
 	rm -f lisp/generated.lisp py/generated.py
+	rm -f fb.pl
 
 npmstuff:
 	npm install ohm-js yargs atob pako
