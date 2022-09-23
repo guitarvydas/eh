@@ -13,7 +13,7 @@ var cl_fSubChildInstantiate =
 fSubChildInstantiate {
   Main [child+] = ‛«child»’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? Code? more?] = ‛«lv»
-(let ((«ComponentName» (make-instance '«KindName» :parent self :name (format nil "~a-~a" name "«KindName»"))))
+(let ((«ComponentName» (make-instance '«KindName» :parent self :name (format nil "~a-~a-~a" name "«KindName»" "«ComponentName»"))))
 «Code»
 «rv»
 «more»)’
