@@ -18,7 +18,7 @@ fSubChildList {
 function fmtChildList (text) {
     let instantiations = '';
     let success = true;
-    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", gSubChildList, fSubChildList, ohm));
+    success && ([success, instantiations, errormessage] = transpile (text, "ChildList", gSubChildList, fSubChildList, ohm, compilefmt));
     if (success) {
 	return instantiations;
     } else {

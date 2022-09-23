@@ -103,16 +103,10 @@ textarea {
 
 <script>
 
-/*
-  function removeVerbatimBrackets (s) {
-      console.log ('u');
-      return s.replace (/‹/g,'').replace (/›/g,'');
-  }
-*/
   
   function test (src, grammarName, grammar, fmt) {
       document.getElementById('input').innerHTML = src;      
-      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm);
+      [success, transpiled, errormessage] = transpile (src, grammarName, grammar, fmt, ohm, compilefmt);
       if (success) {
           document.getElementById('status').innerHTML = "OK";
 	  return [true, transpiled];

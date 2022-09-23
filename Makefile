@@ -1,4 +1,4 @@
-all: src.js run
+all: src.js runpy runcl
 
 src.js: test5.json
 	echo 'const jsonsrc = String.raw`' > src.js
@@ -9,9 +9,54 @@ src.js: test5.json
 run:
 	(cd py ; make run)
 
-nodeversion:
+eh-body.js: eh.html fmt-js/fmt-js.js fmt-js/transpile.js
 	./scrape.bash
 
+neh.js: eh-body.js neh-head.js neh-tail.js
+	cat neh-head.js eh-body.js neh-tail.js >neh.js
+
+nehl.js: eh-body.js neh-head.js nehl-tail.js
+	cat neh-head.js eh-body.js nehl-tail.js >nehl.js
+
+runpy: neh.js
+	node neh.js >py/generated.py
+	(cd py ; python3 test.py)
+
+LISPFILES =\
+lisp/connector.lisp \
+lisp/container.lisp \
+lisp/downconnect.lisp \
+lisp/eh.lisp \
+lisp/fifo.lisp \
+lisp/generated.lisp \
+lisp/hello.lisp \
+lisp/hsm.lisp \
+lisp/inputmessage.lisp \
+lisp/load.lisp \
+lisp/message.lisp \
+lisp/outputmessage.lisp \
+lisp/package.lisp \
+lisp/passthroughconnect.lisp \
+lisp/porthandler.lisp \
+lisp/procedure.lisp \
+lisp/receiver.lisp \
+lisp/receiverqueue.lisp \
+lisp/routeconnect.lisp \
+lisp/runnable.lisp \
+lisp/selfreceiver.lisp \
+lisp/selfsender.lisp \
+lisp/sender.lisp \
+lisp/senderqueue.lisp \
+lisp/state.lisp \
+lisp/test.lisp \
+lisp/upconnect.lisp \
+lisp/world.lisp
+
+lisp/generated.lisp: nehl.js
+	node nehl.js >lisp/generated.lisp
+
+runcl: lisp/generated.lisp $(LISPFILES)
+	(cd lisp ; ./sbclrun.bash)
 
 TOOLS = das
 NODEMODULES=\
@@ -32,17 +77,13 @@ test5.json : npmstuff tools test5.drawio
 	mv out.json test5.json
 
 clean:
-	(cd ./dr ; make clean)
-	(cd ./prep ; make clean)
-	(cd ./d2f ; make clean)
-	(cd ./das2f ; make clean)
-	(cd ./das2j ; make clean)
-	rm -f layer*
-	rm -f preprocessed*
-	rm -f duct?_*
-	rm -f *.json
+	(cd das ; make clean)
+	rm -f junk*
+	rm -f test5.json
 	rm -rf _*
 	rm -f *~
+	rm -f nehl.js neh.js
+	rm -f lisp/generated.lisp py/generated.py
 
 npmstuff:
 	npm install ohm-js yargs atob pako
