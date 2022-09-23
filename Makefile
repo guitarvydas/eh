@@ -1,5 +1,9 @@
 all: src.js runpy runcl
 
+dev:
+	rm -f py/generated.py
+	make py/generated.py
+
 src.js: helloworld.json
 	echo 'const jsonsrc = String.raw`' > src.js
 	cat helloworld.json >> src.js
@@ -9,7 +13,7 @@ src.js: helloworld.json
 run:
 	(cd py ; make run)
 
-eh-body.js: eh.html fmt-js/fmt-js.js fmt-js/transpile.js
+eh-body.js: eh.html fmt-js/fmt-js.js fmt-js/transpile.js src.js
 	./scrape.bash
 
 neh.js: eh-body.js neh-head.js neh-tail.js
@@ -18,8 +22,10 @@ neh.js: eh-body.js neh-head.js neh-tail.js
 nehl.js: eh-body.js neh-head.js nehl-tail.js
 	cat neh-head.js eh-body.js nehl-tail.js >nehl.js
 
-runpy: neh.js
+py/generated.py: neh.js
 	node neh.js >py/generated.py
+
+runpy: py/generated.py
 	(cd py ; python3 test.py)
 
 LISPFILES =\

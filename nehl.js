@@ -1015,7 +1015,7 @@ var fSubChildInstantiate =
     + String.raw`
 fSubChildInstantiate {
   Main [child+] = ‛«child»’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛\n«lv»«ComponentName» = «KindName» (self, f'{name}-«KindName»');«rv»«more»’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛\n«lv»«ComponentName» = «KindName» (self, f'{name}-«KindName»-«ComponentName»');«rv»«more»’
   string [vs0 dq1 c* dq2 vs1] = ‛«vs0»«c»«vs1»’
 }
 `;
@@ -1315,7 +1315,7 @@ var cl_fSubChildInstantiate =
 fSubChildInstantiate {
   Main [child+] = ‛«child»’
   Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? Code? more?] = ‛«lv»
-(let ((«ComponentName» (make-instance '«KindName» :parent self :name (format nil "~a-~a" name "«KindName»"))))
+(let ((«ComponentName» (make-instance '«KindName» :parent self :name (format nil "~a-~a-~a" name "«KindName»" "«ComponentName»"))))
 «Code»
 «rv»
 «more»)’
@@ -1513,11 +1513,31 @@ const jsonsrc = String.raw`
 [
   [
     {
-      "children": [ {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
+      "children": [],
+      "connections": [],
+      "id":"cell_19",
+      "inputs": ["cell_20" ],
+      "kind":"World",
+      "name":"World",
+      "outputs": ["cell_22" ],
+      "synccode":""
+    }
+  ],
+  [
+    {
+      "children": [ {"kind":"World", "name":"cell_19"},  {"kind":"Hello", "name":"cell_7"},  {"kind":"World", "name":"cell_8"} ],
       "connections": [
 	{
 	  "receivers": [ {"receiver": {"component":"cell_7", "port":"stdin"}} ],
 	  "senders": [ {"sender": {"component":"cell_6", "port":"stdin"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_6", "port":"stdout"}} ],
+	  "senders": [ {"sender": {"component":"cell_19", "port":"stdout"}} ]
+	},
+	{
+	  "receivers": [ {"receiver": {"component":"cell_19", "port":"stdin"}} ],
+	  "senders": [ {"sender": {"component":"cell_7", "port":"stdout"}} ]
 	},
 	{
 	  "receivers": [ {"receiver": {"component":"cell_8", "port":"stdin"}} ],
@@ -1529,10 +1549,10 @@ const jsonsrc = String.raw`
 	}
       ],
       "id":"cell_6",
-      "inputs": ["cell_17" ],
+      "inputs": ["cell_18" ],
       "kind":"HelloWorld",
       "name":"HelloWorld",
-      "outputs": ["cell_15" ],
+      "outputs": ["cell_16" ],
       "synccode":""
     }
   ],
@@ -1541,10 +1561,10 @@ const jsonsrc = String.raw`
       "children": [],
       "connections": [],
       "id":"cell_7",
-      "inputs": ["cell_12" ],
+      "inputs": ["cell_13" ],
       "kind":"Hello",
       "name":"Hello",
-      "outputs": ["cell_10" ],
+      "outputs": ["cell_11" ],
       "synccode":""
     }
   ],
@@ -1553,10 +1573,10 @@ const jsonsrc = String.raw`
       "children": [],
       "connections": [],
       "id":"cell_8",
-      "inputs": ["cell_11" ],
+      "inputs": ["cell_12" ],
       "kind":"World",
       "name":"World",
-      "outputs": ["cell_14" ],
+      "outputs": ["cell_15" ],
       "synccode":""
     }
   ]

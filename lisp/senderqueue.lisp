@@ -43,6 +43,7 @@
 
 (defmethod send ((self SenderQueue) from port-name data causing-message)
   (let ((m (make-instance 'OutputMessage :from from :port port-name :data data :trail causing-message)))
+    (format *standard-output* "~%*** send self=~a m=~a" (name self) m)
     (enqueue (outputq self) m)))
 
 (defmethod output-queue ((self SenderQueue))
