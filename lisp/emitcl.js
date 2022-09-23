@@ -19,30 +19,27 @@ ${rv}
 {"receivers":[{"receiver":{"component":"cell_8","port":"stdin"}}],"senders":[{"sender":{"component":"cell_7","port":"stdout"}}]}
 {"receivers":[{"receiver":{"component":".","port":"stdout"}}],"senders":[{"sender":{"component":"cell_8","port":"stdout"}}]}
 `;
-	/*
+/*
 	    let retval = "(make-instance 'container :children children :connections connections)"
 	    let connections = cl_fmtConnections (connectionstest, retval);
-	    cl_dump (connections);
 
 	    let childList = cl_fmtChildList (childtest, connections);
 	    cl_dump (childList);
 	    gencode = childList;
-
 	    var innerText = childList;
 	    console.log (childList);
 
-	    let childInstances = cl_fmtChildInstances (childtest, innerText);
+	let childInstances = cl_fmtChildInstances (childtest, innerText);
 	    cl_dump (childInstances);
 	    gencode = childInstances;
-	*/
-/*
+
 	gencode = cl_fmtChildInstances (childtest,
 					cl_fmtChildList (childtest,
 								    cl_fmtConnections (connectionstest, 
 										       "(make-instance 'container :children children :connections connections)")));
-*/
+	return gencode;
+*/	
     }
-
     r && ([r, gencode] = test (transformedCode, "xClass", cl_gClass, cl_fClass));
 
     if (r) {

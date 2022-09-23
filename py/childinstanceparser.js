@@ -9,9 +9,9 @@ var fSubChildInstantiate =
     + fIdentityIgnore
     + String.raw`
 fSubChildInstantiate {
-  Main [child+] = ‛⟨child⟩’
-  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛\n⟨lv⟩⟨ComponentName⟩ = ⟨KindName⟩ (self, f'{name}-⟨KindName⟩');⟨rv⟩⟨more⟩’
-  string [vs0 dq1 c* dq2 vs1] = ‛⟨vs0⟩⟨c⟩⟨vs1⟩’
+  Main [child+] = ‛«child»’
+  Child [lb kkind kcolon KindName kcomma kname kcolon ComponentName rb optcomma? more?] = ‛\n«lv»«ComponentName» = «KindName» (self, f'{name}-«KindName»');«rv»«more»’
+  string [vs0 dq1 c* dq2 vs1] = ‛«vs0»«c»«vs1»’
 }
 `;
 

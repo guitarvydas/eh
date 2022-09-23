@@ -10,8 +10,6 @@ textarea {
 
 <h1>Drawing Transpiler</h1>
 
-<h2>Run 'make', then paste the generated JSON file (e.g. test5.json) into src.js</h2>
-
 <button onclick="generate ()">Generate</button>
 
 <br>
@@ -112,6 +110,8 @@ textarea {
 	  return [true, transpiled];
       } else {
           document.getElementById('status').innerHTML = "FAILED " + grammarName + ' ' + errormessage;
+	  console.error (src);
+	  console.error (grammar);
 	  return [false, errormessage];
       }
   }
