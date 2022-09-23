@@ -1,4 +1,4 @@
-all: src.js run
+all: src.js runpy runcl
 
 src.js: test5.json
 	echo 'const jsonsrc = String.raw`' > src.js
@@ -77,17 +77,13 @@ test5.json : npmstuff tools test5.drawio
 	mv out.json test5.json
 
 clean:
-	(cd ./dr ; make clean)
-	(cd ./prep ; make clean)
-	(cd ./d2f ; make clean)
-	(cd ./das2f ; make clean)
-	(cd ./das2j ; make clean)
-	rm -f layer*
-	rm -f preprocessed*
-	rm -f duct?_*
-	rm -f *.json
+	(cd das ; make clean)
+	rm -f junk*
+	rm -f test5.json
 	rm -rf _*
 	rm -f *~
+	rm -f nehl.js neh.js
+	rm -f lisp/generated.lisp py/generated.py
 
 npmstuff:
 	npm install ohm-js yargs atob pako
