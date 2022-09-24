@@ -33,7 +33,7 @@
 
 ;; internal - not exported
 (defmethod clear-outputs ((self SenderQueue))
-  (setf (outputq self) nil))
+  (setf (outputq self) (make-instance 'FIFO)))
 
 (defmethod enqueue-output ((self SenderQueue) message)
   (enqueue (outputq self) message))
@@ -43,7 +43,6 @@
 
 (defmethod send ((self SenderQueue) from port-name data causing-message)
   (let ((m (make-instance 'OutputMessage :from from :port port-name :data data :trail causing-message)))
-    (format *standard-output* "~%*** send self=~a m=~a" (name self) m)
     (enqueue (outputq self) m)))
 
 (defmethod output-queue ((self SenderQueue))
