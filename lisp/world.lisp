@@ -9,4 +9,4 @@
 				    :func (lambda (runtime-self message)
 					    (send runtime-self compiletime-self "stdout" (data message) message)
 					    (send runtime-self compiletime-self "stdout" "world" message)))))
-   
+

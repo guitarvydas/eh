@@ -10,8 +10,8 @@ Verbatim {
   anything = anychar
   anychar= ~lv ~rv any
 
-  lv = "\u{2039}" // must correspond to definitions in chars.js
-  rv = "\u{203a}"
+  lv = "\u{00ab}" // must correspond to definitions in chars.js
+  rv = "\u{00bb}"
 }
 `;
 
@@ -65,17 +65,17 @@ dq (dquote)= "\""
 
 const fVerbatim = String.raw`
 Verbatim {
-  vs [verbatimspaces*] = ‛⟨verbatimspaces⟩’
-  verbatimspace [lv recursiveverbatim+ rv ws] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩⟨ws⟩’
-  recursiveverbatim [x] = ‛⟨x⟩’
-  recursiveverbatim_recur [lv recursiveverbatim+ rv] = ‛⟨lv⟩⟨recursiveverbatim⟩⟨rv⟩’
-  recursiveverbatim_bottom [x] = ‛⟨x⟩’
+  vs [verbatimspaces*] = ‛«verbatimspaces»’
+  verbatimspace [lv recursiveverbatim+ rv ws] = ‛«lv»«recursiveverbatim»«rv»«ws»’
+  recursiveverbatim [x] = ‛«x»’
+  recursiveverbatim_recur [lv recursiveverbatim+ rv] = ‛«lv»«recursiveverbatim»«rv»’
+  recursiveverbatim_bottom [x] = ‛«x»’
 
-  anythingVerbatim [c] = ‛⟨c⟩’
-  anything [c] = ‛⟨c⟩’
-  anychar [c] = ‛⟨c⟩’
+  anythingVerbatim [c] = ‛«c»’
+  anything [c] = ‛«c»’
+  anychar [c] = ‛«c»’
 
-  lv [c] = ‛⟨c⟩’
-  rv [c] = ‛⟨c⟩’
+  lv [c] = ‛«c»’
+  rv [c] = ‛«c»’
 }
 `;

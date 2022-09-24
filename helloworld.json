@@ -1,4 +1,3 @@
-const jsonsrc = String.raw`
 [
   [
     {
@@ -70,4 +69,3 @@ const jsonsrc = String.raw`
     }
   ]
 ]
-`;

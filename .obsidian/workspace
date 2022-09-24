@@ -9,7 +9,7 @@
         "state": {
           "type": "markdown",
           "state": {
-            "file": "doc/2022-08-26-notes.md",
+            "file": "doc/2022-09-11 Eh Overview.md",
             "mode": "source",
             "source": false
           }
@@ -77,7 +77,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "doc/2022-08-26-notes.md",
+                "file": "doc/2022-09-11 Eh Overview.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -94,7 +94,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "doc/2022-08-26-notes.md",
+                "file": "doc/2022-09-11 Eh Overview.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -117,7 +117,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "doc/2022-08-26-notes.md"
+                "file": "doc/2022-09-11 Eh Overview.md"
               }
             }
           }
@@ -130,8 +130,13 @@
   },
   "active": "96bcc6339624f143",
   "lastOpenFiles": [
+    "doc/@@@ Start Here.md",
+    "doc/Eh - Benefits.md",
+    "doc/structured message passing.png",
+    "doc/2022-09-11 Eh Overview.md",
+    "doc/0D.md",
+    "doc/2022-08-26-notes.md",
     "doc/2022-08-24-notes.md",
-    "README.md",
-    "doc/2022-08-26-notes.md"
+    "README.md"
   ]
 }

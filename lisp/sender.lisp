@@ -1,13 +1,13 @@
 (in-package "EH")
 
 (defclass Sender ()
-  ((from :accessor from :initarg :from)
+  ((component :accessor component :initarg :component)
    (port :accessor port :initarg :port)))
 
 (defmethod match ((self Sender) othersender port)
-  (and (eq (from self) othersender)
+  (and (eq (component self) othersender)
        (equalp (port self) port)))
 
 (defmethod name ((self Sender))
-  (format nil "~a/~a" (name (from self)) (port self)))
+  (format nil "~a/~a" (name (component self)) (port self)))
 

@@ -33,7 +33,7 @@
 
 ;; internal - not exported
 (defmethod clear-outputs ((self SenderQueue))
-  (setf (outputq self) nil))
+  (setf (outputq self) (make-instance 'FIFO)))
 
 (defmethod enqueue-output ((self SenderQueue) message)
   (enqueue (outputq self) message))
