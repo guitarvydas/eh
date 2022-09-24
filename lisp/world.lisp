@@ -10,6 +10,3 @@
 					    (send runtime-self compiletime-self "stdout" (data message) message)
 					    (send runtime-self compiletime-self "stdout" "world" message)))))
 
-(defmethod initialize-instance :after ((self World)  &key &allow-other-keys)
-  (format *standard-output* "~%ii world ~a (~a) outputq=~a" (name self) self (outputq self)))
-   
