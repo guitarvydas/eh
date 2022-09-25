@@ -1,8 +1,7 @@
-all: src.js runpy runcl
+all: subgits src.js runpy runcl
 
-dev:
-	rm -f py/generated.py
-	make py/generated.py
+subgits:
+	multigit -r
 
 src.js: helloworld.json
 	echo 'const jsonsrc = String.raw`' > src.js
@@ -84,10 +83,10 @@ helloworld.json : npmstuff tools helloworld.drawio
 
 clean:
 	(cd das ; make clean)
-	rm -f junk*
+	rm -f junk* */junk*
 	rm -f helloworld.json
-	rm -rf _*
-	rm -f *~
+	rm -rf _* */_*
+	rm -f *~ */*~
 	rm -f nehl.js neh.js
 	rm -f lisp/generated.lisp py/generated.py
 	rm -f fb.pl
