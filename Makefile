@@ -1,6 +1,6 @@
-all: subgits src.js runpy runcl
+all: install src.js runpy runcl
 
-subgits:
+install:
 	multigit -r
 
 src.js: helloworld.json
