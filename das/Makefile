@@ -5,7 +5,7 @@ NODEMODULES=\
 	node_modules/pako
 
 # change this for your own environment
-TOOLS=.
+TOOLS=$(CURDIR)
 
 all: $(NODEMODULES) tools helloworld.py topd2py.py hw.json hwhw.json
 
