@@ -53,4 +53,6 @@ clean:
 	rm -f b-dr-edgecontainment
 	rm -f out.json
 	rm -f view*.bash view*.pl view*.js
+	rm -f junk*.*
+	rm -f *~
 
