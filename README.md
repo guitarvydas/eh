@@ -69,9 +69,16 @@ Questions such as...
 
 
 # Install
+install swipl https://www.swi-prolog.org/Download.html
+% sudo apt-get install swi-prolog
+install node.js
+install sbcl "sudo apt-get install sbcl"
+
 After cloning this git, cd into it and run multigit:
 > multigit -r
 
+then, run make clean
+> make clean
 then, run make
 > make
 
