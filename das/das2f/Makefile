@@ -42,7 +42,7 @@ layersynccode_query.bash
 all: $(QUERIES)
 
 $(QUERIES) : $(QUERYSOURCES)
-	./build.bash ..
+	./build.bash `realpath ..`
 
 clean:
 	cp layer6 temp-layer6
