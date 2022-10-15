@@ -58,6 +58,10 @@ topd2py.py : d2py.json transpile2py.bash pyemit.py
 	./topd2py.py
 
 clean:
+	find . -name 'junk*' -exec rm '{}' ';'
+	find . -name '_*' -exec rm '{}' ';'
+	find . -name '*~' -exec rm '{}' ';'
+	find . -name '#*' -exec rm '{}' ';'
 	(cd ./dr ; make clean)
 	(cd ./prep ; make clean)
 	(cd ./d2f ; make clean)
