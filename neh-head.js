@@ -8,5 +8,4 @@
 // (1) and (3) have been manually created
 
 // Ohm-JS
-const ohm = require ('ohm-js')    
-
+const ohm = require ('ohm-js');

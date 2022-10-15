@@ -8,8 +8,7 @@
 // (1) and (3) have been manually created
 
 // Ohm-JS
-const ohm = require ('ohm-js')    
-
+const ohm = require ('ohm-js');
 /// helpers
 function _ruleInit () {
 }
@@ -353,7 +352,8 @@ function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt) {
     } else {
 	[success, semanticsFunctionsAsString] = compfmt (fmt, ohmlang);
 	if (!success) {
-	    return [false, null, 'error compiling .fmt specification<br><br>' + err.message + ' ' + semanticsFunctionsAsString];
+	    var errorMessage = semanticsFunctionsAsString
+	    return [false, null, errorMessage];
 	}
 	var evalableSemanticsFunctions = '(' + semanticsFunctionsAsString + ')';
 	var sem = trgrammar.createSemantics ();
