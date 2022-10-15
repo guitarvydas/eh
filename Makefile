@@ -1,7 +1,7 @@
 
-all: subgits src.js runpy runcl
+all: install src.js runpy runcl
 
-subgits:
+install:
 	multigit -r
 
 src.js: helloworld.json
@@ -86,14 +86,14 @@ helloworld.json : npmstuff tools helloworld.drawio
 	mv out.json helloworld.json
 
 clean:
+	rm -rf das
 	find . -name 'junk*' -exec rm -f '{}' ';'
 	find . -name '_*' -exec rm -f '{}' ';'
 	find . -name '*~' -exec rm -f '{}' ';'
 	find . -name '#*' -exec rm -f '{}' ';'
-	(cd das ; make clean)
 	rm -f junk* */junk*
 	rm -f helloworld.json
-	rm -rf _* */_*
+	rm -f _* */_*
 	rm -f *~ */*~
 	rm -f nehl.js neh.js
 	rm -f lisp/generated.lisp py/generated.py
