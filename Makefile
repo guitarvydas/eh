@@ -87,6 +87,8 @@ helloworld.json : npmstuff tools helloworld.drawio
 
 clean:
 	find . -name 'junk*' -exec rm '{}' ';'
+	find . -name '_*' -exec rm '{}' ';'
+	find . -name '*~' -exec rm '{}' ';'
 	(cd das ; make clean)
 	rm -f junk* */junk*
 	rm -f helloworld.json
