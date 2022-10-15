@@ -85,7 +85,7 @@ helloworld.json : npmstuff tools helloworld.drawio
 	das/generate.bash $(TOOLS) helloworld.drawio
 	mv out.json helloworld.json
 
-clean:
+clean: rmdirs
 	rm -rf das
 	find . -name 'junk*' -exec rm -f '{}' ';'
 	find . -name '_*' -exec rm -f '{}' ';'
@@ -99,6 +99,12 @@ clean:
 	rm -f lisp/generated.lisp py/generated.py
 	rm -f fb.pl
 	rm -f eh-body.js
+
+rmdirs:
+	rm -rf py/__pycache__
+	rm -rf das
+	rm -rf fmt-js
+	rm -rf node_modules
 
 npmstuff:
 	npm install ohm-js yargs atob pako
