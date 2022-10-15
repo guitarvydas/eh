@@ -1,3 +1,4 @@
+
 all: subgits src.js runpy runcl
 
 subgits:
@@ -56,6 +57,9 @@ lisp/state.lisp \
 lisp/test.lisp \
 lisp/upconnect.lisp \
 lisp/world.lisp
+
+lisp/load.lisp : lisp/generic-load.lisp
+	sed -e 's!%%%!$(CURDIR)!' <lisp/generic-load.lisp >lisp/load.lisp
 
 lisp/generated.lisp: nehl.js
 	node nehl.js >lisp/generated.lisp
