@@ -1,5 +1,6 @@
+TOOLS = das
 
-all: install src.js runpy runcl
+all: install tools src.js
 
 install:
 	multigit -r
@@ -9,70 +10,6 @@ src.js: helloworld.json
 	cat helloworld.json >> src.js
 	echo '`;' >> src.js
 
-# copy/paste output code from eh.html into py/generated.py
-run:
-	(cd py ; make run)
-
-eh-body.js: eh.html fmt-js/fmt-js.js fmt-js/transpile.js src.js
-	./scrape.bash
-
-neh.js: eh-body.js neh-head.js neh-tail.js
-	cat neh-head.js eh-body.js neh-tail.js >neh.js
-
-nehl.js: eh-body.js neh-head.js nehl-tail.js
-	cat neh-head.js eh-body.js nehl-tail.js >nehl.js
-
-py/generated.py: neh.js
-	node neh.js >py/generated.py
-
-runpy: py/generated.py
-	(cd py ; python3 test.py)
-
-LISPFILES =\
-lisp/connector.lisp \
-lisp/container.lisp \
-lisp/downconnect.lisp \
-lisp/eh.lisp \
-lisp/fifo.lisp \
-lisp/generated.lisp \
-lisp/hello.lisp \
-lisp/hsm.lisp \
-lisp/inputmessage.lisp \
-lisp/load.lisp \
-lisp/message.lisp \
-lisp/outputmessage.lisp \
-lisp/package.lisp \
-lisp/passthroughconnect.lisp \
-lisp/porthandler.lisp \
-lisp/procedure.lisp \
-lisp/receiver.lisp \
-lisp/receiverqueue.lisp \
-lisp/routeconnect.lisp \
-lisp/runnable.lisp \
-lisp/selfreceiver.lisp \
-lisp/selfsender.lisp \
-lisp/sender.lisp \
-lisp/senderqueue.lisp \
-lisp/state.lisp \
-lisp/test.lisp \
-lisp/upconnect.lisp \
-lisp/world.lisp
-
-lisp/load.lisp : lisp/generic-load.lisp
-	sed -e 's!%%%!$(CURDIR)!' <lisp/generic-load.lisp >lisp/load.lisp
-
-lisp/generated.lisp: nehl.js
-	node nehl.js >lisp/generated.lisp
-
-runcl: lisp/generated.lisp $(LISPFILES)
-	(cd lisp ; ./sbclrun.bash)
-
-TOOLS = das
-NODEMODULES=\
-	node_modules/ohm-js \
-	node_modules/yargs \
-	node_modules/atob \
-	node_modules/pako
 
 tools:
 	(cd das/dr ; make)
@@ -95,10 +32,7 @@ clean: rmdirs
 	rm -f helloworld.json
 	rm -f _* */_*
 	rm -f *~ */*~
-	rm -f nehl.js neh.js
-	rm -f lisp/generated.lisp py/generated.py
 	rm -f fb.pl
-	rm -f eh-body.js
 
 rmdirs:
 	rm -rf py/__pycache__
