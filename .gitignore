@@ -4,7 +4,6 @@ _*
 node_modules/*
 py/__pycache/*
 *.mov
-fmt-js/
 das/
 junk.*
 junk*
