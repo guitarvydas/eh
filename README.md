@@ -2,7 +2,7 @@
 
 This diagram:
 
-![](src.png)
+![](./doc/src.png)
 
 is transpiled to this JSON:
 ```
