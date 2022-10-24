@@ -105,8 +105,17 @@ and is transpiled to Common Lisp
 ```
 
 
-
+# Wart
 Branch master has a wart - a hard-coded path (see README.md).  This will be fixed in branch dev.
+
+# Next Steps
+
+Cleave ė into multiple parts
+- diagram to JSON component descriptors
+- JSON component descriptors to Python
+- JSON component descriptors to Common Lisp
+
+Create [spin-off](https://github.com/guitarvydas/py0d) which enables manual creation of ė and HSM and 0D code in Python.
 
 # ė - Goal and Overview
 
