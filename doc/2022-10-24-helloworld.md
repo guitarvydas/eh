@@ -2,7 +2,7 @@
 
 This diagram:
 
-![](hello world eh-helloworld.png)
+![](helloworld.png)
 
 is transpiled to this JSON:
 ```
