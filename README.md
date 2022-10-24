@@ -69,8 +69,9 @@ Questions such as...
 
 
 # Install
-After cloning this git, cd into it and run multigit:
-> multigit -r
+modify the hard-coded path in lisp/load.lisp (this will soon be changed to be less hard-coded)
+
+  (let ((root "/media/psf/local-projects/eh/lisp"))
 
 then, run make
 > make

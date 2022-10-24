@@ -1,7 +1,6 @@
-all: install src.js runpy runcl
+all: subgits src.js runpy runcl
 
-install:
-	multigit -r
+subgits:
 
 src.js: helloworld.json
 	echo 'const jsonsrc = String.raw`' > src.js
