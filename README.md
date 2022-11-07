@@ -130,13 +130,13 @@ To do this we need:
 ## Hello World 
 Very simple example
 ## Leaf
-![Leaf](./hello%20world%20eh-Leaf.png)
+![Leaf](./doc/hello%20world%20eh-Leaf.png)
 
 ## Container
-![Container](hello%20world%20eh-helloworld.png)
+![Container](./doc/hello%20world%20eh-helloworld.png)
 
 ## Re-Architecting
-![Different%20Routing](hello%20world%20eh-helloworldworld.png)
+![Different%20Routing](./doc/hello%20world%20eh-helloworldworld.png)
 
 # Benefits
 - technical drawings come "for free"
