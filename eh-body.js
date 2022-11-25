@@ -1,4 +1,4 @@
-/// helpers
+// helpers
 function _ruleInit () {
 }
 
@@ -44,6 +44,13 @@ function getFmtGrammar () {
 
 /// end helpers
 
+function vcompilefmt (v) {
+    // v is { tracing: boolean, traceDepth: int, src: String, grammarName: undefined, grammars: undefined, fmt : undefined, ohm: function, compilefmt: undefined}
+    tracing = v.tracing;
+    traceDepth = v.traceDepth;
+    return compilefmt (v.src, v.ohm);
+}
+
 function compilefmt (fmtsrc, ohmlang) {
     // expand the string fmtsrc into JavaScript suitable for
     // inclusion as a semantic object for Ohm.js
@@ -58,9 +65,9 @@ function compilefmt (fmtsrc, ohmlang) {
     var fmtcst = internalgrammar.match (fmtsrc);
 
     if (fmtcst.failed ()) {
-        // return [false, "FORMAT: syntax error\n(Use Ohm-Editor to debug format specification (grammar: fmt.ohm))\n\n" + internalgrammar.trace (fmtsrc)];
-	console.error (internalgrammar);
-        return [false, "FORMAT: syntax error\n(Use Ohm-Editor to debug format specification (grammar: fmt.ohm)) rightmostPosition=" + fmtcst.getRightmostFailurePosition()];
+	let len = fmtcst.getRightmostFailurePosition();
+        let emsg = "FORMAT: syntax error in fabrication specification\nrightmostPosition=" + len + '\n';
+        return [false, emsg];
     }
     // Step 1b. Transpile User's FMT spec to a JS object (for use with Ohm-JS)
     try {
@@ -89,6 +96,7 @@ RuleLHS = name "[" Param+ "]"
 rewriteString = "‛" char* "’" spaces
 char =
   | "«" nonBracketChar* "»" -- eval
+  | "\\" any -- esc
   | ~"’" ~"]]" any     -- raw
 nonBracketChar = ~"»" ~"«"  ~"’" ~"]]" any
 name = letter nameRest*
@@ -189,8 +197,9 @@ ${rule}
         var keq = _keq._fmt ();
         var ws2 = _ws2._fmt ();
         var rws = _rws._fmt ();
-        var _result = `${lhs}${rws}
+        var _result = `${lhs}
 _ruleExit ("${getRuleName ()}");
+return ${rws}
 },
 `; 
         _ruleExit ("rule");
@@ -224,7 +233,7 @@ _ruleExit ("${getRuleName ()}");
         var cs = _cs._fmt ().join ('');
         var se = _se._fmt ();
         var ws = _ws._fmt ();
-        var _result = `return \`${cs}\`;`; 
+        var _result = `\`${cs}\`;`; 
         _ruleExit ("rewriteString");
         return _result; 
     },
@@ -244,6 +253,15 @@ _ruleExit ("${getRuleName ()}");
         return _result; 
     },
     
+    char_esc : function (_slash, _c) { 
+        _ruleEnter ("char_esc");
+
+        var slash = _slash._fmt ();
+        var c = _c._fmt ();
+        var _result = `${c}`; 
+        _ruleExit ("char_esc");
+        return _result; 
+    },
     char_raw : function (_c) { 
         _ruleEnter ("char_raw");
 
@@ -334,22 +352,33 @@ _ruleExit ("${getRuleName ()}");
 // yyy
 
 // return 3 item from transpile
-function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt) {
+function vtranspile (v) {
+    // v is { tracing: boolean, traceDepth: int, src: String, grammarName: String, grammars: String, fmt : String, ohm: function, compilefmt: function}
+    tracing = v.tracing;
+    traceDepth = v.traceDepth;
+    return transpile (v.src, v.grammarName, v.grammars, v.fmt, v.ohm, v.compilefmt);
+}
+
+function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt, supportfname) {
+    
     [matchsuccess, trgrammar, cst, errormessage] = patternmatch (src, grammarName, grammars, ohmlang);
     if (!matchsuccess) {
 	return [false, "", "pattern matching error<br><br>" + errormessage];
+    } else if (fmt === undefined || fmt === '') {
+	return [false, "", "pattern matching succeeded (but without fabrication)<br><br>" + errormessage];
     } else {
 	[success, semanticsFunctionsAsString] = compfmt (fmt, ohmlang);
 	if (!success) {
-	    return [false, null, 'error compiling .fmt specification<br><br>' + err.message + ' ' + semanticsFunctionsAsString];
+	    var errorMessage = semanticsFunctionsAsString
+	    return [false, null, errorMessage];
 	}
 	var evalableSemanticsFunctions = '(' + semanticsFunctionsAsString + ')';
 	var sem = trgrammar.createSemantics ();
 	try {
 	    semobj = eval (evalableSemanticsFunctions);
 	} catch (err) {
-	    console.error (evalableSemanticsFunctions);
-	    console.error (fmt);
+	    //console.error (evalableSemanticsFunctions);
+	    //console.error (fmt);
 	    return [false, null, 'error evaling .fmt specification<br><br>' + err.message];
 	}
 	try {
@@ -360,6 +389,10 @@ function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt) {
         var generatedFmtWalker = sem (cst);
         try {
 	    //tracing = true;
+            if (supportfname) {
+		var support = fs.readFileSync (supportfname, 'UTF-8');
+		eval (support);
+	    }
 	    var generated = generatedFmtWalker._fmt ();
 	} catch (err) {
 	    return [false, "", err.message];

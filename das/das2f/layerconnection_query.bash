@@ -6,9 +6,9 @@ temp=temp${RANDOM}
 cat >${temp}.pl <<'~~~'
 :- use_module(library(http/json)).
 ?- consult("fb.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/shapes.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/names.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/connection.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/shapes.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/names.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/connection.pl").
 query_helper(Parent,Edge,Sender,Receiver):-
 das_fact(kind,Edge,edge),
 sourceof(Edge,Sender),

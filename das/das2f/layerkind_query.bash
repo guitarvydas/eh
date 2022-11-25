@@ -6,12 +6,12 @@ temp=temp${RANDOM}
 cat >${temp}.pl <<'~~~'
 :- use_module(library(http/json)).
 ?- consult("fb.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/shapes.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/onSameDiagram.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/inside.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/names.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/ports.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/contains.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/shapes.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/onSameDiagram.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/inside.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/names.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/ports.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/contains.pl").
 query_helper(X,Kind):-
 diagram_fact(cell,X,_),
 (diagram_fact(kind,X,"ellipse")  -> Kind = "ellipse";diagram_fact(edge,X,1)  -> Kind = "edge";diagram_fact(root,X,1)  -> Kind = "root"; Kind = "rectangle"),

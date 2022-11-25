@@ -6,8 +6,8 @@ temp=temp${RANDOM}
 cat >${temp}.pl <<'~~~'
 :- use_module(library(http/json)).
 ?- consult("fb.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/shapes.pl").
-?- consult("/home/parallels/local-projects/eh/das/das2f/values.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/shapes.pl").
+?- consult("/Users/tarvydas/quicklisp/local-projects/eh/das/das2f/values.pl").
 query_helper(Codebox,Code):-
 das_fact(kind,Codebox,rectangle),
 das_fact(color,Codebox,"red"),

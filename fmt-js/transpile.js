@@ -1,20 +1,31 @@
 // return 3 item from transpile
-function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt) {
+function vtranspile (v) {
+    // v is { tracing: boolean, traceDepth: int, src: String, grammarName: String, grammars: String, fmt : String, ohm: function, compilefmt: function}
+    tracing = v.tracing;
+    traceDepth = v.traceDepth;
+    return transpile (v.src, v.grammarName, v.grammars, v.fmt, v.ohm, v.compilefmt);
+}
+
+function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt, supportfname) {
+    
     [matchsuccess, trgrammar, cst, errormessage] = patternmatch (src, grammarName, grammars, ohmlang);
     if (!matchsuccess) {
 	return [false, "", "pattern matching error<br><br>" + errormessage];
+    } else if (fmt === undefined || fmt === '') {
+	return [false, "", "pattern matching succeeded (but without fabrication)<br><br>" + errormessage];
     } else {
 	[success, semanticsFunctionsAsString] = compfmt (fmt, ohmlang);
 	if (!success) {
-	    return [false, null, 'error compiling .fmt specification<br><br>' + err.message + ' ' + semanticsFunctionsAsString];
+	    var errorMessage = semanticsFunctionsAsString
+	    return [false, null, errorMessage];
 	}
 	var evalableSemanticsFunctions = '(' + semanticsFunctionsAsString + ')';
 	var sem = trgrammar.createSemantics ();
 	try {
 	    semobj = eval (evalableSemanticsFunctions);
 	} catch (err) {
-	    console.error (evalableSemanticsFunctions);
-	    console.error (fmt);
+	    //console.error (evalableSemanticsFunctions);
+	    //console.error (fmt);
 	    return [false, null, 'error evaling .fmt specification<br><br>' + err.message];
 	}
 	try {
@@ -25,6 +36,10 @@ function transpile (src, grammarName, grammars, fmt, ohmlang, compfmt) {
         var generatedFmtWalker = sem (cst);
         try {
 	    //tracing = true;
+            if (supportfname) {
+		var support = fs.readFileSync (supportfname, 'UTF-8');
+		eval (support);
+	    }
 	    var generated = generatedFmtWalker._fmt ();
 	} catch (err) {
 	    return [false, "", err.message];
