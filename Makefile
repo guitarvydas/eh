@@ -1,6 +1,14 @@
-all: subgits src.js runpy runcl
 
-subgits:
+all: daslang
+
+transpilers: install src.js runpy runcl
+
+daslang: 
+	(make clean)
+	(make install)
+	(make helloworld.json)
+
+install: npmstuff repos tools
 
 src.js: helloworld.json
 	echo 'const jsonsrc = String.raw`' > src.js
@@ -68,6 +76,12 @@ NODEMODULES=\
 	node_modules/yargs \
 	node_modules/atob \
 	node_modules/pako
+
+repos:
+	# should use multigit -r to grab das/, but doesn't
+	# (because I started this before I started using multigit)
+	# temporarily grab only fmt-js
+	multigit -r
 
 tools:
 	(cd das/dr ; make)
