@@ -78,10 +78,9 @@ NODEMODULES=\
 	node_modules/pako
 
 repos:
-	# should use multigit -r to grab das/, but doesn't
+	# should use multigit -r to grab das/ and fmt-js/, but doesn't
 	# (because I started this before I started using multigit)
-	# temporarily grab only fmt-js
-	multigit -r
+
 
 tools:
 	(cd das/dr ; make)
